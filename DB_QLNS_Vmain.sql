@@ -526,3 +526,164 @@ INSERT INTO UngLuong (UngLuong_Ngay, UngLuong_SoTien, UngLuong_TrangThaiXoa, Ung
 VALUES (15, 2500.0, 'TRUE', N'Ứng lương giữa kỳ',(SELECT NhanVien_ID FROM NhanVien WHERE NhanVien_HoTen= N'Huỳnh Văn Ba'), (SELECT KyCong_MaKyCong FROM KyCong WHERE KyCong_Nam = 2022 AND KyCong_Thang = 10));
 GO
 
+--Bảng Tăng Ca--
+
+
+INSERT INTO dbo.TangCa
+(
+    TangCa_NgayTangCa,
+    TangCa_SoGio,
+    TangCa_NhanVien,
+    TangCa_LoaiTangCa,
+	TangCa_KyCong
+)
+VALUES
+(	13, 
+    2, 
+    (SELECT NhanVien_ID FROM dbo.NhanVien WHERE NhanVien_HoTen = N'Nguyễn Văn Phát'),
+    (SELECT LoaiTangCa_ID FROM dbo.LoaiTangCa WHERE LoaiTangCa_TenLoai = N'Ngày Nghỉ'),
+	(SELECT KyCong_MaKyCong FROM dbo.KyCong WHERE KyCong_Thang = 6 AND KyCong_Nam=2022)
+),
+(	NULL, 
+    NULL, 
+    (SELECT NhanVien_ID FROM dbo.NhanVien WHERE NhanVien_HoTen = N'Huỳnh Văn Bá'),
+    NULL,
+	(SELECT KyCong_MaKyCong FROM dbo.KyCong WHERE KyCong_Thang = 7 AND KyCong_Nam=2022)
+),
+(	10, 
+    1, 
+    (SELECT NhanVien_ID FROM dbo.NhanVien WHERE NhanVien_HoTen = N'Nguyễn Thị Hà'),
+    (SELECT LoaiTangCa_ID FROM dbo.LoaiTangCa WHERE LoaiTangCa_TenLoai = N'Ca Tối'),
+	(SELECT KyCong_MaKyCong FROM dbo.KyCong WHERE KyCong_Thang = 8 AND KyCong_Nam=2022)
+),
+(	15, 
+    2.5, 
+    (SELECT NhanVien_ID FROM dbo.NhanVien WHERE NhanVien_HoTen = N'Nguyễn Thị Hạ'),
+    (SELECT LoaiTangCa_ID FROM dbo.LoaiTangCa WHERE LoaiTangCa_TenLoai = N'Ngày Lễ'),
+	(SELECT KyCong_MaKyCong FROM dbo.KyCong WHERE KyCong_Thang = 9 AND KyCong_Nam=2022)
+),
+(	20, 
+    4, 
+    (SELECT NhanVien_ID FROM dbo.NhanVien WHERE NhanVien_HoTen = N'Huỳnh Văn Vũ'),
+    (SELECT LoaiTangCa_ID FROM dbo.LoaiTangCa WHERE LoaiTangCa_TenLoai = N'Ngày Nghỉ'),
+	(SELECT KyCong_MaKyCong FROM dbo.KyCong WHERE KyCong_Thang = 10 AND KyCong_Nam=2022)
+),
+(	28, 
+    1.5, 
+    (SELECT NhanVien_ID FROM dbo.NhanVien WHERE NhanVien_HoTen = N'Nguyễn Văn Khánh'),
+    (SELECT LoaiTangCa_ID FROM dbo.LoaiTangCa WHERE LoaiTangCa_TenLoai = N'Ca Tối'),
+	(SELECT KyCong_MaKyCong FROM dbo.KyCong WHERE KyCong_Thang = 11 AND KyCong_Nam=2022)
+),
+(	1, 
+    3, 
+    (SELECT NhanVien_ID FROM dbo.NhanVien WHERE NhanVien_HoTen = N'Nguyễn Văn Ba'),
+    (SELECT LoaiTangCa_ID FROM dbo.LoaiTangCa WHERE LoaiTangCa_TenLoai = N'Ngày Lễ'),
+	(SELECT KyCong_MaKyCong FROM dbo.KyCong WHERE KyCong_Thang = 12 AND KyCong_Nam=2022)
+),
+(	NULL, 
+    NULL, 
+    (SELECT NhanVien_ID FROM dbo.NhanVien WHERE NhanVien_HoTen = N'Nguyễn Công Huynh'),
+    NULL,
+	(SELECT KyCong_MaKyCong FROM dbo.KyCong WHERE KyCong_Thang = 1 AND KyCong_Nam=2023)
+),
+(	30, 
+    5, 
+    (SELECT NhanVien_ID FROM dbo.NhanVien WHERE NhanVien_HoTen = N'Nguyễn Phát Tài'),
+    (SELECT LoaiTangCa_ID FROM dbo.LoaiTangCa WHERE LoaiTangCa_TenLoai = N'Ngày Nghỉ'),
+	(SELECT KyCong_MaKyCong FROM dbo.KyCong WHERE KyCong_Thang = 2 AND KyCong_Nam=2023)
+),
+(	NULL, 
+    NULL, 
+    (SELECT NhanVien_ID FROM dbo.NhanVien WHERE NhanVien_HoTen = N'Lý Tiến Thành'),
+    NULL,
+	(SELECT KyCong_MaKyCong FROM dbo.KyCong WHERE KyCong_Thang = 3 AND KyCong_Nam=2023)
+),
+(	21, 
+    3, 
+    (SELECT NhanVien_ID FROM dbo.NhanVien WHERE NhanVien_HoTen = N'Mai Thành Chung'),
+    (SELECT LoaiTangCa_ID FROM dbo.LoaiTangCa WHERE LoaiTangCa_TenLoai = N'Ca Tối'),
+	(SELECT KyCong_MaKyCong FROM dbo.KyCong WHERE KyCong_Thang = 4 AND KyCong_Nam=2023)
+),
+(	11, 
+    3.5, 
+    (SELECT NhanVien_ID FROM dbo.NhanVien WHERE NhanVien_HoTen = N'Mai Trọng Khánh'),
+    (SELECT LoaiTangCa_ID FROM dbo.LoaiTangCa WHERE LoaiTangCa_TenLoai = N'Ngày Lẽ'),
+	(SELECT KyCong_MaKyCong FROM dbo.KyCong WHERE KyCong_Thang = 5 AND KyCong_Nam=2023)
+)
+
+GO
+
+--Bảng Chức Vụ--
+INSERT INTO dbo.ChucVu
+(
+    ChucVu_ID,
+    ChucVu_TenCV
+)
+VALUES
+(   1,   -- ChucVu_ID - int
+    N'Giám Đốc' -- ChucVu_TenCV - nvarchar(50)
+    ),
+(   2,   -- ChucVu_ID - int
+    N'Phó Giám Đốc Hành Chính' -- ChucVu_TenCV - nvarchar(50)
+    ),
+(   3,   -- ChucVu_ID - int
+    N'Phó Giám Đốc Kinh Doanh' -- ChucVu_TenCV - nvarchar(50)
+    ),
+(   4,   -- ChucVu_ID - int
+    N'Trưởng Phòng Hành Chính' -- ChucVu_TenCV - nvarchar(50)
+    ),
+(   5,   -- ChucVu_ID - int
+    N'Trưởng Phòng Tài Chính' -- ChucVu_TenCV - nvarchar(50)
+    ),
+(   6,   -- ChucVu_ID - int
+    N'Trưởng Phòng Kế Hoạch' -- ChucVu_TenCV - nvarchar(50)
+    ),
+(   7,   -- ChucVu_ID - int
+    N'Trưởng Nhóm' -- ChucVu_TenCV - nvarchar(50)
+    ),
+(   8,   -- ChucVu_ID - int
+    N'Trưởng Nhóm' -- ChucVu_TenCV - nvarchar(50)
+    ),
+(   9,   -- ChucVu_ID - int
+    N'Nhân Viên' -- ChucVu_TenCV - nvarchar(50)
+    ),
+(   10,   -- ChucVu_ID - int
+    N'Nhân Viên' -- ChucVu_TenCV - nvarchar(50)
+    )
+
+--View trigger ChucVu,TangCa,LoaiTangCa--
+GO
+
+
+CREATE VIEW v_ChucVu AS
+SELECT * FROM dbo.ChucVu;
+
+go
+
+
+CREATE VIEW v_NhanVienCoTangCa AS
+SELECT * FROM dbo.TangCa
+WHERE TangCa_NgayTangCa IS NOT NULL
+
+
+
+go
+CREATE VIEW v_LoaiTangCa AS
+SELECT * FROM dbo.LoaiTangCa;
+
+
+GO
+
+CREATE TRIGGER ThemNVTangCa
+ON dbo.TangCa
+FOR INSERT
+AS
+BEGIN
+	DECLARE @day INT =0;
+	SELECT @day = TangCa_NgayTangCa FROM dbo.TangCa
+	IF(@day <=0 or @day >31)
+		ROLLBACK TRAN
+END
+
+GO
+
