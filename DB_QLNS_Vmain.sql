@@ -260,9 +260,9 @@ VALUES
 (3, N'Bậc 3', 1.19),
 (4, N'Bậc 4', 2.42);
 GO
--- Bảng kỳ công
 INSERT INTO KyCong(KyCong_Nam, KyCong_Thang, KyCong_SoNgayCong, KyCong_TrangThaiXoa)
-VALUES (2023, 3, 26, 0),
+VALUES 
+(2022, 6, 26, 0),
 (2022, 7, 26, 0),
 (2022, 8, 26, 0),
 (2022, 9, 26, 0),
