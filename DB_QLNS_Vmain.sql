@@ -376,9 +376,10 @@ BEGIN
     PRINT N'Số tài khoản: '+ CAST(@checkid AS VARCHAR)+N' đã tồn tại.'
 END;
 GO
+-- Kiểm tra xem tháng được truyền vào có đúng không
 CREATE TRIGGER trg_Insert_KyCong
 ON KyCong
-AFTER INSERT
+AFTER INSERT, UPDATE
 AS
 BEGIN
     IF EXISTS (SELECT 1 FROM inserted WHERE inserted.KyCong_Thang < 1 OR inserted.KyCong_Thang > 12)
@@ -388,7 +389,7 @@ BEGIN
     END
 END
 GO
-
+-- Kiểm tra Ngày nghỉ và tổng ngày công
 CREATE TRIGGER TR_KyCongChiTiet ON KyCongChiTiet
 AFTER INSERT, UPDATE
 AS
@@ -410,10 +411,10 @@ BEGIN
     END
 END
 GO
-
+--kiểm tra xem Ngày được truyền vào có đúng không
 CREATE TRIGGER [TenTrigger]
 ON [dbo].[ChamCong]
-AFTER INSERT
+AFTER INSERT, UPDATE
 AS
 BEGIN
     IF EXISTS (
@@ -427,10 +428,10 @@ BEGIN
     END
 END
 GO
-
+--Kiểm tra xem sau khi được thêm hoặc cập nhật có bản ghi nào trùng lặp hay không
 CREATE TRIGGER trg_KyCong_Insert
 ON KyCong
-AFTER INSERT
+AFTER INSERT, UPDATE
 AS
 BEGIN
     IF EXISTS (SELECT 1 FROM inserted i 
@@ -442,13 +443,13 @@ BEGIN
         FROM inserted i
         WHERE KyCong.KyCong_Nam = i.KyCong_Nam AND KyCong.KyCong_Thang = i.KyCong_Thang
           AND KyCong.KyCong_TrangThaiXoa = 0;
-
         RAISERROR ('Trùng kỳ công', 16, 1);
         ROLLBACK TRANSACTION;
     END
 END;
 GO
---dcdha
+--Kiểm tra các giá trị giá trị các cột từ KyCongChiTiet_D1 đến KyCongChiTiet_D31 của bản ghi mới được thêm 
+--hoặc cập nhật có nằm trong tập hợp giá trị ('X', 'V', 'CN') hay không. 
 CREATE TRIGGER Trigger_KyCongChiTiet_KiemTraGiaTri
 ON KyCongChiTiet
 AFTER INSERT, UPDATE
@@ -486,7 +487,7 @@ BEGIN
             inserted.KyCongChiTiet_D26 IN ('X', 'V', 'CN') AND
             inserted.KyCongChiTiet_D27 IN ('X', 'V', 'CN') AND
             inserted.KyCongChiTiet_D28 IN ('X', 'V', 'CN') AND
-			inserted.KyCongChiTiet_D29 IN ('X', 'V', 'CN') AND
+	    inserted.KyCongChiTiet_D29 IN ('X', 'V', 'CN') AND
             inserted.KyCongChiTiet_D30 IN ('X', 'V', 'CN') AND
             inserted.KyCongChiTiet_D31 IN ('X', 'V', 'CN') 
 )
