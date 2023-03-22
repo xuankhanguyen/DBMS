@@ -376,7 +376,58 @@ BEGIN
     PRINT N'Số tài khoản: '+ CAST(@checkid AS VARCHAR)+N' đã tồn tại.'
 END;
 GO
---Kiểm tra xem khi insert vào bảng có bị trùng hay không 
+CREATE TRIGGER trg_Insert_KyCong
+ON KyCong
+AFTER INSERT
+AS
+BEGIN
+    IF EXISTS (SELECT 1 FROM inserted WHERE inserted.KyCong_Thang < 1 OR inserted.KyCong_Thang > 12)
+    BEGIN
+        RAISERROR('Giá trị của KyCong_Thang phải nằm trong khoảng từ 1 đến 12', 16, 1)
+        ROLLBACK TRANSACTION
+    END
+END
+GO
+
+CREATE TRIGGER TR_KyCongChiTiet ON KyCongChiTiet
+AFTER INSERT, UPDATE
+AS
+BEGIN
+    -- Kiểm tra các giá trị mới của KyCongChiTiet
+    IF EXISTS (
+        SELECT *
+        FROM inserted i
+        INNER JOIN KyCong kc ON i.KyCongChiTiet_KyCong = kc.KyCong_MaKyCong
+        WHERE i.KyCongChiTiet_NgayNghi >= 0
+            AND i.KyCongChiTiet_TongNgayCong >= 0
+            AND i.KyCongChiTiet_TongNgayCong < kc.KyCong_SoNgayCong
+    )
+    BEGIN
+        -- Nếu có giá trị không hợp lệ, rollback transaction và hiển thị thông báo lỗi
+        RAISERROR('Giá trị không hợp lệ', 16, 1)
+        ROLLBACK TRANSACTION
+        RETURN
+    END
+END
+GO
+
+CREATE TRIGGER [TenTrigger]
+ON [dbo].[ChamCong]
+AFTER INSERT
+AS
+BEGIN
+    IF EXISTS (
+        SELECT *
+        FROM inserted
+        WHERE ChamCong_Ngay < 1 OR ChamCong_Ngay > 31
+    )
+    BEGIN
+        RAISERROR('Ngày chấm công không hợp lệ', 16, 1)
+        ROLLBACK TRANSACTION
+    END
+END
+GO
+
 CREATE TRIGGER trg_KyCong_Insert
 ON KyCong
 AFTER INSERT
@@ -396,6 +447,58 @@ BEGIN
         ROLLBACK TRANSACTION;
     END
 END;
+GO
+--dcdha
+CREATE TRIGGER Trigger_KyCongChiTiet_KiemTraGiaTri
+ON KyCongChiTiet
+AFTER INSERT, UPDATE
+AS
+BEGIN
+    IF EXISTS (
+        SELECT *
+        FROM inserted
+        WHERE NOT (
+            inserted.KyCongChiTiet_D1 IN ('X', 'V', 'CN') AND
+            inserted.KyCongChiTiet_D2 IN ('X', 'V', 'CN') AND
+            inserted.KyCongChiTiet_D3 IN ('X', 'V', 'CN') AND
+            inserted.KyCongChiTiet_D4 IN ('X', 'V', 'CN') AND
+            inserted.KyCongChiTiet_D5 IN ('X', 'V', 'CN') AND
+            inserted.KyCongChiTiet_D6 IN ('X', 'V', 'CN') AND
+            inserted.KyCongChiTiet_D7 IN ('X', 'V', 'CN') AND
+            inserted.KyCongChiTiet_D8 IN ('X', 'V', 'CN') AND
+            inserted.KyCongChiTiet_D9 IN ('X', 'V', 'CN') AND
+            inserted.KyCongChiTiet_D10 IN ('X', 'V', 'CN') AND
+            inserted.KyCongChiTiet_D11 IN ('X', 'V', 'CN') AND
+            inserted.KyCongChiTiet_D12 IN ('X', 'V', 'CN') AND
+            inserted.KyCongChiTiet_D13 IN ('X', 'V', 'CN') AND
+            inserted.KyCongChiTiet_D14 IN ('X', 'V', 'CN') AND
+            inserted.KyCongChiTiet_D15 IN ('X', 'V', 'CN') AND
+            inserted.KyCongChiTiet_D16 IN ('X', 'V', 'CN') AND
+            inserted.KyCongChiTiet_D17 IN ('X', 'V', 'CN') AND
+            inserted.KyCongChiTiet_D18 IN ('X', 'V', 'CN') AND
+            inserted.KyCongChiTiet_D19 IN ('X', 'V', 'CN') AND
+            inserted.KyCongChiTiet_D20 IN ('X', 'V', 'CN') AND
+            inserted.KyCongChiTiet_D21 IN ('X', 'V', 'CN') AND
+            inserted.KyCongChiTiet_D22 IN ('X', 'V', 'CN') AND
+            inserted.KyCongChiTiet_D23 IN ('X', 'V', 'CN') AND
+            inserted.KyCongChiTiet_D24 IN ('X', 'V', 'CN') AND
+            inserted.KyCongChiTiet_D25 IN ('X', 'V', 'CN') AND
+            inserted.KyCongChiTiet_D26 IN ('X', 'V', 'CN') AND
+            inserted.KyCongChiTiet_D27 IN ('X', 'V', 'CN') AND
+            inserted.KyCongChiTiet_D28 IN ('X', 'V', 'CN') AND
+			inserted.KyCongChiTiet_D29 IN ('X', 'V', 'CN') AND
+            inserted.KyCongChiTiet_D30 IN ('X', 'V', 'CN') AND
+            inserted.KyCongChiTiet_D31 IN ('X', 'V', 'CN') 
+)
+    )
+    BEGIN
+        -- Nếu có giá trị không hợp lệ, rollback transaction và hiển thị thông báo lỗi
+        RAISERROR('Giá trị không hợp lệ', 16, 1);
+        ROLLBACK TRANSACTION;
+        RETURN;
+    END;
+END;
+GO
 -------------------------------------------  Data ------------------------------------------
 --Bảng Hệ số lương
 INSERT INTO HeSoLuong (HeSoLuong_ID, HeSoLuong_Ten, HeSoLuong_GiaTri)
