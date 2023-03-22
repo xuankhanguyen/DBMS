@@ -272,6 +272,34 @@ CREATE VIEW DS_TaiKhoan AS
 SELECT TaiKhoan_SoTK, TaiKhoan_MatKhau, TaiKhoan_NhanVien
 FROM TaiKhoan
 GO
+-- Bảng Kỳ Công
+CREATE VIEW DS_KyCong AS
+SELECT KyCong_MaKyCong , KyCong_Nam ,KyCong_Thang ,KyCong_SoNgayCong 
+FROM KyCong
+WHERE KyCong_TrangThaiXoa = 0
+GO
+
+-- Bảng Châm Công
+CREATE VIEW View_ChamCong AS
+SELECT ChamCong_ID, ChamCong_GioVao, ChamCong_GioRa, ChamCong_Ngay, ChamCong_GhiChu ,ChamCong_NhanVien,ChamCong_KyCong
+FROM ChamCong
+GO
+--Bảng Kỳ công Chi tiết
+CREATE VIEW View_KyCongChiTiet AS
+SELECT KyCongChiTiet_NhanVien, KyCongChiTiet_KyCong, KyCongChiTiet_D1, KyCongChiTiet_D2, KyCongChiTiet_D3, KyCongChiTiet_D4,
+KyCongChiTiet_D5, KyCongChiTiet_D6, KyCongChiTiet_D7 ,KyCongChiTiet_D8 ,KyCongChiTiet_D9,KyCongChiTiet_D10,KyCongChiTiet_D11 ,KyCongChiTiet_D12,
+KyCongChiTiet_D13,KyCongChiTiet_D14,KyCongChiTiet_D15 ,KyCongChiTiet_D16,KyCongChiTiet_D17,KyCongChiTiet_D18,KyCongChiTiet_D19,KyCongChiTiet_D20,
+KyCongChiTiet_D21, KyCongChiTiet_D22,KyCongChiTiet_D23, KyCongChiTiet_D24, KyCongChiTiet_D25,KyCongChiTiet_D26,KyCongChiTiet_D27,KyCongChiTiet_D28,
+KyCongChiTiet_D29,KyCongChiTiet_D30,KyCongChiTiet_D31,KyCongChiTiet_NgayNghi, KyCongChiTiet_CongChuNhat, KyCongChiTiet_TongNgayCong
+FROM KyCongChiTiet
+GO
+--Bảng Kỳ Công Chấm Công
+CREATE VIEW View_ChamCongKyCong AS
+SELECT ChamCong.ChamCong_ID, ChamCong.ChamCong_NhanVien, ChamCong.ChamCong_GioVao, ChamCong.ChamCong_GioRa, ChamCong.ChamCong_Ngay, KyCong.KyCong_Thang, KyCong.KyCong_Nam
+FROM ChamCong
+JOIN KyCongChiTiet ON ChamCong.ChamCong_NhanVien = KyCongChiTiet.KyCongChiTiet_NhanVien AND ChamCong.ChamCong_KyCong = KyCongChiTiet.KyCongChiTiet_KyCong
+JOIN KyCong ON KyCongChiTiet.KyCongChiTiet_KyCong = KyCong.KyCong_MaKyCong;
+GO
 ------------------------------------------- Trigger ----------------------------------------
 -- Bảng Ứng lương
 CREATE TRIGGER TGR_UngLuong
@@ -348,7 +376,26 @@ BEGIN
     PRINT N'Số tài khoản: '+ CAST(@checkid AS VARCHAR)+N' đã tồn tại.'
 END;
 GO
+--Kiểm tra xem khi insert vào bảng có bị trùng hay không 
+CREATE TRIGGER trg_KyCong_Insert
+ON KyCong
+AFTER INSERT
+AS
+BEGIN
+    IF EXISTS (SELECT 1 FROM inserted i 
+               JOIN KyCong k ON i.KyCong_Nam = k.KyCong_Nam AND i.KyCong_Thang = k.KyCong_Thang
+               WHERE k.KyCong_TrangThaiXoa = 1)
+    BEGIN
+        UPDATE KyCong
+        SET KyCong_TrangThaiXoa = 1
+        FROM inserted i
+        WHERE KyCong.KyCong_Nam = i.KyCong_Nam AND KyCong.KyCong_Thang = i.KyCong_Thang
+          AND KyCong.KyCong_TrangThaiXoa = 0;
 
+        RAISERROR ('Trùng kỳ công', 16, 1);
+        ROLLBACK TRANSACTION;
+    END
+END;
 -------------------------------------------  Data ------------------------------------------
 --Bảng Hệ số lương
 INSERT INTO HeSoLuong (HeSoLuong_ID, HeSoLuong_Ten, HeSoLuong_GiaTri)
