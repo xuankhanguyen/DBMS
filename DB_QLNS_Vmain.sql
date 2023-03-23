@@ -401,7 +401,7 @@ BEGIN
         INNER JOIN KyCong kc ON i.KyCongChiTiet_KyCong = kc.KyCong_MaKyCong
         WHERE i.KyCongChiTiet_NgayNghi >= 0
             AND i.KyCongChiTiet_TongNgayCong >= 0
-            AND i.KyCongChiTiet_TongNgayCong < kc.KyCong_SoNgayCong
+            AND i.KyCongChiTiet_TongNgayCong <= kc.KyCong_SoNgayCong
     )
     BEGIN
         -- Nếu có giá trị không hợp lệ, rollback transaction và hiển thị thông báo lỗi
