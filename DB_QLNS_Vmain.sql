@@ -428,26 +428,6 @@ BEGIN
     END
 END
 GO
---Kiểm tra xem sau khi được thêm hoặc cập nhật có bản ghi nào trùng lặp hay không
-CREATE TRIGGER trg_KyCong_Insert
-ON KyCong
-AFTER INSERT, UPDATE
-AS
-BEGIN
-    IF EXISTS (SELECT 1 FROM inserted i 
-               JOIN KyCong k ON i.KyCong_Nam = k.KyCong_Nam AND i.KyCong_Thang = k.KyCong_Thang
-               WHERE k.KyCong_TrangThaiXoa = 1)
-    BEGIN
-        UPDATE KyCong
-        SET KyCong_TrangThaiXoa = 1
-        FROM inserted i
-        WHERE KyCong.KyCong_Nam = i.KyCong_Nam AND KyCong.KyCong_Thang = i.KyCong_Thang
-          AND KyCong.KyCong_TrangThaiXoa = 0;
-        RAISERROR ('Trùng kỳ công', 16, 1);
-        ROLLBACK TRANSACTION;
-    END
-END;
-GO
 --Kiểm tra các giá trị giá trị các cột từ KyCongChiTiet_D1 đến KyCongChiTiet_D31 của bản ghi mới được thêm 
 --hoặc cập nhật có nằm trong tập hợp giá trị ('X', 'V', 'CN') hay không. 
 CREATE TRIGGER Trigger_KyCongChiTiet_KiemTraGiaTri
