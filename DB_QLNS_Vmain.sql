@@ -74,40 +74,9 @@ CREATE TABLE KyCongChiTiet
 (
     KyCongChiTiet_NhanVien INT,
     KyCongChiTiet_KyCong INT,
-    KyCongChiTiet_D1 VARCHAR(10),
-    KyCongChiTiet_D2 VARCHAR(10),
-    KyCongChiTiet_D3 VARCHAR(10),
-    KyCongChiTiet_D4 VARCHAR(10),
-    KyCongChiTiet_D5 VARCHAR(10),
-    KyCongChiTiet_D6 VARCHAR(10),
-    KyCongChiTiet_D7 VARCHAR(10),
-    KyCongChiTiet_D8 VARCHAR(10),
-    KyCongChiTiet_D9 VARCHAR(10),
-    KyCongChiTiet_D10 VARCHAR(10),
-    KyCongChiTiet_D11 VARCHAR(10),
-    KyCongChiTiet_D12 VARCHAR(10),
-    KyCongChiTiet_D13 VARCHAR(10),
-    KyCongChiTiet_D14 VARCHAR(10),
-    KyCongChiTiet_D15 VARCHAR(10),
-    KyCongChiTiet_D16 VARCHAR(10),
-    KyCongChiTiet_D17 VARCHAR(10),
-    KyCongChiTiet_D18 VARCHAR(10),
-    KyCongChiTiet_D19 VARCHAR(10),
-    KyCongChiTiet_D20 VARCHAR(10),
-    KyCongChiTiet_D21 VARCHAR(10),
-    KyCongChiTiet_D22 VARCHAR(10),
-    KyCongChiTiet_D23 VARCHAR(10),
-    KyCongChiTiet_D24 VARCHAR(10),
-    KyCongChiTiet_D25 VARCHAR(10),
-    KyCongChiTiet_D26 VARCHAR(10),
-    KyCongChiTiet_D27 VARCHAR(10),
-    KyCongChiTiet_D28 VARCHAR(10),
-    KyCongChiTiet_D29 VARCHAR(10),
-    KyCongChiTiet_D30 VARCHAR(10),
-    KyCongChiTiet_D31 VARCHAR(10),
     KyCongChiTiet_NgayNghi INT,
     KyCongChiTiet_CongChuNhat INT,
-    KyCongChiTiet_TongNgayCong INT,
+    KyCongChiTiet_NgayCongThucTe INT,
     CONSTRAINT PK_KyCongChiTiet PRIMARY KEY(KyCongChiTiet_NhanVien, KyCongChiTiet_KyCong)
 );
 GO
@@ -818,3 +787,26 @@ END
 
 GO
 
+-- ============= Giao Dien ===============
+-- <Kha>
+-- 1. NV
+-- 2. hopDong
+-- 3. HSL
+
+-- <Quang>
+-- BangLuong
+-- UngLuong
+-- TangCa
+
+-- <Tuan>
+-- KyCong
+-- KyCongChiTiet
+-- ChamCong <import excel>
+
+-- <Dung>
+-- LoaiTangCa
+-- ChucVu
+-- PhongBan
+-- TK
+-- PhanQuyen
+-- thêm đăng nhập
