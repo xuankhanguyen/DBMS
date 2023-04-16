@@ -8,3 +8,14 @@
 \\Mac\Home\Desktop\ProjectHRM\ProjectHRM\obj\Debug\ProjectHRM.csproj.CoreCompileInputs.cache
 \\Mac\Home\Desktop\ProjectHRM\ProjectHRM\obj\Debug\ProjectHRM.exe
 \\Mac\Home\Desktop\ProjectHRM\ProjectHRM\obj\Debug\ProjectHRM.pdb
+\\Mac\Home\Desktop\DBMS\DBMS\ProjectHRM\ProjectHRM\bin\Debug\ProjectHRM.exe.config
+\\Mac\Home\Desktop\DBMS\DBMS\ProjectHRM\ProjectHRM\bin\Debug\ProjectHRM.exe
+\\Mac\Home\Desktop\DBMS\DBMS\ProjectHRM\ProjectHRM\bin\Debug\ProjectHRM.pdb
+\\Mac\Home\Desktop\DBMS\DBMS\ProjectHRM\ProjectHRM\obj\Debug\ProjectHRM.csproj.AssemblyReference.cache
+\\Mac\Home\Desktop\DBMS\DBMS\ProjectHRM\ProjectHRM\obj\Debug\ProjectHRM.csproj.SuggestedBindingRedirects.cache
+\\Mac\Home\Desktop\DBMS\DBMS\ProjectHRM\ProjectHRM\obj\Debug\ProjectHRM.Properties.Resources.resources
+\\Mac\Home\Desktop\DBMS\DBMS\ProjectHRM\ProjectHRM\obj\Debug\ProjectHRM.TrangChuHRM.resources
+\\Mac\Home\Desktop\DBMS\DBMS\ProjectHRM\ProjectHRM\obj\Debug\ProjectHRM.csproj.GenerateResource.cache
+\\Mac\Home\Desktop\DBMS\DBMS\ProjectHRM\ProjectHRM\obj\Debug\ProjectHRM.csproj.CoreCompileInputs.cache
+\\Mac\Home\Desktop\DBMS\DBMS\ProjectHRM\ProjectHRM\obj\Debug\ProjectHRM.exe
+\\Mac\Home\Desktop\DBMS\DBMS\ProjectHRM\ProjectHRM\obj\Debug\ProjectHRM.pdb
