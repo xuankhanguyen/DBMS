@@ -19,7 +19,8 @@ CREATE TABLE NhanVien
     NhanVien_DiaChi NVARCHAR(50),
     NhanVien_NgaySinh DATE,
     NhanVien_ChucVu INT,
-    NhanVien_PhongBan INT
+    NhanVien_PhongBan INT,
+    NhanVien_TrangThaiXoa BIT -- UPDATE
 );
 GO
 
@@ -48,7 +49,7 @@ CREATE TABLE HopDong
     HopDong_NoiDung NVARCHAR(50),
     HopDong_LuongCanBan FLOAT,
     HopDong_HeSoLuong INT,
-    HopDong_NhanVien INT
+    HopDong_NhanVien INT UNIQUE
 );
 GO
 -- Bảng Hệ số lương
@@ -86,9 +87,7 @@ CREATE TABLE ChamCong
 (
     ChamCong_ID INT IDENTITY(1,1) PRIMARY KEY,
     ChamCong_Ngay INT,
-    ChamCong_GioVao VARCHAR(50),
-    ChamCong_GioRa VARCHAR(50),
-    ChamCong_GhiChu NVARCHAR(255),
+    ChamCong_GioChamCong VARCHAR(50),
     ChamCong_NhanVien INT,
     ChamCong_KyCong INT
 );
@@ -155,7 +154,7 @@ CREATE TABLE TaiKhoan
     TaiKhoan_SoTK VARCHAR(50) PRIMARY KEY,
     TaiKhoan_MatKhau VARCHAR(32),
     TaiKhoan_PhanQuyen INT,
-    TaiKhoan_NhanVien INT
+    TaiKhoan_NhanVien INT UNIQUE
 );
 GO
 
@@ -253,15 +252,15 @@ CREATE VIEW View_ChamCong AS
 SELECT ChamCong_ID, ChamCong_GioVao, ChamCong_GioRa, ChamCong_Ngay, ChamCong_GhiChu ,ChamCong_NhanVien,ChamCong_KyCong
 FROM ChamCong
 GO
---Bảng Kỳ công Chi tiết
-CREATE VIEW View_KyCongChiTiet AS
-SELECT KyCongChiTiet_NhanVien, KyCongChiTiet_KyCong, KyCongChiTiet_D1, KyCongChiTiet_D2, KyCongChiTiet_D3, KyCongChiTiet_D4,
-KyCongChiTiet_D5, KyCongChiTiet_D6, KyCongChiTiet_D7 ,KyCongChiTiet_D8 ,KyCongChiTiet_D9,KyCongChiTiet_D10,KyCongChiTiet_D11 ,KyCongChiTiet_D12,
-KyCongChiTiet_D13,KyCongChiTiet_D14,KyCongChiTiet_D15 ,KyCongChiTiet_D16,KyCongChiTiet_D17,KyCongChiTiet_D18,KyCongChiTiet_D19,KyCongChiTiet_D20,
-KyCongChiTiet_D21, KyCongChiTiet_D22,KyCongChiTiet_D23, KyCongChiTiet_D24, KyCongChiTiet_D25,KyCongChiTiet_D26,KyCongChiTiet_D27,KyCongChiTiet_D28,
-KyCongChiTiet_D29,KyCongChiTiet_D30,KyCongChiTiet_D31,KyCongChiTiet_NgayNghi, KyCongChiTiet_CongChuNhat, KyCongChiTiet_TongNgayCong
-FROM KyCongChiTiet
-GO
+-- --Bảng Kỳ công Chi tiết
+-- CREATE VIEW View_KyCongChiTiet AS
+-- SELECT KyCongChiTiet_NhanVien, KyCongChiTiet_KyCong, KyCongChiTiet_D1, KyCongChiTiet_D2, KyCongChiTiet_D3, KyCongChiTiet_D4,
+-- KyCongChiTiet_D5, KyCongChiTiet_D6, KyCongChiTiet_D7 ,KyCongChiTiet_D8 ,KyCongChiTiet_D9,KyCongChiTiet_D10,KyCongChiTiet_D11 ,KyCongChiTiet_D12,
+-- KyCongChiTiet_D13,KyCongChiTiet_D14,KyCongChiTiet_D15 ,KyCongChiTiet_D16,KyCongChiTiet_D17,KyCongChiTiet_D18,KyCongChiTiet_D19,KyCongChiTiet_D20,
+-- KyCongChiTiet_D21, KyCongChiTiet_D22,KyCongChiTiet_D23, KyCongChiTiet_D24, KyCongChiTiet_D25,KyCongChiTiet_D26,KyCongChiTiet_D27,KyCongChiTiet_D28,
+-- KyCongChiTiet_D29,KyCongChiTiet_D30,KyCongChiTiet_D31,KyCongChiTiet_NgayNghi, KyCongChiTiet_CongChuNhat, KyCongChiTiet_TongNgayCong
+-- FROM KyCongChiTiet
+-- GO
 --Bảng Kỳ Công Chấm Công
 CREATE VIEW View_ChamCongKyCong AS
 SELECT ChamCong.ChamCong_ID, ChamCong.ChamCong_NhanVien, ChamCong.ChamCong_GioVao, ChamCong.ChamCong_GioRa, ChamCong.ChamCong_Ngay, KyCong.KyCong_Thang, KyCong.KyCong_Nam
@@ -526,41 +525,41 @@ VALUES
 (2023, 3, 27, 0),
 (2023, 4, 25, 0),
 (2023, 5, 27, 0);
-Go
+GO
 
 -- Bảng kỳ công chi tiết
-INSERT INTO KyCongChiTiet(KyCongChiTiet_NhanVien, KyCongChiTiet_KyCong, KyCongChiTiet_D1, KyCongChiTiet_D2, KyCongChiTiet_D3, KyCongChiTiet_D4,
-KyCongChiTiet_D5, KyCongChiTiet_D6, KyCongChiTiet_D7 ,KyCongChiTiet_D8 ,KyCongChiTiet_D9,KyCongChiTiet_D10,KyCongChiTiet_D11 ,KyCongChiTiet_D12,
-KyCongChiTiet_D13,KyCongChiTiet_D14,KyCongChiTiet_D15 ,KyCongChiTiet_D16,KyCongChiTiet_D17,KyCongChiTiet_D18,KyCongChiTiet_D19,KyCongChiTiet_D20,
-KyCongChiTiet_D21, KyCongChiTiet_D22,KyCongChiTiet_D23, KyCongChiTiet_D24, KyCongChiTiet_D25,KyCongChiTiet_D26,KyCongChiTiet_D27,KyCongChiTiet_D28,
-KyCongChiTiet_D29,KyCongChiTiet_D30,KyCongChiTiet_D31,KyCongChiTiet_NgayNghi, KyCongChiTiet_CongChuNhat, KyCongChiTiet_TongNgayCong)
-VALUES
-(1, 1, 'X', 'X', 'X', 'X', 'CN', 'X', 'X', 'X', 'X', 'X', 'X', 'CN', 'X', 'X', 'X', 'X', 'X', 'X', 'CN', 'X', 'X', 'X', 'X', 'X', 'X', 'CN', 'X', 'X', 'X', 'X', NUll, 0, 4, 31),
-(2, 1, 'X', 'X', 'X', 'X', 'CN', 'X', 'X', 'X', 'X', 'X', 'X', 'CN', 'X', 'X', 'X', 'X', 'X', 'X', 'CN', 'X', 'X', 'X', 'X', 'X', 'X', 'CN', 'X', 'X', 'X', 'X', NUll, 0, 4, 31),
-(3, 1, 'X', 'X', 'X', 'X', 'CN', 'X', 'X', 'X', 'X', 'X', 'X', 'CN', 'X', 'X', 'X', 'X', 'X', 'X', 'CN', 'X', 'X', 'X', 'X', 'X', 'X', 'CN', 'X', 'X', 'X', 'X', NUll, 0, 4, 31),
-(4, 1, 'X', 'X', 'X', 'X', 'CN', 'X', 'X', 'X', 'X', 'X', 'X', 'CN', 'X', 'X', 'X', 'X', 'X', 'X', 'CN', 'X', 'X', 'X', 'X', 'X', 'X', 'CN', 'X', 'X', 'X', 'X', NUll, 0, 4, 31),
-(5, 1, 'X', 'X', 'X', 'X', 'CN', 'X', 'X', 'X', 'X', 'X', 'X', 'CN', 'X', 'X', 'X', 'X', 'X', 'X', 'CN', 'X', 'X', 'X', 'X', 'X', 'X', 'CN', 'X', 'X', 'X', 'X', NUll, 0, 4, 31),
-(6, 2, 'X', 'X', 'CN', 'X', 'X', 'X', 'X', 'X', 'X', 'CN', 'X', 'X', 'X', 'X', 'X', 'X', 'CN', 'X', 'X', 'X', 'X', 'X', 'X', 'CN', 'X', 'X', 'X', 'X', 'X', 'X', 'CN', 0, 4, 31),
-(7, 2,'X', 'X', 'CN', 'X', 'X', 'X', 'X', 'X', 'X', 'CN', 'X', 'X', 'X', 'X', 'X', 'X', 'CN', 'X', 'X', 'X', 'X', 'X', 'X', 'CN', 'X', 'X', 'X', 'X', 'X', 'X', 'CN', 0, 4, 31),
-(8, 2,'X', 'X', 'CN', 'X', 'X', 'X', 'X', 'X', 'X', 'CN', 'X', 'X', 'X', 'X', 'X', 'X', 'CN', 'X', 'X', 'X', 'X', 'X', 'X', 'CN', 'X', 'X', 'X', 'X', 'X', 'X', 'CN', 0, 4, 31),
-(9, 2,'X', 'X', 'CN', 'X', 'X', 'X', 'X', 'X', 'X', 'CN', 'X', 'X', 'X', 'X', 'X', 'X', 'CN', 'X', 'X', 'X', 'X', 'X', 'X', 'CN', 'X', 'X', 'X', 'X', 'X', 'X', 'CN', 0, 4, 31),
-(10, 2,'X', 'X', 'CN', 'X', 'X', 'X', 'X', 'X', 'X', 'CN', 'X', 'X', 'X', 'X', 'X', 'X', 'CN', 'X', 'X', 'X', 'X', 'X', 'X', 'CN', 'X', 'X', 'X', 'X', 'X', 'X', 'CN', 0, 4, 31);
-Go
+-- INSERT INTO KyCongChiTiet(KyCongChiTiet_NhanVien, KyCongChiTiet_KyCong, KyCongChiTiet_D1, KyCongChiTiet_D2, KyCongChiTiet_D3, KyCongChiTiet_D4,
+-- KyCongChiTiet_D5, KyCongChiTiet_D6, KyCongChiTiet_D7 ,KyCongChiTiet_D8 ,KyCongChiTiet_D9,KyCongChiTiet_D10,KyCongChiTiet_D11 ,KyCongChiTiet_D12,
+-- KyCongChiTiet_D13,KyCongChiTiet_D14,KyCongChiTiet_D15 ,KyCongChiTiet_D16,KyCongChiTiet_D17,KyCongChiTiet_D18,KyCongChiTiet_D19,KyCongChiTiet_D20,
+-- KyCongChiTiet_D21, KyCongChiTiet_D22,KyCongChiTiet_D23, KyCongChiTiet_D24, KyCongChiTiet_D25,KyCongChiTiet_D26,KyCongChiTiet_D27,KyCongChiTiet_D28,
+-- KyCongChiTiet_D29,KyCongChiTiet_D30,KyCongChiTiet_D31,KyCongChiTiet_NgayNghi, KyCongChiTiet_CongChuNhat, KyCongChiTiet_TongNgayCong)
+-- VALUES
+-- (1, 1, 'X', 'X', 'X', 'X', 'CN', 'X', 'X', 'X', 'X', 'X', 'X', 'CN', 'X', 'X', 'X', 'X', 'X', 'X', 'CN', 'X', 'X', 'X', 'X', 'X', 'X', 'CN', 'X', 'X', 'X', 'X', NUll, 0, 4, 31),
+-- (2, 1, 'X', 'X', 'X', 'X', 'CN', 'X', 'X', 'X', 'X', 'X', 'X', 'CN', 'X', 'X', 'X', 'X', 'X', 'X', 'CN', 'X', 'X', 'X', 'X', 'X', 'X', 'CN', 'X', 'X', 'X', 'X', NUll, 0, 4, 31),
+-- (3, 1, 'X', 'X', 'X', 'X', 'CN', 'X', 'X', 'X', 'X', 'X', 'X', 'CN', 'X', 'X', 'X', 'X', 'X', 'X', 'CN', 'X', 'X', 'X', 'X', 'X', 'X', 'CN', 'X', 'X', 'X', 'X', NUll, 0, 4, 31),
+-- (4, 1, 'X', 'X', 'X', 'X', 'CN', 'X', 'X', 'X', 'X', 'X', 'X', 'CN', 'X', 'X', 'X', 'X', 'X', 'X', 'CN', 'X', 'X', 'X', 'X', 'X', 'X', 'CN', 'X', 'X', 'X', 'X', NUll, 0, 4, 31),
+-- (5, 1, 'X', 'X', 'X', 'X', 'CN', 'X', 'X', 'X', 'X', 'X', 'X', 'CN', 'X', 'X', 'X', 'X', 'X', 'X', 'CN', 'X', 'X', 'X', 'X', 'X', 'X', 'CN', 'X', 'X', 'X', 'X', NUll, 0, 4, 31),
+-- (6, 2, 'X', 'X', 'CN', 'X', 'X', 'X', 'X', 'X', 'X', 'CN', 'X', 'X', 'X', 'X', 'X', 'X', 'CN', 'X', 'X', 'X', 'X', 'X', 'X', 'CN', 'X', 'X', 'X', 'X', 'X', 'X', 'CN', 0, 4, 31),
+-- (7, 2,'X', 'X', 'CN', 'X', 'X', 'X', 'X', 'X', 'X', 'CN', 'X', 'X', 'X', 'X', 'X', 'X', 'CN', 'X', 'X', 'X', 'X', 'X', 'X', 'CN', 'X', 'X', 'X', 'X', 'X', 'X', 'CN', 0, 4, 31),
+-- (8, 2,'X', 'X', 'CN', 'X', 'X', 'X', 'X', 'X', 'X', 'CN', 'X', 'X', 'X', 'X', 'X', 'X', 'CN', 'X', 'X', 'X', 'X', 'X', 'X', 'CN', 'X', 'X', 'X', 'X', 'X', 'X', 'CN', 0, 4, 31),
+-- (9, 2,'X', 'X', 'CN', 'X', 'X', 'X', 'X', 'X', 'X', 'CN', 'X', 'X', 'X', 'X', 'X', 'X', 'CN', 'X', 'X', 'X', 'X', 'X', 'X', 'CN', 'X', 'X', 'X', 'X', 'X', 'X', 'CN', 0, 4, 31),
+-- (10, 2,'X', 'X', 'CN', 'X', 'X', 'X', 'X', 'X', 'X', 'CN', 'X', 'X', 'X', 'X', 'X', 'X', 'CN', 'X', 'X', 'X', 'X', 'X', 'X', 'CN', 'X', 'X', 'X', 'X', 'X', 'X', 'CN', 0, 4, 31);
+-- Go
 
--- Bảng chấm công
-INSERT INTO ChamCong(ChamCong_Ngay, ChamCong_GioVao, ChamCong_GioRa, ChamCong_GhiChu, ChamCong_NhanVien, ChamCong_KyCong)
-VALUES
-    ('01', '08:00:00', '16:30:00', N'Làm việc bình thường', 1, 1),
-    ('01', '08:30:00', '17:00:00', N'Đi muộn 30 phút', 1, 1),
-    ('02', '08:00:00', '16:30:00', N'Làm việc bình thường', 1, 1),
-    ('02', '08:30:00', '17:00:00', N'Đi muộn 30 phút', 1, 1),
-    ('03', '08:00:00', '16:30:00', N'Làm việc bình thường', 1, 2),
-    ('03', '08:30:00', '17:00:00', N'Đi muộn 30 phút', 1, 1),
-    ('04', '08:00:00', '16:30:00', N'Làm việc bình thường', 1, 1),
-    ('04', '08:30:00', '17:00:00', N'Đi muộn 30 phút', 1, 2),
-    ('05', '08:00:00', '16:30:00', N'Làm việc bình thường', 1, 1),
-    ('05', '08:30:00', '17:00:00', N'Đi muộn 30 phút', 1, 1);
-Go
+-- -- Bảng chấm công
+-- INSERT INTO ChamCong(ChamCong_Ngay, ChamCong_GioChamCong, ChamCong_NhanVien, ChamCong_KyCong)
+-- VALUES
+--     ('01', '08:00:00', '16:30:00', N'Làm việc bình thường', 1, 1),
+--     ('01', '08:30:00', '17:00:00', N'Đi muộn 30 phút', 1, 1),
+--     ('02', '08:00:00', '16:30:00', N'Làm việc bình thường', 1, 1),
+--     ('02', '08:30:00', '17:00:00', N'Đi muộn 30 phút', 1, 1),
+--     ('03', '08:00:00', '16:30:00', N'Làm việc bình thường', 1, 2),
+--     ('03', '08:30:00', '17:00:00', N'Đi muộn 30 phút', 1, 1),
+--     ('04', '08:00:00', '16:30:00', N'Làm việc bình thường', 1, 1),
+--     ('04', '08:30:00', '17:00:00', N'Đi muộn 30 phút', 1, 2),
+--     ('05', '08:00:00', '16:30:00', N'Làm việc bình thường', 1, 1),
+--     ('05', '08:30:00', '17:00:00', N'Đi muộn 30 phút', 1, 1);
+-- Go
 
 -- Bảng loại tăng ca
 INSERT INTO dbo.LoaiTangCa
@@ -800,8 +799,10 @@ GO
 
 -- <Tuan>
 -- KyCong
+
 -- KyCongChiTiet
--- ChamCong <import excel>
+
+-- ChamCong
 
 -- <Dung>
 -- LoaiTangCa
