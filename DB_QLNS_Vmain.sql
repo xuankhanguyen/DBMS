@@ -1380,8 +1380,194 @@ END
 GO
 -- <Dung>
 -- LoaiTangCa
+
+CREATE PROCEDURE sp_ThemMoiLoaiTangCa
+    @LoaiTangCa_ID INT,
+    @LoaiTangCa_TenLoai NVARCHAR(20),
+    @LoaiTangCa_HeSo FLOAT
+AS
+BEGIN
+    INSERT INTO LoaiTangCa (LoaiTangCa_ID, LoaiTangCa_TenLoai, LoaiTangCa_HeSo)
+    VALUES (@LoaiTangCa_ID, @LoaiTangCa_TenLoai, @LoaiTangCa_HeSo)
+END
+GO
+
+CREATE PROCEDURE sp_XoaLoaiTangCa
+    @LoaiTangCa_ID INT
+AS
+BEGIN
+    DELETE FROM LoaiTangCa
+    WHERE LoaiTangCa_ID = @LoaiTangCa_ID
+END
+
+GO
+CREATE PROCEDURE sp_SuaLoaiTangCa
+    @LoaiTangCa_ID INT,
+    @LoaiTangCa_TenLoai NVARCHAR(20),
+    @LoaiTangCa_HeSo FLOAT
+AS
+BEGIN
+    UPDATE LoaiTangCa
+    SET LoaiTangCa_TenLoai = @LoaiTangCa_TenLoai, LoaiTangCa_HeSo = @LoaiTangCa_HeSo
+    WHERE LoaiTangCa_ID = @LoaiTangCa_ID
+END
+
+GO
+
 -- ChucVu
+CREATE PROCEDURE sp_ThemMoiChucVu
+    @ChucVu_ID INT,
+    @ChucVu_TenCV NVARCHAR(50)
+AS
+BEGIN
+    INSERT INTO ChucVu (ChucVu_ID, ChucVu_TenCV)
+    VALUES (@ChucVu_ID, @ChucVu_TenCV)
+END
+GO
+CREATE PROCEDURE sp_XoaChucVu
+    @ChucVu_ID INT
+AS
+BEGIN
+    DELETE FROM ChucVu
+    WHERE ChucVu_ID = @ChucVu_ID
+END
+GO
+CREATE PROCEDURE sp_SuaChucVu
+    @ChucVu_ID INT,
+    @ChucVu_TenCV NVARCHAR(50)
+AS
+BEGIN
+    UPDATE ChucVu
+    SET ChucVu_TenCV = @ChucVu_TenCV
+    WHERE ChucVu_ID = @ChucVu_ID
+END
+GO
+
 -- PhongBan
+CREATE PROCEDURE sp_ThemPhongBan 
+(
+    @MaPB INT,
+    @TenPB NVARCHAR(50),
+    @TruongPhong INT,
+    @TG_NhanChuc DATE
+)
+AS
+BEGIN
+    INSERT INTO PhongBan (PhongBan_MaPB, PhongBan_TenPB, PhongBan_TruongPhong, PhongBan_TG_NhanChuc)
+    VALUES (@MaPB, @TenPB, @TruongPhong, @TG_NhanChuc);
+END
+GO
+
+CREATE PROCEDURE sp_XoaPhongBan
+(
+    @MaPB INT
+)
+AS
+BEGIN
+    DELETE FROM PhongBan WHERE PhongBan_MaPB = @MaPB;
+END
+GO
+
+ALTER PROCEDURE sp_ThemPhongBan 
+(
+    @TenPB NVARCHAR(50),
+    @TruongPhong INT,
+    @TG_NhanChuc DATE
+)
+AS
+BEGIN
+    INSERT INTO PhongBan (PhongBan_TenPB, PhongBan_TruongPhong, PhongBan_TG_NhanChuc)
+    VALUES (@TenPB, @TruongPhong, @TG_NhanChuc);
+END
+GO
+
+CREATE PROCEDURE sp_CapNhatPhongBan
+(
+    @MaPB INT,
+    @TenPB NVARCHAR(50),
+    @TruongPhong INT,
+    @TG_NhanChuc DATE
+)
+AS
+BEGIN
+    UPDATE PhongBan SET
+        PhongBan_TenPB = @TenPB,
+        PhongBan_TruongPhong = @TruongPhong,
+        PhongBan_TG_NhanChuc = @TG_NhanChuc
+    WHERE PhongBan_MaPB = @MaPB;
+END
+GO
 -- TK
+
+CREATE PROCEDURE ThemTaiKhoan
+    @SoTK VARCHAR(50),
+    @MatKhau VARCHAR(32),
+    @PhanQuyen INT,
+    @NhanVien INT
+AS
+BEGIN
+    INSERT INTO TaiKhoan (TaiKhoan_SoTK, TaiKhoan_MatKhau, TaiKhoan_PhanQuyen, TaiKhoan_NhanVien)
+    VALUES (@SoTK, @MatKhau, @PhanQuyen, @NhanVien);
+END
+GO
+
+CREATE PROCEDURE XoaTaiKhoan
+    @SoTK VARCHAR(50)
+AS
+BEGIN
+    DELETE FROM TaiKhoan WHERE TaiKhoan_SoTK = @SoTK;
+END
+
+GO
+
+CREATE PROCEDURE SuaThongTinTaiKhoan
+    @SoTK VARCHAR(50),
+    @MatKhau VARCHAR(32) = NULL,
+    @PhanQuyen INT = NULL,
+    @NhanVien INT = NULL
+AS
+BEGIN
+    UPDATE TaiKhoan SET
+        TaiKhoan_MatKhau = COALESCE(@MatKhau, TaiKhoan_MatKhau),
+        TaiKhoan_PhanQuyen = COALESCE(@PhanQuyen, TaiKhoan_PhanQuyen),
+        TaiKhoan_NhanVien = COALESCE(@NhanVien, TaiKhoan_NhanVien)
+    WHERE TaiKhoan_SoTK = @SoTK;
+END
+GO
+
 -- PhanQuyen
+
+CREATE PROCEDURE ThemMoiPhanQuyen
+@TenQuyen NVARCHAR(20)
+AS
+BEGIN
+INSERT INTO PhanQuyen(PhanQuyen_TenQuyen)
+VALUES(@TenQuyen)
+END;
+GO
+--Xóa một bản ghi khỏi bảng PhanQuyen dựa trên PhanQuyen_ID:
+CREATE PROCEDURE XoaPhanQuyen
+@PhanQuyen_ID INT
+AS
+BEGIN
+DELETE FROM PhanQuyen
+WHERE PhanQuyen_ID = @PhanQuyen_ID
+END;
+GO
+--Cập nhật một bản ghi trong bảng PhanQuyen dựa trên PhanQuyen_ID:
+CREATE PROCEDURE CapNhatPhanQuyen
+@PhanQuyen_ID INT,
+@TenQuyen NVARCHAR(20)
+AS
+BEGIN
+UPDATE PhanQuyen
+SET PhanQuyen_TenQuyen = @TenQuyen
+WHERE PhanQuyen_ID = @PhanQuyen_ID
+END;
+GO
+CREATE VIEW vw_PhanQuyen
+AS
+SELECT PhanQuyen_ID, PhanQuyen_TenQuyen
+FROM PhanQuyen
+GO
 -- thêm đăng nhập
