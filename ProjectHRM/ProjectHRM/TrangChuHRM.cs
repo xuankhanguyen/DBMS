@@ -122,5 +122,23 @@ namespace ProjectHRM
         {
             MoFormCon(new ChitietHRM(), sender);
         }
+
+        private void buttonbangluong_Click(object sender, EventArgs e)
+        {
+            BangLuong bl = new BangLuong();
+            bl.Show();
+        }
+
+        private void buttonungluong_Click(object sender, EventArgs e)
+        {
+            UngLuong ul = new UngLuong();
+            ul.Show();  
+        }
+
+        private void buttontangca_Click(object sender, EventArgs e)
+        {
+            TangCa tc = new TangCa();
+            tc.Show();
+        }
     }
 }

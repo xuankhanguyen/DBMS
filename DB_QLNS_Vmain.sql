@@ -510,6 +510,23 @@ INSERT INTO UngLuong (UngLuong_Ngay, UngLuong_SoTien, UngLuong_TrangThaiXoa, Ung
 VALUES (15, 2500.0, 'TRUE', N'Ứng lương giữa kỳ',(SELECT NhanVien_ID FROM NhanVien WHERE NhanVien_HoTen= N'Huỳnh Văn Ba'), (SELECT KyCong_MaKyCong FROM KyCong WHERE KyCong_Nam = 2022 AND KyCong_Thang = 10));
 GO
 
+--Bảng Kỳ Công Chi Tiết
+INSERT INTO KyCongChiTiet(KyCongChiTiet_NhanVien, KyCongChiTiet_KyCong, KyCongChiTiet_NgayNghi, KyCongChiTiet_CongChuNhat, KyCongChiTiet_NgayCongThucTe)
+VALUES
+(1,1,2,4,24),
+(2,2,0,3,26),
+(3,3,1,4,25),
+(4,4,0,4,26),
+(5,5,3,2,23),
+(6,6,2,4,24),
+(7,7,2,4,24),
+(8,8,1,1,25),
+(9,9,5,4,21),
+(10,10,3,1,23),
+(11,11,3,2,24),
+(12,12,4,4,22)
+
+GO
 --Bảng Tăng Ca--
 INSERT INTO dbo.TangCa
 (
@@ -526,10 +543,10 @@ VALUES
     (SELECT LoaiTangCa_ID FROM dbo.LoaiTangCa WHERE LoaiTangCa_TenLoai = N'Ngày Nghỉ'),
 	(SELECT KyCong_MaKyCong FROM dbo.KyCong WHERE KyCong_Thang = 6 AND KyCong_Nam=2022)
 ),
-(	NULL, 
-    NULL, 
+(	15, 
+    4, 
     (SELECT NhanVien_ID FROM dbo.NhanVien WHERE NhanVien_HoTen = N'Huỳnh Văn Bá'),
-    NULL,
+    2,
 	(SELECT KyCong_MaKyCong FROM dbo.KyCong WHERE KyCong_Thang = 7 AND KyCong_Nam=2022)
 ),
 (	10, 
@@ -562,10 +579,10 @@ VALUES
     (SELECT LoaiTangCa_ID FROM dbo.LoaiTangCa WHERE LoaiTangCa_TenLoai = N'Ngày Lễ'),
 	(SELECT KyCong_MaKyCong FROM dbo.KyCong WHERE KyCong_Thang = 12 AND KyCong_Nam=2022)
 ),
-(	NULL, 
-    NULL, 
+(	10, 
+    0, 
     (SELECT NhanVien_ID FROM dbo.NhanVien WHERE NhanVien_HoTen = N'Nguyễn Công Huynh'),
-    NULL,
+    1,
 	(SELECT KyCong_MaKyCong FROM dbo.KyCong WHERE KyCong_Thang = 1 AND KyCong_Nam=2023)
 ),
 (	30, 
@@ -574,10 +591,10 @@ VALUES
     (SELECT LoaiTangCa_ID FROM dbo.LoaiTangCa WHERE LoaiTangCa_TenLoai = N'Ngày Nghỉ'),
 	(SELECT KyCong_MaKyCong FROM dbo.KyCong WHERE KyCong_Thang = 2 AND KyCong_Nam=2023)
 ),
-(	NULL, 
-    NULL, 
+(	13, 
+    3.5, 
     (SELECT NhanVien_ID FROM dbo.NhanVien WHERE NhanVien_HoTen = N'Lý Tiến Thành'),
-    NULL,
+    2,
 	(SELECT KyCong_MaKyCong FROM dbo.KyCong WHERE KyCong_Thang = 3 AND KyCong_Nam=2023)
 ),
 (	21, 
@@ -589,7 +606,7 @@ VALUES
 (	11, 
     3.5, 
     (SELECT NhanVien_ID FROM dbo.NhanVien WHERE NhanVien_HoTen = N'Mai Trọng Khánh'),
-    (SELECT LoaiTangCa_ID FROM dbo.LoaiTangCa WHERE LoaiTangCa_TenLoai = N'Ngày Lẽ'),
+    (SELECT LoaiTangCa_ID FROM dbo.LoaiTangCa WHERE LoaiTangCa_TenLoai = N'Ngày Lễ'),
 	(SELECT KyCong_MaKyCong FROM dbo.KyCong WHERE KyCong_Thang = 5 AND KyCong_Nam=2023)
 )
 
@@ -676,9 +693,266 @@ GO
 -- 3. HSL
 
 -- <Quang>
--- BangLuong
+
 -- UngLuong
+
+CREATE FUNCTION UngLuong_HienThi()
+RETURNS TABLE
+AS
+RETURN (
+    SELECT ul.UngLuong_ID, ul.UngLuong_Ngay, ul.UngLuong_SoTien, ul.UngLuong_TrangThaiXoa, ul.UngLuong_GhiChu, nv.NhanVien_HoTen,kc.KyCong_Nam, kc.KyCong_Thang
+    FROM UngLuong ul
+    INNER JOIN KyCong kc ON kc.KyCong_MaKyCong = ul.UngLuong_KyCong
+	INNER JOIN NhanVien nv ON nv.NhanVien_ID = ul.UngLuong_NhanVien
+)
+GO
+
+CREATE PROC [ungluongtheoid]
+@ma_id INT
+AS
+SELECT * FROM UngLuong_HienThi() ul WHERE ul.UngLuong_ID=@ma_id 
+GO
+CREATE PROC [LayThongtinUngLuong]
+AS
+SELECT * FROM dbo.UngLuong_HienThi() 
+GO
+
+CREATE PROCEDURE [ThemUngLuong]
+    @ngay INT,
+    @tien FLOAT,
+    @ghichu NVARCHAR(50),
+    @nhanvien NVARCHAR(50),
+    @nam INT,
+	@thang INT,
+	@ketqua INT OUTPUT
+AS
+BEGIN
+    SET NOCOUNT ON;
+    DECLARE @nhanvien_id INT, @kycong_makycon INT
+
+    SELECT @nhanvien_id = NhanVien_ID FROM NhanVien WHERE NhanVien_HoTen = @nhanvien
+    SELECT @kycong_makycon = kc.KyCong_MaKyCong FROM KyCong kc WHERE kc.KyCong_Nam = @nam AND kc.KyCong_Thang = @thang
+
+    IF NOT EXISTS(SELECT * FROM UngLuong WHERE UngLuong_Ngay = @ngay AND UngLuong_NhanVien = @nhanvien_id AND UngLuong_KyCong = @kycong_makycon)
+    BEGIN
+        BEGIN TRANSACTION;
+
+        BEGIN TRY
+            INSERT INTO UngLuong (UngLuong_Ngay, UngLuong_SoTien, UngLuong_TrangThaiXoa, UngLuong_GhiChu, UngLuong_NhanVien, UngLuong_KyCong) 
+            VALUES 
+            (
+                @ngay,
+                @tien,
+    			0,
+    			@ghichu,
+                @nhanvien_id,
+                @kycong_makycon
+            );
+			SET @ketqua=1;
+            COMMIT TRANSACTION;
+        END TRY
+
+        BEGIN CATCH
+            ROLLBACK TRANSACTION;
+			SET @ketqua=0;
+
+        END CATCH
+    END
+END
+
+GO
+ CREATE PROC [SuaUngLuong]
+	@id INT,
+	@ngay INT,
+    @tien FLOAT,
+    @ghichu NVARCHAR(50),
+    @nhanvien NVARCHAR(50),
+    @nam INT,
+	@thang INT
+ AS
+ UPDATE UngLuong
+ SET UngLuong_Ngay = @ngay, 
+ UngLuong_SoTien=@tien, 
+ UngLuong_GhiChu = @ghichu, 
+ UngLuong_NhanVien = (SELECT NhanVien_ID FROM NhanVien WHERE NhanVien_HoTen = @nhanvien),
+ UngLuong_KyCong = (SELECT kc.KyCong_MaKyCong FROM KyCong kc WHERE kc.KyCong_Nam = @nam AND kc.KyCong_Thang = @thang)
+ WHERE UngLuong_ID = @id
+GO
+
+CREATE PROC [XoaUngLuong]
+  @id INT
+AS
+UPDATE UngLuong
+SET UngLuong_TrangThaiXoa = 1 WHERE UngLuong_ID = @id
+GO
+
+CREATE PROC [LuuXoaUngLuong]
+  @id INT
+AS
+IF EXISTS(SELECT * FROM UngLuong WHERE UngLuong_ID = @id AND UngLuong_TrangThaiXoa = 1)
+BEGIN
+    DELETE FROM UngLuong WHERE UngLuong_ID = @id AND UngLuong_TrangThaiXoa = 1
+END
+GO
+
+CREATE PROC [HuyXoaUngLuong]
+  @id INT
+AS
+UPDATE UngLuong
+SET UngLuong_TrangThaiXoa = 0 WHERE UngLuong_ID = @id
+GO
 -- TangCa
+CREATE FUNCTION TangCa_HienThi()
+RETURNS TABLE
+AS
+RETURN (
+    SELECT TC.TangCa_ID, TC.TangCa_NgayTangCa, TC.TangCa_SoGio, NV.NhanVien_HoTen, LTC.LoaiTangCa_TenLoai, kc.KyCong_Thang, kc.KyCong_Nam
+    FROM TangCa TC
+    INNER JOIN NhanVien NV ON TC.TangCa_NhanVien = NV.NhanVien_ID
+    INNER JOIN LoaiTangCa LTC ON TC.TangCa_LoaiTangCa = LTC.LoaiTangCa_ID
+	INNER JOIN KyCong kc ON kc.KyCong_MaKyCong = TC.TangCa_KyCong
+)
+GO
+CREATE PROC LayThongtinTangCa
+AS
+SELECT * FROM dbo.TangCa_HienThi() tc
+GO
+
+ CREATE PROC [SuaTangCa]
+@id INT,
+@ngay INT,
+@gio FLOAT,
+@tennv NVARCHAR(50),
+@tenloaitc NVARCHAR(50),
+@thangkycong INT,
+@namkycong INT
+AS
+BEGIN
+SET NOCOUNT ON;
+DECLARE @nhanvien_id INT;
+DECLARE @loaitc_id INT;
+-- Kiểm tra xem có bản ghi nào trong bảng TangCa trùng với các giá trị truyền vào không
+IF EXISTS (SELECT * FROM TangCa 
+        WHERE TangCa_NgayTangCa = @ngay 
+        AND TangCa_NhanVien = (SELECT NhanVien_ID FROM NhanVien WHERE NhanVien_HoTen = @tennv)
+        AND TangCa_KyCong = (SELECT kc.KyCong_MaKyCong FROM KyCong kc WHERE kc.KyCong_Thang = @thangkycong AND kc.KyCong_Nam = @namkycong))
+    BEGIN
+        BEGIN TRANSACTION;
+    BEGIN TRY
+        UPDATE TangCa
+        SET TangCa_NgayTangCa = @ngay, 
+            TangCa_SoGio = @gio, 
+            TangCa_NhanVien = (SELECT NhanVien_ID FROM NhanVien WHERE NhanVien_HoTen = @tennv), 
+            TangCa_LoaiTangCa = (SELECT ltc.LoaiTangCa_ID FROM LoaiTangCa ltc WHERE ltc.LoaiTangCa_TenLoai = @tenloaitc),
+            TangCa_KyCong = (SELECT kc.KyCong_MaKyCong FROM KyCong kc WHERE kc.KyCong_Thang = @thangkycong AND kc.KyCong_Nam = @namkycong)
+        WHERE TangCa_ID = @id;
+
+        COMMIT TRANSACTION;
+    END TRY
+    BEGIN CATCH
+        ROLLBACK TRANSACTION;
+        THROW;
+    END CATCH
+    END
+
+END
+GO
+
+CREATE PROC [tangcatheoid]
+@ma_id INT
+AS
+SELECT * FROM dbo.TangCa_HienThi() tc WHERE tc.TangCa_ID=@ma_id 
+GO
+
+CREATE PROCEDURE [ThemTangCa]
+    @ngay INT,
+    @gio FLOAT,
+    @tennv NVARCHAR(50),
+    @tenloaitc NVARCHAR(50),
+    @thangkycong INT,
+    @namkycong INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+    DECLARE @nhanvien_id INT;
+    DECLARE @loaitc_id INT;
+
+    -- Kiểm tra xem dữ liệu đã tồn tại hay chưa
+    IF EXISTS (SELECT * FROM TangCa 
+        WHERE TangCa_NgayTangCa = @ngay 
+        AND TangCa_NhanVien = (SELECT NhanVien_ID FROM NhanVien WHERE NhanVien_HoTen = @tennv)
+        AND TangCa_KyCong = (SELECT kc.KyCong_MaKyCong FROM KyCong kc WHERE kc.KyCong_Thang = @thangkycong AND kc.KyCong_Nam = @namkycong))
+    BEGIN
+        RAISERROR('Dữ liệu đã tồn tại', 16, 1);
+        RETURN;
+    END
+
+    -- Lấy ID của loại tăng ca
+    SELECT @loaitc_id = LoaiTangCa_ID FROM LoaiTangCa WHERE LoaiTangCa_TenLoai = @tenloaitc;
+    IF(@loaitc_id IS NULL)
+        THROW 50000, 'Không tìm thấy loại tăng ca', 1;
+
+    BEGIN TRANSACTION;
+    BEGIN TRY
+        INSERT INTO TangCa (TangCa_NgayTangCa, TangCa_SoGio, TangCa_NhanVien, TangCa_LoaiTangCa, TangCa_KyCong) 
+        VALUES 
+        (
+            @ngay,
+            @gio,
+            (SELECT NhanVien_ID FROM NhanVien WHERE NhanVien_HoTen = @tennv),
+            @loaitc_id,
+            (SELECT kc.KyCong_MaKyCong FROM KyCong kc WHERE kc.KyCong_Thang = @thangkycong AND kc.KyCong_Nam = @namkycong)
+        );
+        COMMIT TRANSACTION;
+    END TRY
+
+    BEGIN CATCH
+        ROLLBACK TRANSACTION;
+        THROW;
+    END CATCH
+END
+
+GO
+  CREATE PROC [XoaTangCa]
+  @id INT
+  AS
+  DELETE FROM TangCa WHERE TangCa_ID = @id
+
+GO
+
+-- BangLuong
+
+
+
+INSERT INTO BangLuong(BangLuong_NhanVien, BangLuong_KyCong, BangLuong_LuongNgayThuong, BangLuong_LuongNgayCN, 
+BangLuong_TangCa, BangLuong_UngLuong, BangLuong_PhuCap, BangLuong_LuongNhanDuoc, BangLuong_ThucLanh)
+SELECT nv.NhanVien_ID,kc.KyCong_MaKyCong,kcct.KyCongChiTiet_NgayCongThucTe*((3250000*hsl.HeSoLuong_GiaTri)/26) , kcct.KyCongChiTiet_CongChuNhat*((3250000*hsl.HeSoLuong_GiaTri)/26)*2 ,
+tc.TangCa_SoGio*ltc.LoaiTangCa_HeSo*((3250000*hsl.HeSoLuong_GiaTri)/26),
+ul.UngLuong_SoTien ,556 ,kcct.KyCongChiTiet_NgayCongThucTe*((3250000*hsl.HeSoLuong_GiaTri)/26)+kcct.KyCongChiTiet_CongChuNhat*((3250000*hsl.HeSoLuong_GiaTri)/26)*2 +tc.TangCa_SoGio*ltc.LoaiTangCa_HeSo*((3250000*hsl.HeSoLuong_GiaTri)/26) - ul.UngLuong_SoTien +556 , (kcct.KyCongChiTiet_NgayCongThucTe*((3250000*hsl.HeSoLuong_GiaTri)/26)+kcct.KyCongChiTiet_CongChuNhat*((3250000*hsl.HeSoLuong_GiaTri)/26)*2 +tc.TangCa_SoGio*ltc.LoaiTangCa_HeSo*((3250000*hsl.HeSoLuong_GiaTri)/26) - ul.UngLuong_SoTien +556 )*0.9
+FROM NhanVien nv,KyCong kc,KyCongChiTiet kcct,TangCa tc,LoaiTangCa ltc,UngLuong ul,HopDong hd,HeSoLuong hsl
+WHERE kc.KyCong_MaKyCong = kcct.KyCongChiTiet_KyCong AND tc.TangCa_LoaiTangCa = ltc.LoaiTangCa_ID AND ul.UngLuong_NhanVien = nv.NhanVien_ID
+AND kcct.KyCongChiTiet_NhanVien = nv.NhanVien_ID  and tc.TangCa_NhanVien = nv.NhanVien_ID  AND ul.UngLuong_KyCong = kc.KyCong_MaKyCong
+AND hd.HopDong_NhanVien = nv.NhanVien_ID AND hsl.HeSoLuong_ID = hd.HopDong_HeSoLuong
+
+GO
+
+CREATE FUNCTION Luong_HienThi()
+RETURNS TABLE
+AS
+RETURN (
+    SELECT nv.NhanVien_HoTen,kc.KyCong_Thang,kc.KyCong_Nam,bl.BangLuong_LuongNgayThuong, bl.BangLuong_LuongNgayCN, bl.BangLuong_TangCa, bl.BangLuong_UngLuong, bl.BangLuong_PhuCap, bl.BangLuong_LuongNhanDuoc, bl.BangLuong_ThucLanh
+    FROM BangLuong bl 
+    INNER JOIN NhanVien nv ON bl.BangLuong_NhanVien = nv.NhanVien_ID
+	INNER JOIN KyCong kc ON kc.KyCong_MaKyCong = bl.BangLuong_KyCong
+)
+GO
+
+CREATE PROC hienthiluong
+AS
+SELECT * FROM Luong_HienThi()
+
+EXEC hienthiluong
+GO
 
 -- <Tuan>
 -- KyCong
