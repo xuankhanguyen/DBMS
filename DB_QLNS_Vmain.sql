@@ -20,7 +20,7 @@ CREATE TABLE NhanVien
     NhanVien_NgaySinh DATE,
     NhanVien_ChucVu INT,
     NhanVien_PhongBan INT,
-    NhanVien_TrangThaiXoa BIT -- UPDATE
+     NhanVien_TrangThaiXoa BIT DEFAULT 0-- UPDATE
 );
 GO
 
