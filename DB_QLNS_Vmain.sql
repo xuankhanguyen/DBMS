@@ -1,8 +1,8 @@
 -- Tạo CSDL
-CREATE DATABASE QLNS
+CREATE DATABASE QLNS1
 GO
 -- Sử dụng CSDL
-USE QLNS
+USE QLNS1
 GO
 
 -- Thực hiện tạo bảng
@@ -20,7 +20,7 @@ CREATE TABLE NhanVien
     NhanVien_NgaySinh DATE,
     NhanVien_ChucVu INT,
     NhanVien_PhongBan INT,
-     NhanVien_TrangThaiXoa BIT DEFAULT 0-- UPDATE
+    NhanVien_TrangThaiXoa BIT DEFAULT 0-- UPDATE
 );
 GO
 
@@ -249,21 +249,13 @@ GO
 
 -- Bảng Châm Công
 CREATE VIEW View_ChamCong AS
-SELECT ChamCong_ID, ChamCong_GioVao, ChamCong_GioRa, ChamCong_Ngay, ChamCong_GhiChu ,ChamCong_NhanVien,ChamCong_KyCong
+SELECT ChamCong_ID, ChamCong_Ngay ,ChamCong_NhanVien,ChamCong_KyCong
 FROM ChamCong
 GO
--- --Bảng Kỳ công Chi tiết
--- CREATE VIEW View_KyCongChiTiet AS
--- SELECT KyCongChiTiet_NhanVien, KyCongChiTiet_KyCong, KyCongChiTiet_D1, KyCongChiTiet_D2, KyCongChiTiet_D3, KyCongChiTiet_D4,
--- KyCongChiTiet_D5, KyCongChiTiet_D6, KyCongChiTiet_D7 ,KyCongChiTiet_D8 ,KyCongChiTiet_D9,KyCongChiTiet_D10,KyCongChiTiet_D11 ,KyCongChiTiet_D12,
--- KyCongChiTiet_D13,KyCongChiTiet_D14,KyCongChiTiet_D15 ,KyCongChiTiet_D16,KyCongChiTiet_D17,KyCongChiTiet_D18,KyCongChiTiet_D19,KyCongChiTiet_D20,
--- KyCongChiTiet_D21, KyCongChiTiet_D22,KyCongChiTiet_D23, KyCongChiTiet_D24, KyCongChiTiet_D25,KyCongChiTiet_D26,KyCongChiTiet_D27,KyCongChiTiet_D28,
--- KyCongChiTiet_D29,KyCongChiTiet_D30,KyCongChiTiet_D31,KyCongChiTiet_NgayNghi, KyCongChiTiet_CongChuNhat, KyCongChiTiet_TongNgayCong
--- FROM KyCongChiTiet
--- GO
+
 --Bảng Kỳ Công Chấm Công
 CREATE VIEW View_ChamCongKyCong AS
-SELECT ChamCong.ChamCong_ID, ChamCong.ChamCong_NhanVien, ChamCong.ChamCong_GioVao, ChamCong.ChamCong_GioRa, ChamCong.ChamCong_Ngay, KyCong.KyCong_Thang, KyCong.KyCong_Nam
+SELECT ChamCong.ChamCong_ID, ChamCong.ChamCong_NhanVien, ChamCong.ChamCong_Ngay, KyCong.KyCong_Thang, KyCong.KyCong_Nam
 FROM ChamCong
 JOIN KyCongChiTiet ON ChamCong.ChamCong_NhanVien = KyCongChiTiet.KyCongChiTiet_NhanVien AND ChamCong.ChamCong_KyCong = KyCongChiTiet.KyCongChiTiet_KyCong
 JOIN KyCong ON KyCongChiTiet.KyCongChiTiet_KyCong = KyCong.KyCong_MaKyCong;
@@ -357,28 +349,7 @@ BEGIN
     END
 END
 GO
--- Kiểm tra Ngày nghỉ và tổng ngày công
-CREATE TRIGGER TR_KyCongChiTiet ON KyCongChiTiet
-AFTER INSERT, UPDATE
-AS
-BEGIN
-    -- Kiểm tra các giá trị mới của KyCongChiTiet
-    IF EXISTS (
-        SELECT *
-        FROM inserted i
-        INNER JOIN KyCong kc ON i.KyCongChiTiet_KyCong = kc.KyCong_MaKyCong
-        WHERE i.KyCongChiTiet_NgayNghi >= 0
-            AND i.KyCongChiTiet_TongNgayCong >= 0
-            AND i.KyCongChiTiet_TongNgayCong <= kc.KyCong_SoNgayCong
-    )
-    BEGIN
-        -- Nếu có giá trị không hợp lệ, rollback transaction và hiển thị thông báo lỗi
-        RAISERROR('Giá trị không hợp lệ', 16, 1)
-        ROLLBACK TRANSACTION
-        RETURN
-    END
-END
-GO
+
 --kiểm tra xem Ngày được truyền vào có đúng không
 CREATE TRIGGER [TenTrigger]
 ON [dbo].[ChamCong]
@@ -395,58 +366,6 @@ BEGIN
         ROLLBACK TRANSACTION
     END
 END
-GO
---Kiểm tra các giá trị giá trị các cột từ KyCongChiTiet_D1 đến KyCongChiTiet_D31 của bản ghi mới được thêm 
---hoặc cập nhật có nằm trong tập hợp giá trị ('X', 'V', 'CN') hay không. 
-CREATE TRIGGER Trigger_KyCongChiTiet_KiemTraGiaTri
-ON KyCongChiTiet
-AFTER INSERT, UPDATE
-AS
-BEGIN
-    IF EXISTS (
-        SELECT *
-        FROM inserted
-        WHERE NOT (
-            inserted.KyCongChiTiet_D1 IN ('X', 'V', 'CN') AND
-            inserted.KyCongChiTiet_D2 IN ('X', 'V', 'CN') AND
-            inserted.KyCongChiTiet_D3 IN ('X', 'V', 'CN') AND
-            inserted.KyCongChiTiet_D4 IN ('X', 'V', 'CN') AND
-            inserted.KyCongChiTiet_D5 IN ('X', 'V', 'CN') AND
-            inserted.KyCongChiTiet_D6 IN ('X', 'V', 'CN') AND
-            inserted.KyCongChiTiet_D7 IN ('X', 'V', 'CN') AND
-            inserted.KyCongChiTiet_D8 IN ('X', 'V', 'CN') AND
-            inserted.KyCongChiTiet_D9 IN ('X', 'V', 'CN') AND
-            inserted.KyCongChiTiet_D10 IN ('X', 'V', 'CN') AND
-            inserted.KyCongChiTiet_D11 IN ('X', 'V', 'CN') AND
-            inserted.KyCongChiTiet_D12 IN ('X', 'V', 'CN') AND
-            inserted.KyCongChiTiet_D13 IN ('X', 'V', 'CN') AND
-            inserted.KyCongChiTiet_D14 IN ('X', 'V', 'CN') AND
-            inserted.KyCongChiTiet_D15 IN ('X', 'V', 'CN') AND
-            inserted.KyCongChiTiet_D16 IN ('X', 'V', 'CN') AND
-            inserted.KyCongChiTiet_D17 IN ('X', 'V', 'CN') AND
-            inserted.KyCongChiTiet_D18 IN ('X', 'V', 'CN') AND
-            inserted.KyCongChiTiet_D19 IN ('X', 'V', 'CN') AND
-            inserted.KyCongChiTiet_D20 IN ('X', 'V', 'CN') AND
-            inserted.KyCongChiTiet_D21 IN ('X', 'V', 'CN') AND
-            inserted.KyCongChiTiet_D22 IN ('X', 'V', 'CN') AND
-            inserted.KyCongChiTiet_D23 IN ('X', 'V', 'CN') AND
-            inserted.KyCongChiTiet_D24 IN ('X', 'V', 'CN') AND
-            inserted.KyCongChiTiet_D25 IN ('X', 'V', 'CN') AND
-            inserted.KyCongChiTiet_D26 IN ('X', 'V', 'CN') AND
-            inserted.KyCongChiTiet_D27 IN ('X', 'V', 'CN') AND
-            inserted.KyCongChiTiet_D28 IN ('X', 'V', 'CN') AND
-	    inserted.KyCongChiTiet_D29 IN ('X', 'V', 'CN') AND
-            inserted.KyCongChiTiet_D30 IN ('X', 'V', 'CN') AND
-            inserted.KyCongChiTiet_D31 IN ('X', 'V', 'CN') 
-)
-    )
-    BEGIN
-        -- Nếu có giá trị không hợp lệ, rollback transaction và hiển thị thông báo lỗi
-        RAISERROR('Giá trị không hợp lệ', 16, 1);
-        ROLLBACK TRANSACTION;
-        RETURN;
-    END;
-END;
 GO
 -------------------------------------------  Data ------------------------------------------
 --Bảng Hệ số lương
@@ -527,40 +446,6 @@ VALUES
 (2023, 5, 27, 0);
 GO
 
--- Bảng kỳ công chi tiết
--- INSERT INTO KyCongChiTiet(KyCongChiTiet_NhanVien, KyCongChiTiet_KyCong, KyCongChiTiet_D1, KyCongChiTiet_D2, KyCongChiTiet_D3, KyCongChiTiet_D4,
--- KyCongChiTiet_D5, KyCongChiTiet_D6, KyCongChiTiet_D7 ,KyCongChiTiet_D8 ,KyCongChiTiet_D9,KyCongChiTiet_D10,KyCongChiTiet_D11 ,KyCongChiTiet_D12,
--- KyCongChiTiet_D13,KyCongChiTiet_D14,KyCongChiTiet_D15 ,KyCongChiTiet_D16,KyCongChiTiet_D17,KyCongChiTiet_D18,KyCongChiTiet_D19,KyCongChiTiet_D20,
--- KyCongChiTiet_D21, KyCongChiTiet_D22,KyCongChiTiet_D23, KyCongChiTiet_D24, KyCongChiTiet_D25,KyCongChiTiet_D26,KyCongChiTiet_D27,KyCongChiTiet_D28,
--- KyCongChiTiet_D29,KyCongChiTiet_D30,KyCongChiTiet_D31,KyCongChiTiet_NgayNghi, KyCongChiTiet_CongChuNhat, KyCongChiTiet_TongNgayCong)
--- VALUES
--- (1, 1, 'X', 'X', 'X', 'X', 'CN', 'X', 'X', 'X', 'X', 'X', 'X', 'CN', 'X', 'X', 'X', 'X', 'X', 'X', 'CN', 'X', 'X', 'X', 'X', 'X', 'X', 'CN', 'X', 'X', 'X', 'X', NUll, 0, 4, 31),
--- (2, 1, 'X', 'X', 'X', 'X', 'CN', 'X', 'X', 'X', 'X', 'X', 'X', 'CN', 'X', 'X', 'X', 'X', 'X', 'X', 'CN', 'X', 'X', 'X', 'X', 'X', 'X', 'CN', 'X', 'X', 'X', 'X', NUll, 0, 4, 31),
--- (3, 1, 'X', 'X', 'X', 'X', 'CN', 'X', 'X', 'X', 'X', 'X', 'X', 'CN', 'X', 'X', 'X', 'X', 'X', 'X', 'CN', 'X', 'X', 'X', 'X', 'X', 'X', 'CN', 'X', 'X', 'X', 'X', NUll, 0, 4, 31),
--- (4, 1, 'X', 'X', 'X', 'X', 'CN', 'X', 'X', 'X', 'X', 'X', 'X', 'CN', 'X', 'X', 'X', 'X', 'X', 'X', 'CN', 'X', 'X', 'X', 'X', 'X', 'X', 'CN', 'X', 'X', 'X', 'X', NUll, 0, 4, 31),
--- (5, 1, 'X', 'X', 'X', 'X', 'CN', 'X', 'X', 'X', 'X', 'X', 'X', 'CN', 'X', 'X', 'X', 'X', 'X', 'X', 'CN', 'X', 'X', 'X', 'X', 'X', 'X', 'CN', 'X', 'X', 'X', 'X', NUll, 0, 4, 31),
--- (6, 2, 'X', 'X', 'CN', 'X', 'X', 'X', 'X', 'X', 'X', 'CN', 'X', 'X', 'X', 'X', 'X', 'X', 'CN', 'X', 'X', 'X', 'X', 'X', 'X', 'CN', 'X', 'X', 'X', 'X', 'X', 'X', 'CN', 0, 4, 31),
--- (7, 2,'X', 'X', 'CN', 'X', 'X', 'X', 'X', 'X', 'X', 'CN', 'X', 'X', 'X', 'X', 'X', 'X', 'CN', 'X', 'X', 'X', 'X', 'X', 'X', 'CN', 'X', 'X', 'X', 'X', 'X', 'X', 'CN', 0, 4, 31),
--- (8, 2,'X', 'X', 'CN', 'X', 'X', 'X', 'X', 'X', 'X', 'CN', 'X', 'X', 'X', 'X', 'X', 'X', 'CN', 'X', 'X', 'X', 'X', 'X', 'X', 'CN', 'X', 'X', 'X', 'X', 'X', 'X', 'CN', 0, 4, 31),
--- (9, 2,'X', 'X', 'CN', 'X', 'X', 'X', 'X', 'X', 'X', 'CN', 'X', 'X', 'X', 'X', 'X', 'X', 'CN', 'X', 'X', 'X', 'X', 'X', 'X', 'CN', 'X', 'X', 'X', 'X', 'X', 'X', 'CN', 0, 4, 31),
--- (10, 2,'X', 'X', 'CN', 'X', 'X', 'X', 'X', 'X', 'X', 'CN', 'X', 'X', 'X', 'X', 'X', 'X', 'CN', 'X', 'X', 'X', 'X', 'X', 'X', 'CN', 'X', 'X', 'X', 'X', 'X', 'X', 'CN', 0, 4, 31);
--- Go
-
--- -- Bảng chấm công
--- INSERT INTO ChamCong(ChamCong_Ngay, ChamCong_GioChamCong, ChamCong_NhanVien, ChamCong_KyCong)
--- VALUES
---     ('01', '08:00:00', '16:30:00', N'Làm việc bình thường', 1, 1),
---     ('01', '08:30:00', '17:00:00', N'Đi muộn 30 phút', 1, 1),
---     ('02', '08:00:00', '16:30:00', N'Làm việc bình thường', 1, 1),
---     ('02', '08:30:00', '17:00:00', N'Đi muộn 30 phút', 1, 1),
---     ('03', '08:00:00', '16:30:00', N'Làm việc bình thường', 1, 2),
---     ('03', '08:30:00', '17:00:00', N'Đi muộn 30 phút', 1, 1),
---     ('04', '08:00:00', '16:30:00', N'Làm việc bình thường', 1, 1),
---     ('04', '08:30:00', '17:00:00', N'Đi muộn 30 phút', 1, 2),
---     ('05', '08:00:00', '16:30:00', N'Làm việc bình thường', 1, 1),
---     ('05', '08:30:00', '17:00:00', N'Đi muộn 30 phút', 1, 1);
--- Go
-
 -- Bảng loại tăng ca
 INSERT INTO dbo.LoaiTangCa
 (
@@ -626,8 +511,6 @@ VALUES (15, 2500.0, 'TRUE', N'Ứng lương giữa kỳ',(SELECT NhanVien_ID FRO
 GO
 
 --Bảng Tăng Ca--
-
-
 INSERT INTO dbo.TangCa
 (
     TangCa_NgayTangCa,
@@ -786,7 +669,7 @@ END
 
 GO
  
--- ============= Giao Dien ===============
+-- ============= hàm và thủ tục ===============
 -- <Kha>
 -- 1. NV
 -- 2. hopDong
@@ -799,11 +682,428 @@ GO
 
 -- <Tuan>
 -- KyCong
+CREATE PROC ThemKyCong(@Nam VARCHAR(5),
+    @Thang VARCHAR(2),
+    @KetQua INT OUTPUT)
+AS
+BEGIN
+    BEGIN TRANSACTION
+    BEGIN TRY
+        INSERT INTO KyCong
+        (KyCong_Nam, KyCong_Thang, KyCong_SoNgayCong, KyCong_TrangThaiXoa)
+    VALUES
+        (@Nam, @Thang, dbo.SoNgayCong(@Nam, @Thang), 0)
+        COMMIT TRANSACTION
+        SELECT @KetQua = KyCong_MaKyCong
+    FROM KyCong
+    WHERE KyCong_Nam = @Nam AND KyCong_Thang = @Thang
+    END TRY
+    BEGIN CATCH
+        IF @@TRANCOUNT > 0
+        BEGIN
+        ROLLBACK TRANSACTION
+    END
+        SET @KetQua = -1
+    END CATCH
+END
+GO
 
+
+CREATE PROC CapNhatKyCong(@MaKyCong INT,
+    @Nam INT,
+    @Thang INT,
+    @KetQua INT OUTPUT)
+AS
+BEGIN
+    BEGIN TRANSACTION
+    BEGIN TRY
+        UPDATE KyCong SET KyCong_Nam = @Nam, KyCong_Thang = @Thang WHERE KyCong_MaKyCong = @MaKyCong
+        COMMIT TRANSACTION
+        SET @KetQua = 1
+    END TRY
+    BEGIN CATCH
+    IF @@TRANCOUNT > 0
+    BEGIN
+        ROLLBACK TRANSACTION
+    END
+    SET @KetQua = 0
+    END CATCH
+END
+GO
+
+CREATE PROC CapNhatTrangThaiKyCong(@Nam VARCHAR(5),
+    @Thang VARCHAR(2),
+    @KetQua INT OUTPUT)
+AS
+BEGIN
+    BEGIN TRANSACTION
+    BEGIN TRY
+        DECLARE @TrangThai INT
+        SELECT @TrangThai = KyCong_TrangThaiXoa
+    FROM KyCong
+    WHERE KyCong_Nam = CONVERT(INT, @Nam) AND KyCong_Thang = CONVERT(INT, @Thang)
+        UPDATE KyCong SET KyCong_TrangThaiXoa = CASE WHEN @TrangThai = 1 THEN 0 ELSE 1 END WHERE KyCong_Nam = CONVERT(INT, @Nam) AND KyCong_Thang = CONVERT(INT, @Thang)
+        COMMIT TRANSACTION
+        SET @KetQua = 1
+    END TRY
+    BEGIN CATCH
+    IF @@TRANCOUNT > 0
+    BEGIN
+        ROLLBACK TRANSACTION
+    END
+    SET @KetQua = 0
+    END CATCH
+END
+GO
 -- KyCongChiTiet
+CREATE PROC ThongKeCong(@KyCong INT,
+    @ThaoTac INT,
+    @KetQua INT OUTPUT)
+AS
+BEGIN
+    DECLARE @ThongKeChiTiet TABLE (MaNhanVien INT,
+        MaKyCong INT,
+        HoVaTen NVARCHAR(50),
+        Day1 CHAR(2),
+        Day2 CHAR(2),
+        Day3 CHAR(2),
+        Day4 CHAR(2),
+        Day5 CHAR(2),
+        Day6 CHAR(2),
+        Day7 CHAR(2),
+        Day8 CHAR(2),
+        Day9 CHAR(2),
+        Day10 CHAR(2),
+        Day11 CHAR(2),
+        Day12 CHAR(2),
+        Day13 CHAR(2),
+        Day14 CHAR(2),
+        Day15 CHAR(2),
+        Day16 CHAR(2),
+        Day17 CHAR(2),
+        Day18 CHAR(2),
+        Day19 CHAR(2),
+        Day20 CHAR(2),
+        Day21 CHAR(2),
+        Day22 CHAR(2),
+        Day23 CHAR(2),
+        Day24 CHAR(2),
+        Day25 CHAR(2),
+        Day26 CHAR(2),
+        Day27 CHAR(2),
+        Day28 CHAR(2),
+        Day29 CHAR(2),
+        Day30 CHAR(2),
+        Day31 CHAR(2),
+        SoNgayLam INT,
+        SoNgayDiLam INT,
+        SoNgayNghi INT,
+        SoNgayCN INT,
+        TongCong INT)
+
+    DECLARE @SoNgay INT, @Thang VARCHAR(2), @Nam VARCHAR(5), @SoNV INT, @NhanVienID INT, @Dem INT, @Check VARCHAR(50), @Giatri CHAR(2), @NgayCN INT, @NgayThuong INT
+
+    SELECT @Thang = RIGHT('0' + CONVERT(varchar(2), KyCong_Thang), 2), @Nam = CONVERT(varchar(5), KyCong_Nam)
+    FROM KyCong
+    WHERE KyCong_MaKyCong = @KyCong
+    SET @SoNgay = dbo.soNgayTrongThang(@Nam, @Thang)
+    SELECT @SoNV = COUNT(DISTINCT ChamCong_NhanVien), @NhanVienID = MIN(ChamCong_NhanVien)
+    FROM ChamCong
+    WHERE ChamCong_KyCong = @KyCong
+    while @NhanVienID is not null
+    BEGIN
+        INSERT INTO @ThongKeChiTiet
+            (MaNhanVien, MaKyCong, HoVaTen)
+        VALUES
+            (@NhanVienID, @KyCong, (SELECT NhanVien_HoTen
+                FROM NhanVien
+                WHERE NhanVien_ID = @NhanVienID))
+        SET @Dem = 1
+        SET @NgayCN = 0
+        SET @NgayThuong = 0
+        while @Dem <= @SoNgay
+        BEGIN
+            SET @Giatri = NULL
+            SELECT @Check = ChamCong_GioChamCong
+            FROM ChamCong
+            WHERE ChamCong_NhanVien = @NhanVienID AND ChamCong_KyCong = @KyCong AND ChamCong_Ngay = @Dem
+            IF @Check != ''
+                BEGIN
+                IF dbo.KT_NgayTrongTuan(@Nam, @Thang, RIGHT('0'+CONVERT(VARCHAR(2), @Dem), 2)) = 1
+                    BEGIN
+                    SET @NgayCN = @NgayCN + 1
+                    SET @Giatri = 'CN'
+                END
+                    ELSE
+                    BEGIN
+                    SET @NgayThuong = @NgayThuong + 1
+                    SET @Giatri = 'X'
+                END
+
+            END
+            ELSE
+                BEGIN
+                SET @Giatri = 'V'
+            END
+            UPDATE @ThongKeChiTiet SET 
+                    Day1 = CASE WHEN @Dem = 1 THEN @Giatri ELSE Day1 END, Day2 = CASE WHEN @Dem = 2 THEN @Giatri ELSE Day2 END, Day3 = CASE WHEN @Dem = 3 THEN @Giatri ELSE Day3 END,
+                    Day4 = CASE WHEN @Dem = 4 THEN @Giatri ELSE Day4 END, Day5 = CASE WHEN @Dem = 5 THEN @Giatri ELSE Day5 END, Day6 = CASE WHEN @Dem = 6 THEN @Giatri ELSE Day6 END,
+                    Day7 = CASE WHEN @Dem = 7 THEN @Giatri ELSE Day7 END, Day8 = CASE WHEN @Dem = 8 THEN @Giatri ELSE Day8 END, Day9 = CASE WHEN @Dem = 9 THEN @Giatri ELSE Day9 END,
+                    Day10 = CASE WHEN @Dem = 10 THEN @Giatri ELSE Day10 END, Day11 = CASE WHEN @Dem = 11 THEN @Giatri ELSE Day11 END, Day12 = CASE WHEN @Dem = 12 THEN @Giatri ELSE Day12 END,
+                    Day13 = CASE WHEN @Dem = 13 THEN @Giatri ELSE Day13 END, Day14 = CASE WHEN @Dem = 14 THEN @Giatri ELSE Day14 END, Day15 = CASE WHEN @Dem = 15 THEN @Giatri ELSE Day15 END,
+                    Day16 = CASE WHEN @Dem = 16 THEN @Giatri ELSE Day16 END, Day17 = CASE WHEN @Dem = 17 THEN @Giatri ELSE Day17 END, Day18 = CASE WHEN @Dem = 18 THEN @Giatri ELSE Day18 END,
+                    Day19 = CASE WHEN @Dem = 19 THEN @Giatri ELSE Day19 END, Day20 = CASE WHEN @Dem = 20 THEN @Giatri ELSE Day20 END, Day21 = CASE WHEN @Dem = 21 THEN @Giatri ELSE Day21 END,
+                    Day22 = CASE WHEN @Dem = 22 THEN @Giatri ELSE Day22 END, Day23 = CASE WHEN @Dem = 23 THEN @Giatri ELSE Day23 END, Day24 = CASE WHEN @Dem = 24 THEN @Giatri ELSE Day24 END,
+                    Day25 = CASE WHEN @Dem = 25 THEN @Giatri ELSE Day25 END, Day26 = CASE WHEN @Dem = 26 THEN @Giatri ELSE Day26 END, Day27 = CASE WHEN @Dem = 27 THEN @Giatri ELSE Day27 END,
+                    Day28 = CASE WHEN @Dem = 28 THEN @Giatri ELSE Day28 END, Day29 = CASE WHEN @Dem = 29 THEN @Giatri ELSE Day29 END, Day30 = CASE WHEN @Dem = 30 THEN @Giatri ELSE Day30 END,
+                    Day31 = CASE WHEN @Dem = 31 THEN @Giatri ELSE Day31 END
+                    WHERE MaNhanVien = @NhanVienID
+            SET @Dem = @Dem + 1
+        END
+        UPDATE @ThongKeChiTiet SET 
+            SoNgayLam = (SELECT KyCong_SoNgayCong
+        FROM KyCong
+        WHERE KyCong_MaKyCong = @KyCong),
+            SoNgayDiLam = @NgayThuong,
+            SoNgayNghi = (SELECT KyCong_SoNgayCong
+        FROM KyCong
+        WHERE KyCong_MaKyCong = @KyCong) - @NgayThuong,
+            SoNgayCN = @NgayCN,
+            TongCong = @NgayThuong + @NgayCN
+            WHERE MaNhanVien = @NhanVienID
+        SELECT @NhanVienID = MIN(ChamCong_NhanVien)
+        FROM ChamCong
+        WHERE ChamCong_NhanVien > @NhanVienID
+    END
+    SELECT *
+    FROM @ThongKeChiTiet
+    IF @ThaoTac = 0
+    BEGIN
+        BEGIN TRANSACTION
+        BEGIN TRY
+            INSERT INTO KyCongChiTiet
+            (KyCongChiTiet_NhanVien, KyCongChiTiet_KyCong, KyCongChiTiet_NgayNghi, KyCongChiTiet_CongChuNhat, KyCongChiTiet_NgayCongThucTe)
+        SELECT MaNhanVien, MaKyCong, SoNgayNghi, SoNgayCN, SoNgayDiLam
+        FROM @ThongKeChiTiet
+            COMMIT TRANSACTION
+            SET @KetQua = 1
+        END TRY
+        BEGIN CATCH
+            IF(@@TRANCOUNT > 0)
+            BEGIN
+            ROLLBACK TRANSACTION
+        END
+            SET @KetQua = 0
+        END CATCH
+    END
+    ELSE
+    BEGIN
+        IF @ThaoTac = 1
+        BEGIN
+            BEGIN TRANSACTION
+            BEGIN TRY
+                UPDATE KyCongChiTiet SET KyCongChiTiet_NgayNghi = B.SoNgayNghi, KyCongChiTiet_CongChuNhat = B.SoNgayCN, KyCongChiTiet_NgayCongThucTe = B.SoNgayDiLam
+                FROM KyCongChiTiet AS A INNER JOIN @ThongKeChiTiet AS B ON A.KyCongChiTiet_NhanVien = B.MaNhanVien AND A.KyCongChiTiet_KyCong = B.MaKyCong
+                COMMIT TRANSACTION
+                SET @KetQua = 1
+            END TRY
+            BEGIN CATCH
+                IF(@@TRANCOUNT > 0)
+                BEGIN
+                ROLLBACK TRANSACTION
+            END
+                SET @KetQua = 0
+
+            END CATCH
+        END
+    END
+END
+GO
+
+CREATE PROC XoaKCCT(@MaKyCong INT,
+    @KetQua INT OUTPUT)
+AS
+BEGIN
+    BEGIN TRANSACTION
+    BEGIN TRY
+        DELETE FROM KyCongChiTiet WHERE KyCongChiTiet_KyCong = @MaKyCong
+        COMMIT TRANSACTION
+        SET @KetQua = 1
+    END TRY
+    BEGIN CATCH
+    IF @@TRANCOUNT > 0
+        BEGIN
+        ROLLBACK TRANSACTION
+    END
+    SET @KetQua = 0
+    END CATCH
+END
+GO
+
 
 -- ChamCong
+CREATE PROC PhatSinhKyCong
+    (@KyCong INT)
+AS
+BEGIN
+    declare @idNhanVien int, @DemNgay INT, @SoNgay INT, @Thang VARCHAR(2), @Nam VARCHAR(5)
+    SELECT @Thang = RIGHT('0' + CONVERT(varchar(2), KyCong_Thang), 2), @Nam = CONVERT(varchar(5), KyCong_Nam)
+    FROM KyCong
+    WHERE KyCong_MaKyCong = @KyCong
+    SET @SoNgay = dbo.SoNgayTrongThang(@Nam, @Thang)
+    select @idNhanVien = min( NhanVien_ID )
+    from NhanVien
+    while @idNhanVien is not null
+    begin
+        SET @DemNgay = 1
+        while @DemNgay <= @SoNgay
+        BEGIN
+            INSERT INTO ChamCong
+                (ChamCong_Ngay, ChamCong_GioChamCong, ChamCong_NhanVien, ChamCong_KyCong)
+            VALUES
+                (@DemNgay, '' , @idNhanVien, @KyCong)
+            SET @DemNgay = @DemNgay + 1
+        END
+        select @idNhanVien = min( NhanVien_ID )
+        from NhanVien
+        where NhanVien_ID > @idNhanVien
+    end
+END;
+GO
 
+CREATE PROC XoaChamCong(@MaKyCong INT,
+    @KetQua INT OUTPUT)
+AS
+BEGIN
+    BEGIN TRANSACTION
+    BEGIN TRY
+        DELETE FROM ChamCong WHERE ChamCong_KyCong = @MaKyCong
+        COMMIT TRANSACTION
+        SET @KetQua = 1
+    END TRY
+    BEGIN CATCH
+    IF @@TRANCOUNT > 0
+        BEGIN
+        ROLLBACK TRANSACTION
+    END
+    SET @KetQua = 0
+    END CATCH
+END
+GO
+
+CREATE PROC CapNhatChamCong(@NhanVien INT,
+    @KyCong INT,
+    @Ngay VARCHAR(2),
+    @GiaTri VARCHAR(5),
+    @KetQua INT OUTPUT)
+AS
+BEGIN
+    BEGIN TRANSACTION
+    BEGIN TRY
+        UPDATE ChamCong SET ChamCong_GioChamCong = @GiaTri WHERE ChamCong_Ngay = @Ngay AND ChamCong_NhanVien = @NhanVien AND ChamCong_KyCong = @KyCong
+        SET @KetQua = 1
+        COMMIT TRANSACTION
+    END TRY
+    BEGIN CATCH
+    IF(@@TRANCOUNT > 0)
+    BEGIN
+        ROLLBACK TRANSACTION
+    END
+    SET @KetQua = 0
+    END CATCH
+END
+GO
+--Hàm
+
+CREATE FUNCTION Find_MaKyCong(@Nam VARCHAR(5), @Thang VARCHAR(2))
+RETURNS INT
+AS
+BEGIN
+    DECLARE @ma INT
+    SELECT @ma = KyCong_MaKyCong
+    FROM KyCong
+    WHERE KyCong_Nam = CONVERT(INT, @Nam) AND KyCong_Thang = CONVERT(INT, @Thang)
+    RETURN @ma
+END
+GO
+
+CREATE FUNCTION KT_PhatSinhKyCong(@KyCong_ID INT)
+RETURNS INT
+AS
+BEGIN
+    DECLARE @Check INT
+    SELECT @Check = ChamCong_KyCong
+    FROM ChamCong
+    WHERE ChamCong_KyCong = @KyCong_ID
+    IF @Check IS NOT NULL
+    SET @Check = 1
+    ELSE
+    SET @Check = 0
+    RETURN @Check
+END
+GO
+
+
+CREATE FUNCTION KT_NgayTrongTuan (@Nam VARCHAR(5), @Thang VARCHAR(2), @Ngay VARCHAR(2))
+RETURNS INT
+AS
+BEGIN
+    RETURN DATEPART(w, @Nam + '-' + @Thang + '-' + @Ngay)
+END
+GO
+
+CREATE FUNCTION SoNgayTrongThang(@Nam VARCHAR(5), @Thang VARCHAR(2))
+RETURNS INT
+AS
+BEGIN
+    DECLARE @SoNgay INT
+    SET @SoNgay = DAY(EOMONTH(@Nam + @Thang + '01'))
+    RETURN @SoNgay
+END
+GO
+
+CREATE FUNCTION SoNgayCong(@Nam VARCHAR(5), @Thang VARCHAR(2))
+RETURNS INT
+AS
+BEGIN
+    DECLARE @SoNgayTrongThang INT, @SoCN INT, @Dem INT
+    SET @SoNgayTrongThang = dbo.SoNgayTrongThang(@Nam, @Thang)
+    SET @SoCN = 0
+    SET @Dem = 1
+    while @Dem <= @SoNgayTrongThang
+    BEGIN
+        IF dbo.KT_NgayTrongTuan(@Nam, @Thang, RIGHT('0'+CONVERT(VARCHAR(2), @Dem), 2)) = 1
+        BEGIN
+            SET @SoCN = @SoCN + 1
+        END
+        SET @Dem = @Dem + 1
+    END
+    RETURN @SoNgayTrongThang - @SoCN
+END
+GO
+
+CREATE FUNCTION TK_KyCong(@Nam VARCHAR(5), @Thang VARCHAR(2))
+RETURNS INT
+AS
+BEGIN
+    DECLARE @MaKyCong INT, @TrangThaiXoa BIT
+    SELECT @MaKyCong = KyCong_MaKyCong, @TrangThaiXoa = KyCong_TrangThaiXoa
+    FROM KyCong
+    WHERE KyCong_Nam = CONVERT(INT, @Nam) AND KyCong_Thang = CONVERT(INT, @Thang)
+    IF @MaKyCong IS NOT NULL
+        BEGIN
+        IF @TrangThaiXoa = 1
+            BEGIN
+            RETURN -1
+        -- tồn tại ở trạng thái xóa
+        END
+        RETURN @MaKyCong
+    -- đã tồn tại ở trạng thái chưa xóa
+    END
+    RETURN -2
+-- Không tìm thấy
+END
+GO
 -- <Dung>
 -- LoaiTangCa
 -- ChucVu

@@ -97,9 +97,30 @@ namespace ProjectHRM
 
         }
 
-        private void label1_Click(object sender, EventArgs e)
+        private void MoFormCon(Form formcon, object btsender)
         {
+            if (FormMo != null)
+            {
+                FormMo.Close();
+            }
+            FormMo = formcon;
+            formcon.TopLevel = false;
+            formcon.FormBorderStyle = FormBorderStyle.None;
+            formcon.Dock = DockStyle.Fill;
+            this.splitContainer2.Panel2.Controls.Add(formcon);
+            formcon.Show();
+            labelTile.Text = formcon.Text;
+            btclose.Visible = true;
+        }
 
+        private void btTT_Click(object sender, EventArgs e)
+        {
+            MoFormCon(new KyCongHRM(), sender);
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            MoFormCon(new ChitietHRM(), sender);
         }
     }
 }

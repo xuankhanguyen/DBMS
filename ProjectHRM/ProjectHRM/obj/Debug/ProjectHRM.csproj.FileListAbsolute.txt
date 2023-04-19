@@ -19,3 +19,5 @@
 \\Mac\Home\Desktop\DBMS\DBMS\ProjectHRM\ProjectHRM\obj\Debug\ProjectHRM.csproj.CoreCompileInputs.cache
 \\Mac\Home\Desktop\DBMS\DBMS\ProjectHRM\ProjectHRM\obj\Debug\ProjectHRM.exe
 \\Mac\Home\Desktop\DBMS\DBMS\ProjectHRM\ProjectHRM\obj\Debug\ProjectHRM.pdb
+\\Mac\Home\Desktop\DBMS\DBMS\ProjectHRM\ProjectHRM\obj\Debug\ProjectHRM.KyCongHRM.resources
+\\Mac\Home\Desktop\DBMS\DBMS\ProjectHRM\ProjectHRM\obj\Debug\ProjectHRM.ChitietHRM.resources
