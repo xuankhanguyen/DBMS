@@ -1,8 +1,8 @@
 -- Tạo CSDL
-CREATE DATABASE QLNS1
+CREATE DATABASE QLNS
 GO
 -- Sử dụng CSDL
-USE QLNS1
+USE QLNS
 GO
 
 -- Thực hiện tạo bảng
