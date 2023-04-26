@@ -1570,7 +1570,7 @@ AS
 SELECT PhanQuyen_ID, PhanQuyen_TenQuyen
 FROM PhanQuyen
 GO
--- tìm kiếu theo ID
+-- tìm kiếu loai tăng ca
 CREATE PROCEDURE TimKiemLoaiTangCa
     @timKiem nvarchar(20)
 AS
