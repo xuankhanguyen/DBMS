@@ -54,3 +54,7 @@ D:\Year2\He_quan_tri_co_so_du_lieu\QLNS_git\DBMS\ProjectHRM\ProjectHRM\obj\Debug
 \\Mac\Home\Documents\DBMS\ProjectHRM\ProjectHRM\bin\Debug\ProjectHRM.exe
 \\Mac\Home\Documents\DBMS\ProjectHRM\ProjectHRM\bin\Debug\ProjectHRM.pdb
 \\Mac\Home\Documents\DBMS\ProjectHRM\ProjectHRM\obj\Debug\ProjectHRM.Form1.resources
+C:\Users\kira\Documents\GitHub\DBMS\ProjectHRM\ProjectHRM\obj\Debug\ProjectHRM.csproj.AssemblyReference.cache
+C:\Users\kira\Documents\GitHub\DBMS\ProjectHRM\ProjectHRM\obj\Debug\ProjectHRM.csproj.SuggestedBindingRedirects.cache
+C:\Users\kira\Documents\GitHub\DBMS\ProjectHRM\ProjectHRM\obj\Debug\ProjectHRM.exe
+C:\Users\kira\Documents\GitHub\DBMS\ProjectHRM\ProjectHRM\obj\Debug\ProjectHRM.pdb

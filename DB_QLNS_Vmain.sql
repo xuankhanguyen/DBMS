@@ -1610,4 +1610,18 @@ BEGIN
     END CATCH
 END
 GO
+-- Tìm kiếm tài khoản
+CREATE PROCEDURE TimKiemTaiKhoan
+    @timKiem VARCHAR(50)
+AS
+BEGIN
+    BEGIN TRY
+        SELECT * FROM TaiKhoan
+        WHERE TaiKhoan_SoTK = @timKiem OR TaiKhoan_NhanVien = @timKiem
+    END TRY
+    BEGIN CATCH
+        SELECT ERROR_MESSAGE()
+    END CATCH
+END
+GO
 -- thêm đăng nhập
