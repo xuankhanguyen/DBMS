@@ -950,9 +950,9 @@ GO
 CREATE PROC hienthiluong
 AS
 SELECT * FROM Luong_HienThi()
-
-EXEC hienthiluong
 GO
+-- EXEC hienthiluong
+-- GO
 
 -- <Tuan>
 -- KyCong
