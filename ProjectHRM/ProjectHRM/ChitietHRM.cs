@@ -32,7 +32,7 @@ namespace ProjectHRM
             InitializeComponent();
         }
         // Chuỗi kết nối
-        string sqlCon = @"Data Source=10.211.55.2,1433;Initial Catalog=QLNS1;User ID=sa;Password=Docker123";
+        string sqlCon = @"Data Source=LAPTOP-SH0M4EMV\SQLEXPRESS;Initial Catalog=QLNS;Integrated Security=True";
         // Đối tượng kết nối
         SqlConnection conn = null;
         // Đối tượng hiển thị dữ liệu lên Form
