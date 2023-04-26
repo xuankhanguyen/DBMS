@@ -53,7 +53,7 @@
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer1.IsSplitterFixed = true;
             this.splitContainer1.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer1.Margin = new System.Windows.Forms.Padding(2);
+            this.splitContainer1.Margin = new System.Windows.Forms.Padding(4);
             this.splitContainer1.Name = "splitContainer1";
             this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -71,9 +71,9 @@
             // 
             this.splitContainer1.Panel2.BackColor = System.Drawing.SystemColors.ControlLight;
             this.splitContainer1.Panel2.Controls.Add(this.dtGridView);
-            this.splitContainer1.Size = new System.Drawing.Size(638, 428);
-            this.splitContainer1.SplitterDistance = 85;
-            this.splitContainer1.SplitterWidth = 1;
+            this.splitContainer1.Size = new System.Drawing.Size(1276, 823);
+            this.splitContainer1.SplitterDistance = 163;
+            this.splitContainer1.SplitterWidth = 2;
             this.splitContainer1.TabIndex = 0;
             // 
             // btnCancel
@@ -85,10 +85,10 @@
             this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCancel.ForeColor = System.Drawing.Color.Blue;
-            this.btnCancel.Location = new System.Drawing.Point(410, 48);
-            this.btnCancel.Margin = new System.Windows.Forms.Padding(2);
+            this.btnCancel.Location = new System.Drawing.Point(820, 92);
+            this.btnCancel.Margin = new System.Windows.Forms.Padding(4);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(96, 36);
+            this.btnCancel.Size = new System.Drawing.Size(196, 70);
             this.btnCancel.TabIndex = 8;
             this.btnCancel.Text = "Hủy";
             this.btnCancel.UseVisualStyleBackColor = true;
@@ -103,10 +103,10 @@
             this.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSave.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.btnSave.Location = new System.Drawing.Point(282, 49);
-            this.btnSave.Margin = new System.Windows.Forms.Padding(2);
+            this.btnSave.Location = new System.Drawing.Point(564, 94);
+            this.btnSave.Margin = new System.Windows.Forms.Padding(4);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(96, 36);
+            this.btnSave.Size = new System.Drawing.Size(226, 68);
             this.btnSave.TabIndex = 7;
             this.btnSave.Text = "Lưu";
             this.btnSave.UseVisualStyleBackColor = true;
@@ -121,10 +121,10 @@
             this.btnDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnDelete.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnDelete.ForeColor = System.Drawing.Color.IndianRed;
-            this.btnDelete.Location = new System.Drawing.Point(524, 11);
-            this.btnDelete.Margin = new System.Windows.Forms.Padding(2);
+            this.btnDelete.Location = new System.Drawing.Point(1038, 19);
+            this.btnDelete.Margin = new System.Windows.Forms.Padding(4);
             this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(96, 66);
+            this.btnDelete.Size = new System.Drawing.Size(205, 143);
             this.btnDelete.TabIndex = 6;
             this.btnDelete.Text = "Xóa";
             this.btnDelete.UseVisualStyleBackColor = true;
@@ -139,10 +139,10 @@
             this.btnEdit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnEdit.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnEdit.ForeColor = System.Drawing.Color.Yellow;
-            this.btnEdit.Location = new System.Drawing.Point(410, 10);
-            this.btnEdit.Margin = new System.Windows.Forms.Padding(2);
+            this.btnEdit.Location = new System.Drawing.Point(820, 19);
+            this.btnEdit.Margin = new System.Windows.Forms.Padding(4);
             this.btnEdit.Name = "btnEdit";
-            this.btnEdit.Size = new System.Drawing.Size(96, 36);
+            this.btnEdit.Size = new System.Drawing.Size(196, 67);
             this.btnEdit.TabIndex = 5;
             this.btnEdit.Text = "Sửa";
             this.btnEdit.UseVisualStyleBackColor = true;
@@ -157,10 +157,10 @@
             this.btnAdd.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAdd.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAdd.ForeColor = System.Drawing.Color.LightSeaGreen;
-            this.btnAdd.Location = new System.Drawing.Point(282, 10);
-            this.btnAdd.Margin = new System.Windows.Forms.Padding(2);
+            this.btnAdd.Location = new System.Drawing.Point(564, 19);
+            this.btnAdd.Margin = new System.Windows.Forms.Padding(4);
             this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(96, 36);
+            this.btnAdd.Size = new System.Drawing.Size(226, 67);
             this.btnAdd.TabIndex = 4;
             this.btnAdd.Text = "Thêm";
             this.btnAdd.UseVisualStyleBackColor = true;
@@ -173,9 +173,9 @@
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Margin = new System.Windows.Forms.Padding(2);
+            this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(262, 84);
+            this.panel1.Size = new System.Drawing.Size(524, 162);
             this.panel1.TabIndex = 10;
             // 
             // cbbNam
@@ -183,10 +183,10 @@
             this.cbbNam.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.cbbNam.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbbNam.FormattingEnabled = true;
-            this.cbbNam.Location = new System.Drawing.Point(76, 14);
-            this.cbbNam.Margin = new System.Windows.Forms.Padding(2);
+            this.cbbNam.Location = new System.Drawing.Point(152, 27);
+            this.cbbNam.Margin = new System.Windows.Forms.Padding(4);
             this.cbbNam.Name = "cbbNam";
-            this.cbbNam.Size = new System.Drawing.Size(156, 32);
+            this.cbbNam.Size = new System.Drawing.Size(308, 50);
             this.cbbNam.TabIndex = 2;
             // 
             // cbbThang
@@ -207,10 +207,10 @@
             "10",
             "11",
             "12"});
-            this.cbbThang.Location = new System.Drawing.Point(76, 49);
-            this.cbbThang.Margin = new System.Windows.Forms.Padding(2);
+            this.cbbThang.Location = new System.Drawing.Point(152, 94);
+            this.cbbThang.Margin = new System.Windows.Forms.Padding(4);
             this.cbbThang.Name = "cbbThang";
-            this.cbbThang.Size = new System.Drawing.Size(156, 32);
+            this.cbbThang.Size = new System.Drawing.Size(308, 50);
             this.cbbThang.TabIndex = 3;
             // 
             // label2
@@ -218,10 +218,10 @@
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.label2.Location = new System.Drawing.Point(10, 48);
-            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label2.Location = new System.Drawing.Point(20, 92);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(65, 24);
+            this.label2.Size = new System.Drawing.Size(126, 44);
             this.label2.TabIndex = 1;
             this.label2.Text = "Tháng";
             // 
@@ -230,10 +230,10 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.label1.Location = new System.Drawing.Point(23, 15);
-            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label1.Location = new System.Drawing.Point(46, 29);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(50, 24);
+            this.label1.Size = new System.Drawing.Size(100, 44);
             this.label1.TabIndex = 0;
             this.label1.Text = "Năm";
             // 
@@ -242,23 +242,23 @@
             this.dtGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dtGridView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dtGridView.Location = new System.Drawing.Point(0, 0);
-            this.dtGridView.Margin = new System.Windows.Forms.Padding(2);
+            this.dtGridView.Margin = new System.Windows.Forms.Padding(4);
             this.dtGridView.Name = "dtGridView";
             this.dtGridView.RowHeadersWidth = 82;
             this.dtGridView.RowTemplate.Height = 33;
-            this.dtGridView.Size = new System.Drawing.Size(638, 342);
+            this.dtGridView.Size = new System.Drawing.Size(1276, 658);
             this.dtGridView.TabIndex = 0;
             this.dtGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_CellClick);
             // 
             // KyCongHRM
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Silver;
-            this.ClientSize = new System.Drawing.Size(638, 428);
+            this.ClientSize = new System.Drawing.Size(1276, 823);
             this.ControlBox = false;
             this.Controls.Add(this.splitContainer1);
-            this.Margin = new System.Windows.Forms.Padding(2);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "KyCongHRM";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "KyCongHRM";

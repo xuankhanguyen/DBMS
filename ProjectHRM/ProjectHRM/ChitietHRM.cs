@@ -16,23 +16,12 @@ namespace ProjectHRM
     public partial class ChitietHRM : Form
     {
         private string nam, thang;
-        public string Nam
-        {
-            get { return nam; }
-            set { nam = value; }
-        }
-        public string Thang
-        {
-            get { return thang; }
-            set { thang = value; }
-        }
 
         public ChitietHRM()
         {
             InitializeComponent();
         }
-        // Chuỗi kết nối
-        string sqlCon = @"Data Source=LAPTOP-SH0M4EMV\SQLEXPRESS;Initial Catalog=QLNS;Integrated Security=True";
+      
         // Đối tượng kết nối
         SqlConnection conn = null;
         // Đối tượng hiển thị dữ liệu lên Form
@@ -54,19 +43,26 @@ namespace ProjectHRM
             if (conn.State == ConnectionState.Open)
                 conn.Close();
             conn.Open();
-            SqlCommand cmd = new SqlCommand();
-            string query = "SELECT dbo.TK_KyCong(@Nam, @Thang)";
-            cmd.Connection = conn;
-            cmd.CommandType = CommandType.Text;
-            cmd.CommandText = query;
-            cmd.Parameters.AddWithValue("@Nam", nam);
-            cmd.Parameters.AddWithValue("@Thang", thang);
-            kq = (int)cmd.ExecuteScalar();
+            try
+            {
+                SqlCommand cmd = new SqlCommand();
+                string query = "SELECT dbo.TK_KyCong(@Nam, @Thang)";
+                cmd.Connection = conn;
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = query;
+                cmd.Parameters.AddWithValue("@Nam", nam);
+                cmd.Parameters.AddWithValue("@Thang", thang);
+                kq = (int)cmd.ExecuteScalar();
+            }catch (SqlException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
         void LoadData()
         {
-            //Tạo kết nối
-            conn = new SqlConnection(sqlCon);
+            // Mở kết nối
+            if (conn.State == ConnectionState.Open)
+                conn.Close();
             conn.Open();
             Tk_KyCong();
             try
@@ -93,43 +89,52 @@ namespace ProjectHRM
                 }
                 
             }
-            catch (SqlException)
+            catch (SqlException ex)
             {
-                MessageBox.Show("Không kết nối lấy được dữ liệu từ bảng Ky Cong Chi tiet", "Lỗi dữ liệu!");
+                MessageBox.Show("Không kết nối lấy được dữ liệu từ bảng Ky Cong Chi tiet " + ex.Message, "Lỗi dữ liệu!");
             }
         }
         private void ChitietHRM_Load(object sender, EventArgs e)
         {
-            nam = "2022";
-            thang = "06";
+            //nam = "2022";
+            //thang = "07";
 
-            ThaoTac = 2;
-            LoadData();
+            //ThaoTac = 2;
+            //LoadData();
             //
-            SqlCommand cmd2 = new SqlCommand("SELECT * FROM DS_KyCong", conn);
-            adStore = new SqlDataAdapter(cmd2);
-            dtStore = new DataTable();
-            adStore.Fill(dtStore);
-            List<string> dsNam = new List<string>();
-            List<string> dsthang = new List<string>();
-            foreach (DataRow dr in dtStore.Rows)
+            //Tạo kết nối
+            conn = DBUtils.GetDBConnection();
+            conn.Open();
+            try
             {
-                String value = dr["KyCong_Nam"].ToString();
-                if (!dsNam.Contains(value))
+                SqlCommand cmd2 = new SqlCommand("SELECT * FROM DS_KyCong", conn);
+                adStore = new SqlDataAdapter(cmd2);
+                dtStore = new DataTable();
+                adStore.Fill(dtStore);
+                List<string> dsNam = new List<string>();
+                List<string> dsthang = new List<string>();
+                foreach (DataRow dr in dtStore.Rows)
                 {
-                    dsNam.Add(value);
+                    String value = dr["KyCong_Nam"].ToString();
+                    if (!dsNam.Contains(value))
+                    {
+                        dsNam.Add(value);
+                    }
+                    String value1 = dr["KyCong_Thang"].ToString();
+                    if (!dsthang.Contains(value1))
+                    {
+                        dsthang.Add(value1);
+                    }
                 }
-                String value1 = dr["KyCong_Thang"].ToString();
-                if (!dsthang.Contains(value1))
-                {
-                    dsthang.Add(value1);
-                }
-            }
-            cbbNam.DataSource = dsNam;
-            cbbThang.DataSource = dsthang;
+                cbbNam.DataSource = dsNam;
+                cbbThang.DataSource = dsthang;
 
-            cbbNam.SelectedIndex = cbbNam.FindString(nam);
-            cbbThang.SelectedIndex = cbbThang.FindString(thang.TrimStart(new char[] { '0' }));
+                //cbbNam.SelectedIndex = cbbNam.FindString(nam);
+                //cbbThang.SelectedIndex = cbbThang.FindString(thang.TrimStart(new char[] { '0' }));
+            }catch (SqlException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void dtGridView_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -140,7 +145,9 @@ namespace ProjectHRM
             if (conn.State == ConnectionState.Open)
                 conn.Close();
             conn.Open();
-            SqlCommand cmd1 = new SqlCommand();
+            try
+            {
+                SqlCommand cmd1 = new SqlCommand();
             string query1 = "SELECT dbo.soNgayTrongThang(@Nam, @Thang)";
             cmd1.Connection = conn;
             cmd1.CommandType = CommandType.Text;
@@ -149,7 +156,7 @@ namespace ProjectHRM
             cmd1.Parameters.AddWithValue("@Thang", "0"+thang);
             giatri = (int)cmd1.ExecuteScalar();
             // Kiểm tra xem người dùng đã nhấn vào ô có ComboBox hay không
-            if (e.ColumnIndex >= 3 && e.ColumnIndex <= giatri && e.RowIndex < dtGridView.Rows.Count - 1 && e.RowIndex != -1)
+            if (e.ColumnIndex >= 3 && e.ColumnIndex <= giatri+3 && e.RowIndex < dtGridView.Rows.Count - 1 && e.RowIndex != -1)
             {
                 SqlCommand cmd = new SqlCommand();
                 string query = "SELECT dbo.KT_NgayTrongTuan(@Nam, @Thang, @Ngay)";
@@ -172,33 +179,41 @@ namespace ProjectHRM
                 }
                 comboBoxCell.Items.Add("V");
                 dtGridView[e.ColumnIndex, e.RowIndex] = comboBoxCell;
+                }
+            }catch (SqlException ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
 
         private void dtGridView_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
             // Kiểm tra xem người dùng đã thay đổi giá trị của ô ComboBox hay không
-            if (e.ColumnIndex >= 3 && e.ColumnIndex <= giatri && e.RowIndex < dtGridView.Rows.Count - 1 && e.RowIndex != -1)
+            if (e.ColumnIndex >= 3 && e.ColumnIndex <= giatri+3 && e.RowIndex < dtGridView.Rows.Count - 1 && e.RowIndex != -1)
             {
                 DataGridViewCell cell = dtGridView.Rows[e.RowIndex].Cells[e.ColumnIndex];
-
-                SqlCommand cmd2 = new SqlCommand("CapNhatChamCong", conn);
-                cmd2.CommandType = CommandType.StoredProcedure;
-                cmd2.Parameters.Add("@NhanVien", SqlDbType.Int).Value = Convert.ToInt32(dtGridView.Rows[e.RowIndex].Cells[0].Value.ToString());
-                cmd2.Parameters.Add("@KyCong", SqlDbType.Int).Value = Convert.ToInt32(dtGridView.Rows[e.RowIndex].Cells[1].Value.ToString());
-                cmd2.Parameters.Add("@Ngay", SqlDbType.Int).Value = e.ColumnIndex - 2;
-                cmd2.Parameters.Add("@GiaTri", SqlDbType.VarChar).Value = cell.Value.ToString().Equals("V") ? "" : "07:00";
-                SqlParameter sqlParameter1 = new SqlParameter("@KetQua", SqlDbType.Int);
-                sqlParameter1.Direction = ParameterDirection.Output;
-                cmd2.Parameters.Add(sqlParameter1);
-                cmd2.ExecuteNonQuery();
-                if ((int)sqlParameter1.Value == 0)
+                try
                 {
-                    MessageBox.Show("Có lỗi hệ thống không thể thực hiện cập nhật dữ liệu!");
-                    return;
+                    SqlCommand cmd2 = new SqlCommand("CapNhatChamCong", conn);
+                    cmd2.CommandType = CommandType.StoredProcedure;
+                    cmd2.Parameters.Add("@NhanVien", SqlDbType.Int).Value = Convert.ToInt32(dtGridView.Rows[e.RowIndex].Cells[0].Value.ToString());
+                    cmd2.Parameters.Add("@KyCong", SqlDbType.Int).Value = Convert.ToInt32(dtGridView.Rows[e.RowIndex].Cells[1].Value.ToString());
+                    cmd2.Parameters.Add("@Ngay", SqlDbType.Int).Value = e.ColumnIndex - 2;
+                    cmd2.Parameters.Add("@GiaTri", SqlDbType.VarChar).Value = cell.Value.ToString().Equals("V") ? "" : "07:00";
+                    SqlParameter sqlParameter1 = new SqlParameter("@KetQua", SqlDbType.Int);
+                    sqlParameter1.Direction = ParameterDirection.Output;
+                    cmd2.Parameters.Add(sqlParameter1);
+                    cmd2.ExecuteNonQuery();
+                    if ((int)sqlParameter1.Value == 0)
+                    {
+                        MessageBox.Show("Có lỗi hệ thống không thể thực hiện cập nhật dữ liệu!");
+                        return;
+                    }
+                    ThaoTac = 1;
+                    LoadData();
+                }catch (SqlException ex) {
+                    MessageBox.Show(ex.Message);
                 }
-                ThaoTac = 1;
-                LoadData();
             }
         }
 
@@ -223,13 +238,16 @@ namespace ProjectHRM
             if (conn.State == ConnectionState.Open)
                 conn.Close();
             conn.Open();
-            SqlCommand cmd = new SqlCommand();
+            try
+            {
+                SqlCommand cmd = new SqlCommand();
             string query = "SELECT dbo.KT_PhatSinhKyCong(@KyCong_ID)";
             cmd.Connection = conn;
             cmd.CommandType = CommandType.Text;
             cmd.CommandText = query;
             cmd.Parameters.AddWithValue("@KyCong_ID", kq);
             int kq1 = (int)cmd.ExecuteScalar();
+            
             if (kq1 == 0)
             {
                 SqlCommand phatsinh = new SqlCommand("PhatSinhKyCong", conn);
@@ -277,6 +295,9 @@ namespace ProjectHRM
                     LoadData();
                     MessageBox.Show("Đã thực hiện phát sinh lại kỳ công");
                 }
+            }
+            }catch(SqlException ex) { 
+                MessageBox.Show(ex.Message);
             }
         }
     }

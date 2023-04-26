@@ -5,6 +5,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,8 +20,6 @@ namespace ProjectHRM
         {
             InitializeComponent();
         }
-        // Chuỗi kết nối
-        string sqlCon = @"Data Source=LAPTOP-SH0M4EMV\SQLEXPRESS;Initial Catalog=QLNS;Integrated Security=True";
         // Đối tượng kết nối
         SqlConnection conn = null;
         // Đối tượng hiển thị dữ liệu lên Form
@@ -71,7 +70,7 @@ namespace ProjectHRM
             try
             {
 
-                conn = new SqlConnection(sqlCon);
+                conn = DBUtils.GetDBConnection();
                 conn.Open();
                 SqlCommand cmd = new SqlCommand("SELECT * FROM DS_KyCong", conn);
                 adStore = new SqlDataAdapter(cmd);
@@ -140,133 +139,139 @@ namespace ProjectHRM
                 if (conn.State == ConnectionState.Open)
                     conn.Close();
                 conn.Open();
-                SqlCommand cmd = new SqlCommand();
-                string Nam = cbbNam.Text.Trim();
-                string Thang = cbbThang.Text.Trim();
+                try{
 
-                // kiểm tra tồn tại
-                string query = "SELECT dbo.TK_KyCong(@Nam, @Thang)";
-                cmd.Connection = conn;
-                cmd.CommandType = CommandType.Text;
-                cmd.CommandText = query;
-                cmd.Parameters.AddWithValue("@Nam", Nam);
-                cmd.Parameters.AddWithValue("@Thang", Thang);
-                int kq = (int)cmd.ExecuteScalar();
-                if (Add) // Thêm dữ liệu
-                {
-                    try
+                    SqlCommand cmd = new SqlCommand();
+                    string Nam = cbbNam.Text.Trim();
+                    string Thang = cbbThang.Text.Trim();
+
+                    // kiểm tra tồn tại
+                    string query = "SELECT dbo.TK_KyCong(@Nam, @Thang)";
+                    cmd.Connection = conn;
+                    cmd.CommandType = CommandType.Text;
+                    cmd.CommandText = query;
+                    cmd.Parameters.AddWithValue("@Nam", Nam);
+                    cmd.Parameters.AddWithValue("@Thang", Thang);
+                    int kq = (int)cmd.ExecuteScalar();
+                    if (Add) // Thêm dữ liệu
                     {
-                       
-                        switch(kq)
+                        try
                         {
-                            case -2: // thực hiện thêm
-                                SqlCommand cmd1 = new SqlCommand("ThemKyCong", conn);
-                                cmd1.CommandType = CommandType.StoredProcedure;
-                                cmd1.Parameters.Add("@Nam", SqlDbType.VarChar).Value = Nam;
-                                cmd1.Parameters.Add("@Thang", SqlDbType.VarChar).Value = Thang;
-                                SqlParameter sqlParameter = new SqlParameter("@KetQua", SqlDbType.Int);
-                                sqlParameter.Direction = ParameterDirection.Output;
-                                cmd1.Parameters.Add(sqlParameter);
-                                cmd1.ExecuteNonQuery();
-                                ResetAllTextBox();
-                                SetBtEdit_Off();
-                                if ((int)sqlParameter.Value == -1)
-                                {
-                                    MessageBox.Show("Có lỗi hệ thống không thể thực hiện thêm dữ liệu!");
+                       
+                            switch(kq)
+                            {
+                                case -2: // thực hiện thêm
+                                    SqlCommand cmd1 = new SqlCommand("ThemKyCong", conn);
+                                    cmd1.CommandType = CommandType.StoredProcedure;
+                                    cmd1.Parameters.Add("@Nam", SqlDbType.VarChar).Value = Nam;
+                                    cmd1.Parameters.Add("@Thang", SqlDbType.VarChar).Value = Thang;
+                                    SqlParameter sqlParameter = new SqlParameter("@KetQua", SqlDbType.Int);
+                                    sqlParameter.Direction = ParameterDirection.Output;
+                                    cmd1.Parameters.Add(sqlParameter);
+                                    cmd1.ExecuteNonQuery();
+                                    ResetAllTextBox();
+                                    SetBtEdit_Off();
+                                    if ((int)sqlParameter.Value == -1)
+                                    {
+                                        MessageBox.Show("Có lỗi hệ thống không thể thực hiện thêm dữ liệu!");
+                                        return;
+                                    }
+                                    break;
+                                 case -1:
+                                    SqlCommand cmd2 = new SqlCommand("CapNhatTrangThaiKyCong", conn);
+                                    cmd2.CommandType = CommandType.StoredProcedure;
+                                    cmd2.Parameters.Add("@Nam", SqlDbType.VarChar).Value = Nam;
+                                    cmd2.Parameters.Add("@Thang", SqlDbType.VarChar).Value = Thang;
+                                    SqlParameter sqlParameter1 = new SqlParameter("@KetQua", SqlDbType.Int);
+                                    sqlParameter1.Direction = ParameterDirection.Output;
+                                    cmd2.Parameters.Add(sqlParameter1);
+                                    cmd2.ExecuteNonQuery();
+                                    ResetAllTextBox();
+                                    SetBtEdit_Off();
+                                    if ((int)sqlParameter1.Value == 0)
+                                    {
+                                        MessageBox.Show("Có lỗi hệ thống không thể thực hiện khôi phục dữ liệu!");
+                                        return;
+                                    }
+                                    break;
+                                  default:
+                                    MessageBox.Show("Kỳ công hiện tại đã có rồi");
+                                    ResetAllTextBox();
+                                    SetBtEdit_Off();
                                     return;
-                                }
-                                break;
-                             case -1:
-                                SqlCommand cmd2 = new SqlCommand("CapNhatTrangThaiKyCong", conn);
-                                cmd2.CommandType = CommandType.StoredProcedure;
-                                cmd2.Parameters.Add("@Nam", SqlDbType.VarChar).Value = Nam;
-                                cmd2.Parameters.Add("@Thang", SqlDbType.VarChar).Value = Thang;
-                                SqlParameter sqlParameter1 = new SqlParameter("@KetQua", SqlDbType.Int);
-                                sqlParameter1.Direction = ParameterDirection.Output;
-                                cmd2.Parameters.Add(sqlParameter1);
-                                cmd2.ExecuteNonQuery();
-                                ResetAllTextBox();
-                                SetBtEdit_Off();
-                                if ((int)sqlParameter1.Value == 0)
-                                {
-                                    MessageBox.Show("Có lỗi hệ thống không thể thực hiện khôi phục dữ liệu!");
-                                    return;
-                                }
-                                break;
-                              default:
-                                MessageBox.Show("Kỳ công hiện tại đã có rồi");
-                                ResetAllTextBox();
-                                SetBtEdit_Off();
-                                return;
-                        }
+                            }
 
-                        //
-                        MessageBox.Show("Đã thêm dữ liệu thành công!");
-                        LoadData();
+                            //
+                            MessageBox.Show("Đã thêm dữ liệu thành công!");
+                            LoadData();
+                        }
+                        catch (SqlException ex)
+                        {
+                            MessageBox.Show(ex.Message);
+                        }
                     }
-                    catch (SqlException)
+                    else // sua doi
                     {
-                        MessageBox.Show(cmd.CommandText);
+                        try
+                        {
+                            switch(kq)
+                            {
+                                case -2:
+                                    // Thứ tự dòng hiện hành
+                                    int r = dtGridView.CurrentCell.RowIndex;// Ma hiện hành
+                                    int makycong =
+                                    Convert.ToInt32(dtGridView.Rows[r].Cells[0].Value.ToString());
+                                    SqlCommand cmd1 = new SqlCommand("CapNhatKyCong", conn);
+                                    cmd1.CommandType = CommandType.StoredProcedure;
+                                    cmd1.Parameters.Add("@MaKyCong", SqlDbType.Int).Value = makycong;
+                                    cmd1.Parameters.Add("@Nam", SqlDbType.Int).Value = Convert.ToInt32(Nam);
+                                    cmd1.Parameters.Add("@Thang", SqlDbType.Int).Value = Convert.ToInt32(Thang);
+                                    SqlParameter sqlParameter = new SqlParameter("@KetQua", SqlDbType.Int);
+                                    sqlParameter.Direction = ParameterDirection.Output;
+                                    cmd1.Parameters.Add(sqlParameter);
+                                    cmd1.ExecuteNonQuery();
+                                    ResetAllTextBox();
+                                    SetBtEdit_Off();
+                                    if ((int)sqlParameter.Value == -1)
+                                    {
+                                        MessageBox.Show("Có lỗi hệ thống không thể thực hiện sửa dữ liệu!");
+                                        return;
+                                    }
+                                    LoadData();
+                                    // Thông báo
+                                    MessageBox.Show("Đã sửa xong!");
+                                    break;
+                                case -1:
+                                    SqlCommand cmd2 = new SqlCommand("CapNhatTrangThaiKyCong", conn);
+                                    cmd2.CommandType = CommandType.StoredProcedure;
+                                    cmd2.Parameters.Add("@Nam", SqlDbType.VarChar).Value = Nam;
+                                    cmd2.Parameters.Add("@Thang", SqlDbType.VarChar).Value = Thang;
+                                    SqlParameter sqlParameter1 = new SqlParameter("@KetQua", SqlDbType.Int);
+                                    sqlParameter1.Direction = ParameterDirection.Output;
+                                    cmd2.Parameters.Add(sqlParameter1);
+                                    cmd2.ExecuteNonQuery();
+                                    LoadData();
+                                    if ((int)sqlParameter1.Value == 0)
+                                    {
+                                        MessageBox.Show("Có lỗi hệ thống không thể thực hiện khôi phục dữ liệu!");
+                                        return;
+                                    }
+                                    break;
+                                default:
+                                    MessageBox.Show("Kỳ công hiện tại đã có rồi");
+                                    ResetAllTextBox();
+                                    SetBtEdit_Off();
+                                    return;
+                            }
+                    }
+                    catch (SqlException ex)
+                    {
+                        MessageBox.Show(ex.Message);// "Không sửa được. Lỗi rồi!");
                     }
                 }
-                else // sua doi
-                {
-                    try
-                    {
-                        switch(kq)
-                        {
-                            case -2:
-                                // Thứ tự dòng hiện hành
-                                int r = dtGridView.CurrentCell.RowIndex;// Ma hiện hành
-                                int makycong =
-                                Convert.ToInt32(dtGridView.Rows[r].Cells[0].Value.ToString());
-                                SqlCommand cmd1 = new SqlCommand("CapNhatKyCong", conn);
-                                cmd1.CommandType = CommandType.StoredProcedure;
-                                cmd1.Parameters.Add("@MaKyCong", SqlDbType.Int).Value = makycong;
-                                cmd1.Parameters.Add("@Nam", SqlDbType.Int).Value = Convert.ToInt32(Nam);
-                                cmd1.Parameters.Add("@Thang", SqlDbType.Int).Value = Convert.ToInt32(Thang);
-                                SqlParameter sqlParameter = new SqlParameter("@KetQua", SqlDbType.Int);
-                                sqlParameter.Direction = ParameterDirection.Output;
-                                cmd1.Parameters.Add(sqlParameter);
-                                cmd1.ExecuteNonQuery();
-                                ResetAllTextBox();
-                                SetBtEdit_Off();
-                                if ((int)sqlParameter.Value == -1)
-                                {
-                                    MessageBox.Show("Có lỗi hệ thống không thể thực hiện sửa dữ liệu!");
-                                    return;
-                                }
-                                LoadData();
-                                // Thông báo
-                                MessageBox.Show("Đã sửa xong!");
-                                break;
-                            case -1:
-                                SqlCommand cmd2 = new SqlCommand("CapNhatTrangThaiKyCong", conn);
-                                cmd2.CommandType = CommandType.StoredProcedure;
-                                cmd2.Parameters.Add("@Nam", SqlDbType.VarChar).Value = Nam;
-                                cmd2.Parameters.Add("@Thang", SqlDbType.VarChar).Value = Thang;
-                                SqlParameter sqlParameter1 = new SqlParameter("@KetQua", SqlDbType.Int);
-                                sqlParameter1.Direction = ParameterDirection.Output;
-                                cmd2.Parameters.Add(sqlParameter1);
-                                cmd2.ExecuteNonQuery();
-                                LoadData();
-                                if ((int)sqlParameter1.Value == 0)
-                                {
-                                    MessageBox.Show("Có lỗi hệ thống không thể thực hiện khôi phục dữ liệu!");
-                                    return;
-                                }
-                                break;
-                            default:
-                                MessageBox.Show("Kỳ công hiện tại đã có rồi");
-                                ResetAllTextBox();
-                                SetBtEdit_Off();
-                                return;
-                        }
-                    }
-                    catch (SqlException)
-                    {
-                        MessageBox.Show(cmd.CommandText);// "Không sửa được. Lỗi rồi!");
-                    }
+                }
+                catch (SqlException ex){
+                    MessageBox.Show(ex.Message);
                 }
                 // Đóng kết nối
                 conn.Close();
@@ -329,8 +334,9 @@ namespace ProjectHRM
                     MessageBox.Show("Đã xóa thành công");
 
                 }
-                catch {
-                    MessageBox.Show("Không xóa được kỳ công hiện hành.");
+                catch (SqlException ex)
+                {
+                    MessageBox.Show("Không xóa được kỳ công hiện hành. " + ex.Message);
                 }
                 finally
                 {
@@ -341,23 +347,23 @@ namespace ProjectHRM
             SetBtEdit_Off();
         }
 
-        private void btnDetail_Click(object sender, EventArgs e)
-        {
-            if (!cbbNam.Text.Trim().Equals("") && !cbbThang.Text.Trim().Equals(""))
-            {
-                string Nam = cbbNam.Text.Trim();
-                string Thang = cbbThang.Text.Trim();
-                ChitietHRM chitietHRM = new ChitietHRM();
-                chitietHRM.Nam = Nam;
-                chitietHRM.Thang = Thang;
-                chitietHRM.Show();
+        //private void btnDetail_Click(object sender, EventArgs e)
+        //{
+        //    if (!cbbNam.Text.Trim().Equals("") && !cbbThang.Text.Trim().Equals(""))
+        //    {
+        //        string Nam = cbbNam.Text.Trim();
+        //        string Thang = cbbThang.Text.Trim();
+        //        ChitietHRM chitietHRM = new ChitietHRM();
+        //        chitietHRM.Nam = Nam;
+        //        chitietHRM.Thang = Thang;
+        //        chitietHRM.Show();
 
 
-            }
-            else
-            {
-                MessageBox.Show("Bạn chưa chọn tháng hoặc năm để xem!");
-            }
-        }
+        //    }
+        //    else
+        //    {
+        //        MessageBox.Show("Bạn chưa chọn tháng hoặc năm để xem!");
+        //    }
+        //}
     }
 }

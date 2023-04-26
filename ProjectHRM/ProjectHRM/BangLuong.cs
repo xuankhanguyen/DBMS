@@ -18,15 +18,12 @@ namespace ProjectHRM
             InitializeComponent();
         }
         SqlConnection con = null;
-        string strcon = @"Data Source=LAPTOP-SH0M4EMV\SQLEXPRESS;Initial Catalog=QLNS;Integrated Security=True";
-
-
 
         private void hienthithongtinluong()
         {
             if (con == null)
             {
-                con = new SqlConnection(strcon);
+                con = DBUtils.GetDBConnection();
             }
             if (con.State != ConnectionState.Open)
             {

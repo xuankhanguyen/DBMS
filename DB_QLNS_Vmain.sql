@@ -977,7 +977,8 @@ BEGIN
         BEGIN
         ROLLBACK TRANSACTION
     END
-        SET @KetQua = -1
+        SET @KetQua = -1;
+        THROW 51000,'Loi Them Ky Cong',1;
     END CATCH
 END
 GO
@@ -1000,7 +1001,8 @@ BEGIN
     BEGIN
         ROLLBACK TRANSACTION
     END
-    SET @KetQua = 0
+    SET @KetQua = 0;
+    THROW 51000,'Loi Cap Nhat Ky Cong',1;
     END CATCH
 END
 GO
@@ -1025,7 +1027,8 @@ BEGIN
     BEGIN
         ROLLBACK TRANSACTION
     END
-    SET @KetQua = 0
+    SET @KetQua = 0;
+    THROW 51000,'Loi Cap Nhat Trang Thai Ky Cong',1;
     END CATCH
 END
 GO
@@ -1167,7 +1170,8 @@ BEGIN
             BEGIN
             ROLLBACK TRANSACTION
         END
-            SET @KetQua = 0
+            SET @KetQua = 0;
+            THROW 51000,'Loi Khong The Them Data Vao Bang Ky Cong Chi Tiet',1;
         END CATCH
     END
     ELSE
@@ -1186,8 +1190,8 @@ BEGIN
                 BEGIN
                 ROLLBACK TRANSACTION
             END
-                SET @KetQua = 0
-
+                SET @KetQua = 0;
+                THROW 51000,'Loi Khong The Cap Nhat Bang Ky Cong Chi Tiet',1;
             END CATCH
         END
     END
@@ -1209,7 +1213,8 @@ BEGIN
         BEGIN
         ROLLBACK TRANSACTION
     END
-    SET @KetQua = 0
+    SET @KetQua = 0;
+    THROW 51000,'Loi Khong The Xoa Ky Cong Chi Tiet',1;
     END CATCH
 END
 GO
@@ -1260,7 +1265,8 @@ BEGIN
         BEGIN
         ROLLBACK TRANSACTION
     END
-    SET @KetQua = 0
+    SET @KetQua = 0;
+    THROW 51000,'Loi Khong Them Xoa Du Lieu Bang Cham Cong',1;
     END CATCH
 END
 GO
@@ -1283,7 +1289,8 @@ BEGIN
     BEGIN
         ROLLBACK TRANSACTION
     END
-    SET @KetQua = 0
+    SET @KetQua = 0;
+    THROW 51000,'Loi Khong The Cap Nhat Bang Cham Cong',1;
     END CATCH
 END
 GO

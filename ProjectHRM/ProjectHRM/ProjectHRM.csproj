@@ -58,6 +58,7 @@
     <Compile Include="ChitietHRM.Designer.cs">
       <DependentUpon>ChitietHRM.cs</DependentUpon>
     </Compile>
+    <Compile Include="DBUtils.cs" />
     <Compile Include="KyCongHRM.cs">
       <SubType>Form</SubType>
     </Compile>

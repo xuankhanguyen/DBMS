@@ -14,13 +14,12 @@ namespace ProjectHRM
     public partial class UngLuong : Form
     {
         SqlConnection con = null;
-        string strcon = @"Data Source=LAPTOP-SH0M4EMV\SQLEXPRESS;Initial Catalog=QLNS;Integrated Security=True";
 
         private void hienthithongtinungluong()
         {
             if (con == null)
             {
-                con = new SqlConnection(strcon);
+                con = DBUtils.GetDBConnection();
             }
             if (con.State != ConnectionState.Open)
             {
@@ -62,7 +61,7 @@ namespace ProjectHRM
         {
             if (con == null)
             {
-                con = new SqlConnection(strcon);
+                con = DBUtils.GetDBConnection();
             }
             if (con.State != ConnectionState.Open)
             {
@@ -95,7 +94,7 @@ namespace ProjectHRM
         {
             if (con == null)
             {
-                con = new SqlConnection(strcon);
+                con = DBUtils.GetDBConnection();
             }
             if (con.State != ConnectionState.Open)
             {
@@ -139,7 +138,7 @@ namespace ProjectHRM
         {
             if (con == null)
             {
-                con = new SqlConnection(strcon);
+                con = DBUtils.GetDBConnection();
             }
             if (con.State != ConnectionState.Open)
             {
@@ -174,7 +173,7 @@ namespace ProjectHRM
         {
             if (con == null)
             {
-                con = new SqlConnection(strcon);
+                con = DBUtils.GetDBConnection();
             }
             if (con.State != ConnectionState.Open)
             {
@@ -202,7 +201,7 @@ namespace ProjectHRM
         {
             if (con == null)
             {
-                con = new SqlConnection(strcon);
+                con = DBUtils.GetDBConnection();
             }
             if (con.State != ConnectionState.Open)
             {
@@ -230,7 +229,7 @@ namespace ProjectHRM
         {
             if (con == null)
             {
-                con = new SqlConnection(strcon);
+                con = DBUtils.GetDBConnection();
             }
             if (con.State != ConnectionState.Open)
             {
