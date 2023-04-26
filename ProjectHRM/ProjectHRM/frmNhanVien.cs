@@ -4,12 +4,14 @@ using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace QLNV
+namespace ProjectHRM
 {
     public partial class frmNhanVien : Form
     {
@@ -17,226 +19,230 @@ namespace QLNV
         {
             InitializeComponent();
         }
-        // Chuỗi kết nối
-        string strConnectionString = @"Data Source=DESKTOP-0VDMSUU\SQLEXPRESS;Initial Catalog=QLNS1;Integrated Security=True";
-        //Đối tượng kết nối
-        SqlConnection conn = null;
-        // Đối tượng đưa dữ liệu vào DataTable dtNhanVien
-        SqlDataAdapter daNhanVien = null;
-        // Đối tượng hiển thị dữ liệu lên Form
-        DataTable dtNhanVien = null;
-
-        // Khai báo biến kiểm tra việc Thêm hay Sửa dữ liệu
-        bool Them;
-        void LoadData()
+        private SqlConnection conn;
+        // Hàm kết nối cơ sở dữ liệu
+        private void ConnectToDatabase()
         {
-            try
-            {
-                // Khởi động connection
-                conn = new SqlConnection(strConnectionString);
-                // Vận chuyển dữ liệu vào DataTable dtNhanVien
-                // daNhanVien = new SqlDataAdapter("SELECT * FROM NhanVien", conn);
-                dtNhanVien = new DataTable();
-                dtNhanVien.Clear();
-                daNhanVien.Fill(dtNhanVien);
-                // Đưa dữ liệu lên DataGridView
-                dgvNhanVien.DataSource = dtNhanVien;
-                // Xóa trống các đối tượng trong Panel
-                this.txtMaNV.ResetText();
-                this.txtHoTen.ResetText();
-                this.txtGioiTinh.ResetText();
-                this.dtNgaySinh.ResetText();
-                this.txtChucVu.ResetText();
-                this.txtDiaChi.ResetText();
-                this.txtPhongBan.ResetText();
-                // Không cho thao tác trên nút Lưu 
-                this.btn_luu.Enabled = false;
-                // Cho thao tác trên các nút Thêm / Sửa / Xóa 
-                this.btn_them.Enabled = true;
-                this.btn_sua.Enabled = true;
-                this.btn_xoa.Enabled = true;
-            }
-            catch (SqlException)
-            {
-                MessageBox.Show("Không lấy được nội dung trong table NhanVien.Lỗi rồi!!!");
-            }
-        }
-        private void frmNhanVien_Load(object sender, EventArgs e)
-        {
-            LoadData();
+            string connectionString = "Data Source=DESKTOP-0VDMSUU\\SQLEXPRESS; Initial Catalog=QLNS1; Integrated Security=True";
+            conn = new SqlConnection(connectionString);
         }
 
+        public byte[] ConvertImageToByteArray(Image image)
+        {
+            using (MemoryStream ms = new MemoryStream())
+            {
+                image.Save(ms, ImageFormat.Jpeg);
+                return ms.ToArray();
+            }
+        }
+        private void LoadDanhSachNhanVien()
+        {
+            string connectionString = "Data Source=DESKTOP-0VDMSUU\\SQLEXPRESS; Initial Catalog=QLNS1; Integrated Security=True";
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                string query = "SELECT * FROM NhanVien WHERE NhanVien_TrangThaiXoa = 0;";
+                SqlDataAdapter adapter = new SqlDataAdapter(query, connection);
+                DataTable dataTable = new DataTable();
+                adapter.Fill(dataTable);
+                dgvDanhSachNhanVien.DataSource = dataTable;
+                dgvDanhSachNhanVien.Columns["NhanVien_ID"].HeaderText = "ID";
+                dgvDanhSachNhanVien.Columns["NhanVien_HoTen"].HeaderText = "Họ tên";
+                dgvDanhSachNhanVien.Columns["NhanVien_SDT"].HeaderText = "Số điện thoại";
+                dgvDanhSachNhanVien.Columns["NhanVien_CCCD"].HeaderText = "CCCD";
+                dgvDanhSachNhanVien.Columns["NhanVien_GioiTinh"].HeaderText = "Giới tính";
+                dgvDanhSachNhanVien.Columns["NhanVien_HinhAnh"].Visible = false;
+                dgvDanhSachNhanVien.Columns["NhanVien_TrangThaiXoa"].Visible = false;
+            }
+        }
         private void btn_them_Click(object sender, EventArgs e)
         {
-            // Kich hoạt biến Them
-            Them = true;
-            // Xóa trống các đối tượng trong Panel
-            this.txtMaNV.ResetText();
-            this.txtHoTen.ResetText();
-            this.txtGioiTinh.ResetText();
-            this.dtNgaySinh.ResetText();
-            this.txtChucVu.ResetText();
-            this.txtSDT.ResetText();
-            this.txtDiaChi.ResetText();
-            this.txtPhongBan.ResetText();
-            // Cho thao tác trên các nút Lưu / Hủy 
-            this.btn_luu.Enabled = true;
-            this.btn_huy.Enabled = true;
-            // Không cho thao tác trên các nút Thêm / Xóa / Thoát
-            this.btn_them.Enabled = false;
-            this.btn_sua.Enabled = false;
-            this.btn_xoa.Enabled = false;
-            // Đưa con trỏ đến TextField txtMaKH
-            this.txtMaNV.Focus();
+            string hoTen = txtHoTen.Text;
+            string sdt = txtSDT.Text;
+            string cccd = txtCCCD.Text;
+            string gioiTinh = cboGioiTinh.Text;
+            byte[] hinhAnh = ConvertImageToByteArray(pbHinhAnh.Image);
+            string diaChi = txtDiaChi.Text;
+            DateTime ngaySinh = dtpNgaySinh.Value;
+            int chucVu = Convert.ToInt32(cboChucVu.SelectedValue);
+            int phongBan = Convert.ToInt32(cboPhongBan.SelectedValue);
+            
+            string connectionString = "Data Source=DESKTOP-0VDMSUU\\SQLEXPRESS; Initial Catalog=QLNS1; Integrated Security=True";
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                string query = "INSERT INTO NhanVien (NhanVien_HoTen, NhanVien_SDT, NhanVien_CCCD, NhanVien_GioiTinh, NhanVien_HinhAnh, " +
+                    "NhanVien_DiaChi, NhanVien_NgaySinh, NhanVien_ChucVu, NhanVien_PhongBan)" +
+                    " VALUES (@HoTen, @SDT, @CCCD, @GioiTinh, @HinhAnh, @DiaChi, @NgaySinh, @ChucVu, @PhongBan);";
+                SqlCommand command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@HoTen", hoTen);
+                command.Parameters.AddWithValue("@SDT", sdt);
+                command.Parameters.AddWithValue("@CCCD", cccd);
+                command.Parameters.AddWithValue("@GioiTinh", gioiTinh);
+                command.Parameters.AddWithValue("@HinhAnh", hinhAnh);
+                command.Parameters.AddWithValue("@DiaChi", diaChi);
+                command.Parameters.AddWithValue("@NgaySinh", ngaySinh);
+                command.Parameters.AddWithValue("@ChucVu", chucVu);
+                command.Parameters.AddWithValue("@PhongBan", phongBan);
+
+                connection.Open();
+                int result = command.ExecuteNonQuery();
+                if (result > 0)
+                {
+                    MessageBox.Show("Thêm nhân viên thành công");
+                    LoadDanhSachNhanVien();
+                }
+                else
+                {
+                    MessageBox.Show("Thêm nhân viên thất bại");
+                }
+            }
+
         }
 
         private void btn_xoa_Click(object sender, EventArgs e)
         {
-            // Mở kết nối
-            conn.Open();
-            try
-            {
-                // Thực hiện lệnh
-                SqlCommand cmd = new SqlCommand();
-                cmd.Connection = conn;
-                cmd.CommandType = CommandType.Text;
-                // Lấy thứ tự record hiện hành
-                int r = dgvNhanVien.CurrentCell.RowIndex;
-                // Lấy MaNV của record hiện hành
-                string strMaNV =
-                dgvNhanVien.Rows[r].Cells[0].Value.ToString();
-                // Viết câu lệnh SQL
-                cmd.CommandText = System.String.Concat("Delete From NhanVien Where MaNV = '" + strMaNV + "'");
-                cmd.CommandType = CommandType.Text;
-                // Thực hiện câu lệnh SQL
-                cmd.ExecuteNonQuery();
-                // Cập nhật lại DataGridView
-                LoadData();
-                // Thông báo
-                MessageBox.Show("Đã xóa thành công!");
-            }
-            catch (SqlException)
-            {
-                MessageBox.Show("Không xóa được. Đã xảy ra lỗi rồi!!!");
-            }
-            // Đóng kết nối
-            conn.Close();
-        }
+            string connectionString = "Data Source=DESKTOP-0VDMSUU\\SQLEXPRESS; Initial Catalog=QLNS1; Integrated Security=True";
+            string query = "DELETE FROM NhanVien WHERE NhanVien_Ten = @TenNhanVien";
 
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@TenNhanVien", txtHoTen.Text);
+
+                    int result = command.ExecuteNonQuery();
+                    if (result > 0)
+                    {
+                        MessageBox.Show("Xoá nhân viên thành công");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Không tìm thấy nhân viên để xoá");
+                    }
+                }
+            }
+        }
+        private byte[] GetImageData()
+        {
+            if (pbHinhAnh.Image == null)
+            {
+                return null;
+            }
+            using (MemoryStream ms = new MemoryStream())
+            {
+               pbHinhAnh.Image.Save(ms, pbHinhAnh.Image.RawFormat);
+                return ms.ToArray();
+            }
+        }
         private void btn_sua_Click(object sender, EventArgs e)
         {
-            // Kích hoạt biến Sửa
-            Them = false;
-            // Thứ tự dòng hiện hành
-            int r = dgvNhanVien.CurrentCell.RowIndex;
-            // Chuyển thông tin lên panel
-            this.txtMaNV.Text = dgvNhanVien.Rows[r].Cells[0].Value.ToString();
-            this.txtHoTen.Text = dgvNhanVien.Rows[r].Cells[1].Value.ToString();
-            this.txtGioiTinh.Text = dgvNhanVien.Rows[r].Cells[2].Value.ToString();
-            this.dtNgaySinh.Text = dgvNhanVien.Rows[r].Cells[4].Value.ToString();
-            this.txtChucVu.Text = dgvNhanVien.Rows[r].Cells[6].Value.ToString();
-            this.txtDiaChi.Text = dgvNhanVien.Rows[r].Cells[8].Value.ToString();
-            this.txtPhongBan.Text = dgvNhanVien.Rows[r].Cells[9].Value.ToString();
-            // Cho thao tác trên các nút Lưu / Hủy
-            this.btn_luu.Enabled = true;
-            this.btn_huy.Enabled = true;
-            // Không cho thao tác trên các nút Thêm / Xóa / Sua
-            this.btn_them.Enabled = false;
-            this.btn_sua.Enabled = false;
-            this.btn_xoa.Enabled = false;
-            // Đưa con trỏ đến TextField txtMaKH
-            this.txtMaNV.Focus();
-        }
+            string hoTen = txtHoTen.Text;
+            string sdt = txtSDT.Text;
+            string cccd = txtCCCD.Text;
+            string gioiTinh = cboGioiTinh.Text;
+            byte[] hinhAnh = ConvertImageToByteArray(pbHinhAnh.Image);
+            string diaChi = txtDiaChi.Text;
+            DateTime ngaySinh = dtpNgaySinh.Value;
+            int chucVu = Convert.ToInt32(cboChucVu.SelectedValue);
+            int phongBan = Convert.ToInt32(cboPhongBan.SelectedValue);
 
+            string connectionString = "Data Source=DESKTOP-0VDMSUU\\SQLEXPRESS; Initial Catalog=QLNS1; Integrated Security=True";
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                string query = "UPDATE NhanVien SET NhanVien_HoTen = @HoTen, NhanVien_SDT = @SDT, NhanVien_CCCD = @CCCD, " +
+                    "NhanVien_GioiTinh = @GioiTinh, NhanVien_HinhAnh = @HinhAnh, NhanVien_DiaChi = @DiaChi, " +
+                    "NhanVien_NgaySinh = @NgaySinh, NhanVien_ChucVu = @ChucVu, NhanVien_PhongBan = @PhongBan WHERE NhanVien_ID = @ID;";
+                SqlCommand command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@HoTen", hoTen);
+                command.Parameters.AddWithValue("@SDT", sdt);
+                command.Parameters.AddWithValue("@CCCD", cccd);
+                command.Parameters.AddWithValue("@GioiTinh", gioiTinh);
+                command.Parameters.AddWithValue("@HinhAnh", hinhAnh);
+                command.Parameters.AddWithValue("@DiaChi", diaChi);
+                command.Parameters.AddWithValue("@NgaySinh", ngaySinh);
+                command.Parameters.AddWithValue("@ChucVu", chucVu);
+                command.Parameters.AddWithValue("@PhongBan", phongBan);
+
+                connection.Open();
+                int result = command.ExecuteNonQuery();
+                if (result > 0)
+                {
+                    MessageBox.Show("Cập nhật thông tin nhân viên thành công");
+                    LoadDanhSachNhanVien();
+                }
+                else
+                {
+                    MessageBox.Show("Cập nhật thông tin nhân viên thất bại");
+                }
+            }
+        }
+        private void LuuNhanVien(string hoTen, string sdt, string cccd, string gioiTinh, byte[] hinhAnh, string diaChi, DateTime ngaySinh, int chucVu, int phongBan)
+        {
+            string connectionString = "Data Source=DESKTOP-0VDMSUU\\SQLEXPRESS; Initial Catalog=QLNS1; Integrated Security=True";
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                string query = "INSERT INTO NhanVien (NhanVien_HoTen, NhanVien_SDT, NhanVien_CCCD, NhanVien_GioiTinh, " +
+                    "NhanVien_HinhAnh, NhanVien_DiaChi, NhanVien_NgaySinh, NhanVien_ChucVu, NhanVien_PhongBan) " +
+                               "VALUES (@HoTen, @SDT, @CCCD, @GioiTinh, @HinhAnh, @DiaChi, @NgaySinh, @ChucVu, @PhongBan)";
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@HoTen", hoTen);
+                    command.Parameters.AddWithValue("@SDT", sdt);
+                    command.Parameters.AddWithValue("@CCCD", cccd);
+                    command.Parameters.AddWithValue("@GioiTinh", gioiTinh);
+                    command.Parameters.AddWithValue("@HinhAnh", hinhAnh);
+                    command.Parameters.AddWithValue("@DiaChi", diaChi);
+                    command.Parameters.AddWithValue("@NgaySinh", ngaySinh);
+                    command.Parameters.AddWithValue("@ChucVu", chucVu);
+                    command.Parameters.AddWithValue("@PhongBan", phongBan);
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
         private void btn_luu_Click(object sender, EventArgs e)
         {
-            // Mở kết nối
-            conn.Open();
-            // Thêm dữ liệu
-            if (Them)
-            {
-                try
-                {
-                    // Thực hiện lệnh
-                    SqlCommand cmd = new SqlCommand();
-                    cmd.Connection = conn;
-                    cmd.CommandType = CommandType.Text;
-                    // Lệnh Insert InTo
-                    cmd.CommandText = System.String.Concat("Insert Into NhanVien Values(" + "'" +
-                    this.txtMaNV.Text.ToString() + "','" +
-                    this.txtHoTen.Text.ToString() + "','" +
-                    this.txtGioiTinh.Text.ToString() + "','" +
-                    this.dtNgaySinh.Value.ToString("yyyy-MM-dd") + "','" +
-                    this.txtChucVu.Text.ToString() + "','" +
-                    this.txtSDT.Text.ToString() + "','" +
-                    this.txtDiaChi.Text.ToString() + "','" +
-                    this.txtPhongBan.Text.ToString() + "','" +"");
-                    cmd.CommandType = CommandType.Text;
-                    cmd.ExecuteNonQuery();
-                    // Load lại dữ liệu trên DataGridView
-                    LoadData();
-                    // Thông báo
-                    MessageBox.Show("Đã thêm xong!");
-                }
-                catch (SqlException)
-                {
-                    MessageBox.Show("Không thêm được. Lỗi rồi!");
-                }
-            }
-            if (!Them)
-            {
-                try
-                {
-                    // Thực hiện lệnh
-                    SqlCommand cmd = new SqlCommand();
-                    cmd.Connection = conn;
-                    cmd.CommandType = CommandType.Text;
-                    // Thứ tự dòng hiện hành
-                    int r = dgvNhanVien.CurrentCell.RowIndex;
-                    // MaKH hiện hành
-                    string strMaNV = dgvNhanVien.Rows[r].Cells[0].Value.ToString();
-                    // Câu lệnh SQL
-                    cmd.CommandText = System.String.Concat("Update NhanVien Set HoTen = '" + this.txtHoTen.Text.ToString() 
-                        + "', GioiTinh ='" + this.txtGioiTinh.Text.ToString() + "', , NgSinh = '" + this.dtNgaySinh.Value.ToString("yyyy-MM-dd") 
-                        + "', ChucVu = '" + this.txtChucVu.Text.ToString() 
-                        + "', SĐT = '" + this.txtSDT.Text.ToString() + "', DiaChi = '" + this.txtDiaChi.Text.ToString() + "', PhongBan = '" 
-                        + this.txtPhongBan.Text.ToString() +  "' Where MaNV = '" + strMaNV + "'");
-                    // Cập nhật
-                    cmd.CommandType = CommandType.Text;
-                    cmd.ExecuteNonQuery();
-                    // Load lại dữ liệu trên DataGridView
-                    LoadData();
-                    // Thông báo
-                    MessageBox.Show("Đã sửa xong!");
-                }
-                catch (SqlException)
-                {
-                    MessageBox.Show("Không sửa được. Lỗi rồi!");
-                }
-            }
-            // Đóng kết nối
-            conn.Close();
+            // Lấy thông tin từ các controls trên form
+            string hoTen = txtHoTen.Text;
+            string sdt = txtSDT.Text;
+            string cccd = txtCCCD.Text;
+            string gioiTinh = cboGioiTinh.Text;
+            byte[] hinhAnh = GetImageData();
+            string diaChi = txtDiaChi.Text;
+            DateTime ngaySinh = dtpNgaySinh.Value;
+            int chucVu = cboChucVu.SelectedIndex + 1; // Chú ý: index trong ComboBox bắt đầu từ 0
+            int phongBan = cboPhongBan.SelectedIndex + 1;
+
+            // Gọi hàm để lưu thông tin nhân viên vào CSDL
+            LuuNhanVien(hoTen, sdt, cccd, gioiTinh, hinhAnh, diaChi, ngaySinh, chucVu, phongBan);
+
+            // Hiển thị thông báo thành công
+            MessageBox.Show("Lưu thông tin nhân viên thành công!");
         }
 
         private void btn_huy_Click(object sender, EventArgs e)
         {
+            this.Close();
+        }
 
-            // Xóa trống các đối tượng trong Panel
-            this.txtMaNV.ResetText();
-            this.txtHoTen.ResetText();
-            this.txtGioiTinh.ResetText();
-            this.dtNgaySinh.ResetText();
-            this.txtChucVu.ResetText();
-            this.txtSDT.ResetText();
-            this.txtDiaChi.ResetText();
-            this.txtPhongBan.ResetText();
-            // Cho thao tác trên các nút Thêm / Sửa / Xóa 
-            this.btn_them.Enabled = true;
-            this.btn_sua.Enabled = true;
-            this.btn_xoa.Enabled = true;
-            // Không cho thao tác trên các nút Lưu / Hủy / Panel
-            this.btn_luu.Enabled = false;
-            this.btn_huy.Enabled = false;
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dgvDanhSachNhanVien_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            // Nếu người dùng click vào một dòng trên DataGridView
+            if (e.RowIndex >= 0)
+            {
+                // Lấy ra dòng được click
+                DataGridViewRow row = dgvDanhSachNhanVien.Rows[e.RowIndex];
+
+                // Xoá dòng khỏi nguồn dữ liệu của DataGridView
+                dgvDanhSachNhanVien.Rows.Remove(row);
+            }
         }
     }
 }
+

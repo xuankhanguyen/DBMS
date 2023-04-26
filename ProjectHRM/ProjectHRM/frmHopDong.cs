@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace QLNV
+namespace ProjectHRM
 {
     public partial class frmHopDong : Form
     {
@@ -17,191 +17,134 @@ namespace QLNV
         {
             InitializeComponent();
         }
-        bool Them;
-        // Chuỗi kết nối
-        string strConnectionString = @"Data Source=DESKTOP-0VDMSUU\SQLEXPRESS;Initial Catalog=QLNS1;Integrated Security=True";
-        //Đối tượng kết nối
-        SqlConnection conn = null;
-        // Đối tượng đưa dữ liệu vào DataTable dtNhanVien
-        SqlDataAdapter daNhanVien = null;
-        // Đối tượng hiển thị dữ liệu lên Form
-        DataTable dtNhanVien = null;
 
         private void btn_them_Click(object sender, EventArgs e)
         {
-            // Kich hoạt biến Them
-            Them = true;
-            // Xóa trống các đối tượng trong Panel
-            this.txtMaNV.ResetText();
-            this.txtSoHD.ResetText();
-            this.dtNgayBatDau.ResetText();
-            this.dtNgayKetThuc.ResetText();
-            this.txtLanKy.ResetText();
-            this.txtNoiDung.ResetText();
-            this.txtLuongCanBan.ResetText();
-            this.txtHeSoLuong.ResetText();
-            // Cho thao tác trên các nút Lưu / Hủy 
-            this.btn_luu.Enabled = true;
-            this.btn_huy.Enabled = true;
-            // Không cho thao tác trên các nút Thêm / Xóa / Thoát
-            this.btn_them.Enabled = false;
-            this.btn_sua.Enabled = false;
-            this.btn_xoa.Enabled = false;
-            // Đưa con trỏ đến TextField txtMaKH
-            this.txtMaNV.Focus();
+            string connectionString = "Data Source=DESKTOP-0VDMSUU\\SQLEXPRESS; Initial Catalog=QLNS1; Integrated Security=True";
+            string query = "INSERT INTO HopDong(HopDong_NgayBatDau, HopDong_NgayKetThuc, HopDong_LanKy, HopDong_NoiDung, HopDong_LuongCanBan, HopDong_HeSoLuong, HopDong_NhanVien) " 
+                +
+                           "VALUES (@NgayBatDau, @NgayKetThuc, @LanKy, @NoiDung, @LuongCanBan, @HeSoLuong, @NhanVien)";
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@NgayBatDau", dtpNgayBatDau.Value);
+                    command.Parameters.AddWithValue("@NgayKetThuc", dtpNgayKetThuc.Value);
+                    command.Parameters.AddWithValue("@LanKy", int.Parse(txtLanKy.Text));
+                    command.Parameters.AddWithValue("@NoiDung", txtNoiDung.Text);
+                    command.Parameters.AddWithValue("@LuongCanBan", float.Parse(txtLuongCanBan.Text));
+                    command.Parameters.AddWithValue("@HeSoLuong", int.Parse(txtHeSoLuong.Text));
+                    command.Parameters.AddWithValue("@NhanVien", int.Parse(txtMaNV.Text));
+
+                    try
+                    {
+                        int result = command.ExecuteNonQuery();
+                        if (result > 0)
+                        {
+                            MessageBox.Show("Thêm hợp đồng thành công");
+                        }
+                        else
+                        {
+                            MessageBox.Show("Thêm hợp đồng không thành công");
+                        }
+                    }
+                    catch (SqlException ex)
+                    {
+                        if (ex.Number == 2627) // Lỗi trùng khóa
+                        {
+                            MessageBox.Show("Nhân viên đã ký hợp đồng trong thời gian này");
+                        }
+                        else
+                        {
+                            MessageBox.Show("Lỗi khi thêm hợp đồng: " + ex.Message);
+                        }
+                    }
+                }
+            }
         }
 
         private void btn_xoa_Click(object sender, EventArgs e)
         {
-            // Mở kết nối
-            conn.Open();
-            try
+            string connectionString = "Data Source=DESKTOP-0VDMSUU\\SQLEXPRESS; Initial Catalog=QLNS1; Integrated Security=True";
+            string query = "DELETE FROM HopDong WHERE HopDong_SoHD = @SoHD";
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                // Thực hiện lệnh
-                SqlCommand cmd = new SqlCommand();
-                cmd.Connection = conn;
-                cmd.CommandType = CommandType.Text;
-                // Lấy thứ tự record hiện hành
-                int r = dgvNhanVien.CurrentCell.RowIndex;
-                // Lấy MaNV của record hiện hành
-                string strMaNV =
-                dgvNhanVien.Rows[r].Cells[0].Value.ToString();
-                // Viết câu lệnh SQL
-               // cmd.CommandText = System.String.Concat("Delete From NhanVien Where MaNV = '" + strMaNV + "'");
-                
-                cmd.CommandType = CommandType.Text;
-                // Thực hiện câu lệnh SQL
-                cmd.ExecuteNonQuery();
-                // Cập nhật lại DataGridView
-               // LoadData();
-                // Thông báo
-                MessageBox.Show("Đã xóa thành công!");
+                connection.Open();
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@SoHD", int.Parse(txtSoHD.Text));
+
+                    try
+                    {
+                        int result = command.ExecuteNonQuery();
+                        if (result > 0)
+                        {
+                            MessageBox.Show("Xoá hợp đồng thành công");
+                        }
+                        else
+                        {
+                            MessageBox.Show("Không tìm thấy hợp đồng để xoá");
+                        }
+                    }
+                    catch (SqlException ex)
+                    {
+                        MessageBox.Show("Lỗi khi xoá hợp đồng: " + ex.Message);
+                    }
+                }
             }
-            catch (SqlException)
-            {
-                MessageBox.Show("Không xóa được. Đã xảy ra lỗi rồi!!!");
-            }
-            // Đóng kết nối
-            conn.Close();
         }
 
         private void btn_sua_Click(object sender, EventArgs e)
         {
-            // Kích hoạt biến Sửa
-            Them = false;
-            // Thứ tự dòng hiện hành
-            int r = dgvNhanVien.CurrentCell.RowIndex;
-            // Chuyển thông tin lên panel
-            this.txtMaNV.Text = dgvNhanVien.Rows[r].Cells[0].Value.ToString();
-            this.txtSoHD.Text = dgvNhanVien.Rows[r].Cells[1].Value.ToString();
-            this.dtNgayBatDau.Text = dgvNhanVien.Rows[r].Cells[2].Value.ToString();
-            this.dtNgayKetThuc.Text = dgvNhanVien.Rows[r].Cells[3].Value.ToString();
-            this.txtNoiDung.Text = dgvNhanVien.Rows[r].Cells[4].Value.ToString();
-            this.txtLanKy.Text = dgvNhanVien.Rows[r].Cells[5].Value.ToString();
-            this.txtLuongCanBan.Text = dgvNhanVien.Rows[r].Cells[6].Value.ToString();
-            this.txtHeSoLuong.Text = dgvNhanVien.Rows[r].Cells[7].Value.ToString();
-            // Cho thao tác trên các nút Lưu / Hủy
-            this.btn_luu.Enabled = true;
-            this.btn_huy.Enabled = true;
-            // Không cho thao tác trên các nút Thêm / Xóa / Sua
-            this.btn_them.Enabled = false;
-            this.btn_sua.Enabled = false;
-            this.btn_xoa.Enabled = false;
-            // Đưa con trỏ đến TextField txtMaKH
-            this.txtMaNV.Focus();
+            string connectionString = "Data Source=tenmaychu;Initial Catalog=tenCSDL;Integrated Security=True";
+            string query = "UPDATE HopDong SET HopDong_NgayBatDau = @NgayBatDau, HopDong_NgayKetThuc = @NgayKetThuc, HopDong_LanKy = @LanKy," +
+                " HopDong_NoiDung = @NoiDung, HopDong_LuongCanBan = @LuongCanBan, HopDong_HeSoLuong = @HeSoLuong, HopDong_NhanVien = @NhanVien WHERE HopDong_SoHD = @SoHD";
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@SoHD", int.Parse(txtSoHD.Text));
+                    command.Parameters.AddWithValue("@NgayBatDau", dtpNgayBatDau.Value);
+                    command.Parameters.AddWithValue("@NgayKetThuc", dtpNgayKetThuc.Value);
+                    command.Parameters.AddWithValue("@LanKy", int.Parse(txtLanKy.Text));
+                    command.Parameters.AddWithValue("@NoiDung", txtNoiDung.Text);
+                    command.Parameters.AddWithValue("@LuongCanBan", float.Parse(txtLuongCanBan.Text));
+                    command.Parameters.AddWithValue("@HeSoLuong", int.Parse(txtHeSoLuong.Text));
+                    command.Parameters.AddWithValue("@NhanVien", int.Parse(txtMaNV.Text));
+
+                    try
+                    {
+                        int result = command.ExecuteNonQuery();
+                        if (result > 0)
+                        {
+                            MessageBox.Show("Cập nhật hợp đồng thành công");
+                        }
+                        else
+                        {
+                            MessageBox.Show("Không tìm thấy hợp đồng để cập nhật");
+                        }
+                    }
+                    catch (SqlException ex)
+                    {
+                        MessageBox.Show("Lỗi khi cập nhật hợp đồng: " + ex.Message);
+                    }
+                }
+            }
         }
 
-        private void btn_luu_Click(object sender, EventArgs e)
-        {
-            // Mở kết nối
-            conn.Open();
-            // Thêm dữ liệu
-            if (Them)
-            {
-                try
-                {
-                    // Thực hiện lệnh
-                    SqlCommand cmd = new SqlCommand();
-                    cmd.Connection = conn;
-                    cmd.CommandType = CommandType.Text;
-                    // Lệnh Insert InTo
-                    cmd.CommandText = System.String.Concat("Insert Into NhanVien Values(" + "'" +
-                    this.txtMaNV.Text.ToString() + "','" +
-                    this.txtSoHD.Text.ToString() + "','" +
-                    this.dtNgayBatDau.Value.ToString("yyyy-MM-dd") + "','" +
-                    this.dtNgayKetThuc.Value.ToString("yyyy-MM-dd") + "','" +
-                    this.txtNoiDung.Text.ToString() + "','" +
-                    this.txtLanKy.Text.ToString() + "','" +
-                    this.txtLuongCanBan.Text.ToString() + "','" +
-                    this.txtHeSoLuong.Text.ToString() + "','" + "");
-                    cmd.CommandType = CommandType.Text;
-                    cmd.ExecuteNonQuery();
-                    // Load lại dữ liệu trên DataGridView
-                   // LoadData();
-                    // Thông báo
-                    MessageBox.Show("Đã thêm xong!");
-                }
-                catch (SqlException)
-                {
-                    MessageBox.Show("Không thêm được. Lỗi rồi!");
-                }
-            }
-            if (!Them)
-            {
-                try
-                {
-                    // Thực hiện lệnh
-                    SqlCommand cmd = new SqlCommand();
-                    cmd.Connection = conn;
-                    cmd.CommandType = CommandType.Text;
-                    // Thứ tự dòng hiện hành
-                    int r = dgvNhanVien.CurrentCell.RowIndex;
-                    // MaKH hiện hành
-                    string strMaNV = dgvNhanVien.Rows[r].Cells[0].Value.ToString();
-                    // Câu lệnh SQL
-                    cmd.CommandText = System.String.Concat("Update NhanVien Set NhanVien_ID = '" + this.txtMaNV.Text.ToString()
-                        + "', SOHD ='" + this.txtSoHD.Text.ToString() 
-                        + "', NgayBatDau = '"  + this.dtNgayBatDau.Value.ToString("yyyy-MM-dd")
-                        + "', NgayKetThuc = '" + this.dtNgayKetThuc.Value.ToString("yyyy-MM-dd")
-                        + "', NoiDung = '" + this.txtNoiDung.Text.ToString()
-                        + "', LanKy = '" +this.txtLanKy.Text.ToString()
-                        + "', LuongCanBan = '" + this.txtLuongCanBan.Text.ToString() 
-                        + "', HeSoLuong = '"+ this.txtHeSoLuong.Text.ToString() + "' Where MaNV = '" + strMaNV + "'");
-                    // Cập nhật
-                    cmd.CommandType = CommandType.Text;
-                    cmd.ExecuteNonQuery();
-                    // Load lại dữ liệu trên DataGridView
-                   // LoadData();
-                    // Thông báo
-                    MessageBox.Show("Đã sửa xong!");
-                }
-                catch (SqlException)
-                {
-                    MessageBox.Show("Không sửa được. Lỗi rồi!");
-                }
-            }
-            // Đóng kết nối
-            conn.Close();
-        }
+        
 
         private void btn_huy_Click(object sender, EventArgs e)
         {
-            // Xóa trống các đối tượng trong Panel
-            this.txtMaNV.ResetText();
-            this.txtSoHD.ResetText();
-            this.dtNgayBatDau.ResetText();
-            this.dtNgayKetThuc.ResetText();
-            this.txtLanKy.ResetText();
-            this.txtNoiDung.ResetText();
-            this.txtLuongCanBan.ResetText();
-            this.txtHeSoLuong.ResetText();
-            // Cho thao tác trên các nút Thêm / Sửa / Xóa 
-            this.btn_them.Enabled = true;
-            this.btn_sua.Enabled = true;
-            this.btn_xoa.Enabled = true;
-            // Không cho thao tác trên các nút Lưu / Hủy / Panel
-            this.btn_luu.Enabled = false;
-            this.btn_huy.Enabled = false;
+            this.Close();
         }
     }
 }
