@@ -1570,4 +1570,44 @@ AS
 SELECT PhanQuyen_ID, PhanQuyen_TenQuyen
 FROM PhanQuyen
 GO
+-- tìm kiếu theo ID
+CREATE PROCEDURE TimKiemLoaiTangCa
+    @timKiem nvarchar(20)
+AS
+BEGIN
+    BEGIN TRY
+        SELECT * FROM LoaiTangCa
+        WHERE LoaiTangCa_ID = @timKiem 
+    END TRY
+    BEGIN CATCH
+        SELECT ERROR_MESSAGE()
+    END CATCH
+END
+GO
+-- tìm kiếm phòng ban
+CREATE PROCEDURE TimKiemPhongBan
+    @maPB int
+AS
+BEGIN
+    BEGIN TRY
+        SELECT * FROM PhongBan WHERE PhongBan_MaPB = @maPB
+    END TRY
+    BEGIN CATCH
+        SELECT ERROR_MESSAGE()
+    END CATCH
+END
+GO
+-- Tìm kiếm chức vụ
+CREATE PROCEDURE TimKiemChucVu
+    @chucVu_ID int
+AS
+BEGIN
+    BEGIN TRY
+        SELECT * FROM ChucVu WHERE ChucVu_ID = @chucVu_ID
+    END TRY
+    BEGIN CATCH
+        SELECT ERROR_MESSAGE()
+    END CATCH
+END
+GO
 -- thêm đăng nhập
