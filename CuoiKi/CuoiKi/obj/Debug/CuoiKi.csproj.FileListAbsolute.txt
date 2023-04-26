@@ -1,0 +1,10 @@
+D:\Year2\He_quan_tri_co_so_du_lieu\QLNS_git\DBMS\CuoiKi\CuoiKi\bin\Debug\CuoiKi.exe.config
+D:\Year2\He_quan_tri_co_so_du_lieu\QLNS_git\DBMS\CuoiKi\CuoiKi\bin\Debug\CuoiKi.exe
+D:\Year2\He_quan_tri_co_so_du_lieu\QLNS_git\DBMS\CuoiKi\CuoiKi\bin\Debug\CuoiKi.pdb
+D:\Year2\He_quan_tri_co_so_du_lieu\QLNS_git\DBMS\CuoiKi\CuoiKi\obj\Debug\CuoiKi.csproj.AssemblyReference.cache
+D:\Year2\He_quan_tri_co_so_du_lieu\QLNS_git\DBMS\CuoiKi\CuoiKi\obj\Debug\CuoiKi.csproj.SuggestedBindingRedirects.cache
+D:\Year2\He_quan_tri_co_so_du_lieu\QLNS_git\DBMS\CuoiKi\CuoiKi\obj\Debug\CuoiKi.Properties.Resources.resources
+D:\Year2\He_quan_tri_co_so_du_lieu\QLNS_git\DBMS\CuoiKi\CuoiKi\obj\Debug\CuoiKi.csproj.GenerateResource.cache
+D:\Year2\He_quan_tri_co_so_du_lieu\QLNS_git\DBMS\CuoiKi\CuoiKi\obj\Debug\CuoiKi.csproj.CoreCompileInputs.cache
+D:\Year2\He_quan_tri_co_so_du_lieu\QLNS_git\DBMS\CuoiKi\CuoiKi\obj\Debug\CuoiKi.exe
+D:\Year2\He_quan_tri_co_so_du_lieu\QLNS_git\DBMS\CuoiKi\CuoiKi\obj\Debug\CuoiKi.pdb
