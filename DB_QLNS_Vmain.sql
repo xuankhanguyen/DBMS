@@ -1624,4 +1624,38 @@ BEGIN
     END CATCH
 END
 GO
+-- Tìm kiếm Phân quyền
+CREATE PROCEDURE TimKiemPhanQuyen
+    @phanQuyen_ID int = NULL,
+    @phanQuyen_TenQuyen nvarchar(20) = NULL
+AS
+BEGIN
+    BEGIN TRY
+        SELECT * 
+        FROM PhanQuyen 
+        WHERE (@phanQuyen_ID IS NULL OR PhanQuyen_ID = @phanQuyen_ID)
+        AND (@phanQuyen_TenQuyen IS NULL OR PhanQuyen_TenQuyen LIKE '%' + @phanQuyen_TenQuyen + '%')
+    END TRY
+    BEGIN CATCH
+        SELECT ERROR_MESSAGE()
+    END CATCH
+END
+GO
+-- Thống kê phòng ban theo ngày
+CREATE PROCEDURE ThongKePhongBanTheoNgay
+    @ngay DATE
+AS
+BEGIN
+    BEGIN TRY
+        SELECT PhongBan_TenPB, COUNT(NhanVien_ID) as SoLuongNhanVien
+        FROM PhongBan
+        LEFT JOIN NhanVien ON PhongBan.PhoNgBan_MaPB = NhanVien.NhanVien_PhongBan
+        WHERE PhongBan_TG_NhanChuc = @ngay
+        GROUP BY PhongBan_TenPB
+    END TRY
+    BEGIN CATCH
+        SELECT ERROR_MESSAGE()
+    END CATCH
+END
+GO
 -- thêm đăng nhập
