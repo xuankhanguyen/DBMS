@@ -4,7 +4,6 @@ GO
 -- Sử dụng CSDL
 USE QLNS
 GO
-
 -- Thực hiện tạo bảng
 
 --Bảng Nhân viên
@@ -24,8 +23,6 @@ CREATE TABLE NhanVien
 );
 GO
 
-
-
 --Bảng Ứng lương
 CREATE TABLE UngLuong
 (
@@ -38,7 +35,6 @@ CREATE TABLE UngLuong
     UngLuong_KyCong INT
 );
 GO
-
 -- Bảng Hợp đồng
 CREATE TABLE HopDong
 (
@@ -510,6 +506,23 @@ INSERT INTO UngLuong (UngLuong_Ngay, UngLuong_SoTien, UngLuong_TrangThaiXoa, Ung
 VALUES (15, 2500.0, 'TRUE', N'Ứng lương giữa kỳ',(SELECT NhanVien_ID FROM NhanVien WHERE NhanVien_HoTen= N'Huỳnh Văn Ba'), (SELECT KyCong_MaKyCong FROM KyCong WHERE KyCong_Nam = 2022 AND KyCong_Thang = 10));
 GO
 
+--Bảng Kỳ Công Chi Tiết
+INSERT INTO KyCongChiTiet(KyCongChiTiet_NhanVien, KyCongChiTiet_KyCong, KyCongChiTiet_NgayNghi, KyCongChiTiet_CongChuNhat, KyCongChiTiet_NgayCongThucTe)
+VALUES
+(1,1,2,4,24),
+(2,2,0,3,26),
+(3,3,1,4,25),
+(4,4,0,4,26),
+(5,5,3,2,23),
+(6,6,2,4,24),
+(7,7,2,4,24),
+(8,8,1,1,25),
+(9,9,5,4,21),
+(10,10,3,1,23),
+(11,11,3,2,24),
+(12,12,4,4,22)
+
+GO
 --Bảng Tăng Ca--
 INSERT INTO dbo.TangCa
 (
