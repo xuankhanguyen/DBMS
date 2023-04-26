@@ -34,6 +34,7 @@
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
             this.label1 = new System.Windows.Forms.Label();
             this.panelSYS = new System.Windows.Forms.Panel();
+            this.button2 = new System.Windows.Forms.Button();
             this.btExit = new System.Windows.Forms.Button();
             this.btDX = new System.Windows.Forms.Button();
             this.btHT = new System.Windows.Forms.Button();
@@ -48,10 +49,6 @@
             this.btclose = new System.Windows.Forms.Button();
             this.labelTile = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.buttontangca = new System.Windows.Forms.Button();
-            this.buttonungluong = new System.Windows.Forms.Button();
-            this.buttonbangluong = new System.Windows.Forms.Button();
-            this.button9 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -72,7 +69,7 @@
             // 
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer1.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer1.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.splitContainer1.Margin = new System.Windows.Forms.Padding(6);
             this.splitContainer1.Name = "splitContainer1";
             // 
             // splitContainer1.Panel1
@@ -93,7 +90,7 @@
             this.splitContainer3.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.splitContainer3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer3.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer3.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.splitContainer3.Margin = new System.Windows.Forms.Padding(6);
             this.splitContainer3.Name = "splitContainer3";
             this.splitContainer3.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -106,10 +103,6 @@
             // 
             this.splitContainer3.Panel2.AutoScroll = true;
             this.splitContainer3.Panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(76)))));
-            this.splitContainer3.Panel2.Controls.Add(this.buttontangca);
-            this.splitContainer3.Panel2.Controls.Add(this.buttonungluong);
-            this.splitContainer3.Panel2.Controls.Add(this.buttonbangluong);
-            this.splitContainer3.Panel2.Controls.Add(this.button9);
             this.splitContainer3.Panel2.Controls.Add(this.panelSYS);
             this.splitContainer3.Panel2.Controls.Add(this.btHT);
             this.splitContainer3.Panel2.Controls.Add(this.panelRe);
@@ -136,30 +129,49 @@
             // 
             // panelSYS
             // 
+            this.panelSYS.Controls.Add(this.button2);
             this.panelSYS.Controls.Add(this.btExit);
             this.panelSYS.Controls.Add(this.btDX);
             this.panelSYS.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelSYS.Location = new System.Drawing.Point(0, 488);
-            this.panelSYS.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.panelSYS.Margin = new System.Windows.Forms.Padding(6);
             this.panelSYS.Name = "panelSYS";
-            this.panelSYS.Size = new System.Drawing.Size(434, 131);
+            this.panelSYS.Size = new System.Drawing.Size(468, 199);
             this.panelSYS.TabIndex = 5;
+            // 
+            // button2
+            // 
+            this.button2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.button2.FlatAppearance.BorderSize = 0;
+            this.button2.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button2.Font = new System.Drawing.Font("Sitka Text Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button2.ForeColor = System.Drawing.Color.AliceBlue;
+            this.button2.Location = new System.Drawing.Point(0, 126);
+            this.button2.Margin = new System.Windows.Forms.Padding(6);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(468, 63);
+            this.button2.TabIndex = 5;
+            this.button2.Text = "Tăng ca";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.buttontangca_Click);
             // 
             // btExit
             // 
             this.btExit.Dock = System.Windows.Forms.DockStyle.Top;
             this.btExit.FlatAppearance.BorderSize = 0;
-            this.btExit.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.btExit.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
             this.btExit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btExit.Font = new System.Drawing.Font("Sitka Text Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btExit.ForeColor = System.Drawing.Color.Red;
+            this.btExit.ForeColor = System.Drawing.Color.AliceBlue;
             this.btExit.Location = new System.Drawing.Point(0, 63);
-            this.btExit.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.btExit.Margin = new System.Windows.Forms.Padding(6);
             this.btExit.Name = "btExit";
-            this.btExit.Size = new System.Drawing.Size(434, 63);
+            this.btExit.Size = new System.Drawing.Size(468, 63);
             this.btExit.TabIndex = 4;
-            this.btExit.Text = "Thoát";
+            this.btExit.Text = "Ứng lương";
             this.btExit.UseVisualStyleBackColor = true;
+            this.btExit.Click += new System.EventHandler(this.buttonungluong_Click);
             // 
             // btDX
             // 
@@ -170,13 +182,13 @@
             this.btDX.Font = new System.Drawing.Font("Sitka Text Semibold", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btDX.ForeColor = System.Drawing.Color.AliceBlue;
             this.btDX.Location = new System.Drawing.Point(0, 0);
-            this.btDX.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.btDX.Margin = new System.Windows.Forms.Padding(6);
             this.btDX.Name = "btDX";
-            this.btDX.Size = new System.Drawing.Size(434, 63);
+            this.btDX.Size = new System.Drawing.Size(468, 63);
             this.btDX.TabIndex = 3;
-            this.btDX.Text = "Đăng Xuất";
+            this.btDX.Text = "Bảng lương";
             this.btDX.UseVisualStyleBackColor = true;
-            this.btDX.Click += new System.EventHandler(this.btDX_Click);
+            this.btDX.Click += new System.EventHandler(this.buttonbangluong_Click);
             // 
             // btHT
             // 
@@ -188,11 +200,11 @@
             this.btHT.Font = new System.Drawing.Font("Sitka Text Semibold", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btHT.ForeColor = System.Drawing.Color.AliceBlue;
             this.btHT.Location = new System.Drawing.Point(0, 403);
-            this.btHT.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.btHT.Margin = new System.Windows.Forms.Padding(6);
             this.btHT.Name = "btHT";
-            this.btHT.Size = new System.Drawing.Size(434, 85);
+            this.btHT.Size = new System.Drawing.Size(468, 85);
             this.btHT.TabIndex = 4;
-            this.btHT.Text = "Hệ Thống";
+            this.btHT.Text = "Quản lý lương";
             this.btHT.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btHT.UseVisualStyleBackColor = false;
             this.btHT.Click += new System.EventHandler(this.btHT_Click);
@@ -203,9 +215,9 @@
             this.panelRe.Controls.Add(this.btTT);
             this.panelRe.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelRe.Location = new System.Drawing.Point(0, 251);
-            this.panelRe.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.panelRe.Margin = new System.Windows.Forms.Padding(6);
             this.panelRe.Name = "panelRe";
-            this.panelRe.Size = new System.Drawing.Size(434, 152);
+            this.panelRe.Size = new System.Drawing.Size(468, 152);
             this.panelRe.TabIndex = 3;
             // 
             // button1
@@ -217,9 +229,9 @@
             this.button1.Font = new System.Drawing.Font("Sitka Text Semibold", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button1.ForeColor = System.Drawing.Color.AliceBlue;
             this.button1.Location = new System.Drawing.Point(0, 75);
-            this.button1.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.button1.Margin = new System.Windows.Forms.Padding(6);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(434, 75);
+            this.button1.Size = new System.Drawing.Size(468, 75);
             this.button1.TabIndex = 4;
             this.button1.Text = "Chi tiết bảng công";
             this.button1.UseVisualStyleBackColor = true;
@@ -234,9 +246,9 @@
             this.btTT.Font = new System.Drawing.Font("Sitka Text Semibold", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btTT.ForeColor = System.Drawing.Color.AliceBlue;
             this.btTT.Location = new System.Drawing.Point(0, 0);
-            this.btTT.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.btTT.Margin = new System.Windows.Forms.Padding(6);
             this.btTT.Name = "btTT";
-            this.btTT.Size = new System.Drawing.Size(434, 75);
+            this.btTT.Size = new System.Drawing.Size(468, 75);
             this.btTT.TabIndex = 3;
             this.btTT.Text = "Kỳ công";
             this.btTT.UseVisualStyleBackColor = true;
@@ -252,9 +264,9 @@
             this.btRE.Font = new System.Drawing.Font("Sitka Text Semibold", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btRE.ForeColor = System.Drawing.Color.AliceBlue;
             this.btRE.Location = new System.Drawing.Point(0, 166);
-            this.btRE.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.btRE.Margin = new System.Windows.Forms.Padding(6);
             this.btRE.Name = "btRE";
-            this.btRE.Size = new System.Drawing.Size(434, 85);
+            this.btRE.Size = new System.Drawing.Size(468, 85);
             this.btRE.TabIndex = 2;
             this.btRE.Text = "Quản lý chấm công";
             this.btRE.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -266,9 +278,9 @@
             this.panelUp.Controls.Add(this.btn_CTKyCong);
             this.panelUp.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelUp.Location = new System.Drawing.Point(0, 85);
-            this.panelUp.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.panelUp.Margin = new System.Windows.Forms.Padding(6);
             this.panelUp.Name = "panelUp";
-            this.panelUp.Size = new System.Drawing.Size(434, 81);
+            this.panelUp.Size = new System.Drawing.Size(468, 81);
             this.panelUp.TabIndex = 1;
             // 
             // btn_CTKyCong
@@ -280,9 +292,9 @@
             this.btn_CTKyCong.Font = new System.Drawing.Font("Sitka Text Semibold", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_CTKyCong.ForeColor = System.Drawing.Color.AliceBlue;
             this.btn_CTKyCong.Location = new System.Drawing.Point(0, 0);
-            this.btn_CTKyCong.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.btn_CTKyCong.Margin = new System.Windows.Forms.Padding(6);
             this.btn_CTKyCong.Name = "btn_CTKyCong";
-            this.btn_CTKyCong.Size = new System.Drawing.Size(434, 75);
+            this.btn_CTKyCong.Size = new System.Drawing.Size(468, 75);
             this.btn_CTKyCong.TabIndex = 2;
             this.btn_CTKyCong.Text = "Chi tiết bảng công";
             this.btn_CTKyCong.UseVisualStyleBackColor = true;
@@ -297,20 +309,21 @@
             this.bt_1.Font = new System.Drawing.Font("Sitka Text Semibold", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.bt_1.ForeColor = System.Drawing.Color.AliceBlue;
             this.bt_1.Location = new System.Drawing.Point(0, 0);
-            this.bt_1.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.bt_1.Margin = new System.Windows.Forms.Padding(6);
             this.bt_1.Name = "bt_1";
-            this.bt_1.Size = new System.Drawing.Size(434, 85);
+            this.bt_1.Size = new System.Drawing.Size(468, 85);
             this.bt_1.TabIndex = 0;
             this.bt_1.Text = "Quản lý thông tin nhân sự";
             this.bt_1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.bt_1.UseVisualStyleBackColor = false;
+            this.bt_1.Visible = false;
             this.bt_1.Click += new System.EventHandler(this.btUp_Click);
             // 
             // splitContainer2
             // 
             this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer2.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer2.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.splitContainer2.Margin = new System.Windows.Forms.Padding(6);
             this.splitContainer2.Name = "splitContainer2";
             this.splitContainer2.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -337,7 +350,7 @@
             this.btclose.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btclose.ForeColor = System.Drawing.Color.Red;
             this.btclose.Location = new System.Drawing.Point(0, 0);
-            this.btclose.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.btclose.Margin = new System.Windows.Forms.Padding(6);
             this.btclose.Name = "btclose";
             this.btclose.Size = new System.Drawing.Size(154, 107);
             this.btclose.TabIndex = 2;
@@ -363,75 +376,6 @@
             this.timer1.Enabled = true;
             this.timer1.Interval = 20;
             // 
-            // buttontangca
-            // 
-            this.buttontangca.Dock = System.Windows.Forms.DockStyle.Top;
-            this.buttontangca.FlatAppearance.BorderSize = 0;
-            this.buttontangca.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
-            this.buttontangca.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttontangca.Font = new System.Drawing.Font("Sitka Text Semibold", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttontangca.ForeColor = System.Drawing.Color.AliceBlue;
-            this.buttontangca.Location = new System.Drawing.Point(0, 854);
-            this.buttontangca.Margin = new System.Windows.Forms.Padding(6);
-            this.buttontangca.Name = "buttontangca";
-            this.buttontangca.Size = new System.Drawing.Size(434, 63);
-            this.buttontangca.TabIndex = 9;
-            this.buttontangca.Text = "Tăng Ca";
-            this.buttontangca.UseVisualStyleBackColor = true;
-            this.buttontangca.Click += new System.EventHandler(this.buttontangca_Click);
-            // 
-            // buttonungluong
-            // 
-            this.buttonungluong.Dock = System.Windows.Forms.DockStyle.Top;
-            this.buttonungluong.FlatAppearance.BorderSize = 0;
-            this.buttonungluong.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
-            this.buttonungluong.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonungluong.Font = new System.Drawing.Font("Sitka Text Semibold", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonungluong.ForeColor = System.Drawing.Color.AliceBlue;
-            this.buttonungluong.Location = new System.Drawing.Point(0, 779);
-            this.buttonungluong.Margin = new System.Windows.Forms.Padding(6);
-            this.buttonungluong.Name = "buttonungluong";
-            this.buttonungluong.Size = new System.Drawing.Size(434, 75);
-            this.buttonungluong.TabIndex = 8;
-            this.buttonungluong.Text = "Ứng Lương";
-            this.buttonungluong.UseVisualStyleBackColor = true;
-            this.buttonungluong.Click += new System.EventHandler(this.buttonungluong_Click);
-            // 
-            // buttonbangluong
-            // 
-            this.buttonbangluong.Dock = System.Windows.Forms.DockStyle.Top;
-            this.buttonbangluong.FlatAppearance.BorderSize = 0;
-            this.buttonbangluong.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
-            this.buttonbangluong.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonbangluong.Font = new System.Drawing.Font("Sitka Text Semibold", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonbangluong.ForeColor = System.Drawing.Color.AliceBlue;
-            this.buttonbangluong.Location = new System.Drawing.Point(0, 704);
-            this.buttonbangluong.Margin = new System.Windows.Forms.Padding(6);
-            this.buttonbangluong.Name = "buttonbangluong";
-            this.buttonbangluong.Size = new System.Drawing.Size(434, 75);
-            this.buttonbangluong.TabIndex = 7;
-            this.buttonbangluong.Text = "Bảng Lương";
-            this.buttonbangluong.UseVisualStyleBackColor = true;
-            this.buttonbangluong.Click += new System.EventHandler(this.buttonbangluong_Click);
-            // 
-            // button9
-            // 
-            this.button9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(39)))), ((int)(((byte)(39)))), ((int)(((byte)(58)))));
-            this.button9.Dock = System.Windows.Forms.DockStyle.Top;
-            this.button9.FlatAppearance.BorderSize = 0;
-            this.button9.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gray;
-            this.button9.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button9.Font = new System.Drawing.Font("Sitka Text Semibold", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button9.ForeColor = System.Drawing.Color.AliceBlue;
-            this.button9.Location = new System.Drawing.Point(0, 619);
-            this.button9.Margin = new System.Windows.Forms.Padding(6);
-            this.button9.Name = "button9";
-            this.button9.Size = new System.Drawing.Size(434, 85);
-            this.button9.TabIndex = 10;
-            this.button9.Text = "Quản lý lương";
-            this.button9.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button9.UseVisualStyleBackColor = false;
-            // 
             // TrangChuHRM
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
@@ -442,11 +386,12 @@
             this.ForeColor = System.Drawing.Color.SteelBlue;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.Margin = new System.Windows.Forms.Padding(6);
             this.Name = "TrangChuHRM";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Trang Chủ HRM";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.TrangChuHRM_Load);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
@@ -486,9 +431,6 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button btTT;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button buttontangca;
-        private System.Windows.Forms.Button buttonungluong;
-        private System.Windows.Forms.Button buttonbangluong;
-        private System.Windows.Forms.Button button9;
+        private System.Windows.Forms.Button button2;
     }
 }

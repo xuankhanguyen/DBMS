@@ -14,7 +14,7 @@ namespace ProjectHRM
     public partial class TangCa : Form
     {
         SqlConnection con = null;
-        string strcon = @"Data Source=LAPTOP-SH0M4EMV\SQLEXPRESS;Initial Catalog=QLNS1;Integrated Security=True";
+        string strcon = @"Data Source=10.211.55.2,1433;Initial Catalog=QLNS1;User ID=sa;Password=Docker123";
 
 
 

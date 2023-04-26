@@ -281,7 +281,7 @@
             this.Controls.Add(this.listViewTangCa);
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "TangCa";
-            this.Text = "3";
+            this.Text = "TangCa";
             this.Load += new System.EventHandler(this.TangCa_Load_1);
             this.ResumeLayout(false);
             this.PerformLayout();

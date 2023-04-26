@@ -120,7 +120,7 @@
             this.Controls.Add(this.listViewUngLuong);
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "BangLuong";
-            this.Text = "1";
+            this.Text = "BangLuong";
             this.Load += new System.EventHandler(this.BangLuong_Load);
             this.ResumeLayout(false);
 

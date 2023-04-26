@@ -83,20 +83,6 @@ namespace ProjectHRM
             HienMenu(panelSYS);
         }
 
-        private void btDX_Click(object sender, EventArgs e)
-        {
-            DialogResult res;
-            res = MessageBox.Show("Do you want to return login ?", "Notification", MessageBoxButtons.YesNo,
-                MessageBoxIcon.Warning);
-            if (res == DialogResult.Yes)
-            {
-                //LoginFrom lg = new LoginFrom();
-                //lg.Show();
-                this.Hide();
-            }
-
-        }
-
         private void MoFormCon(Form formcon, object btsender)
         {
             if (FormMo != null)
@@ -125,20 +111,18 @@ namespace ProjectHRM
 
         private void buttonbangluong_Click(object sender, EventArgs e)
         {
-            BangLuong bl = new BangLuong();
-            bl.Show();
+            MoFormCon(new BangLuong(), sender);
+           
         }
 
         private void buttonungluong_Click(object sender, EventArgs e)
         {
-            UngLuong ul = new UngLuong();
-            ul.Show();  
+            MoFormCon(new UngLuong(), sender);
         }
 
         private void buttontangca_Click(object sender, EventArgs e)
         {
-            TangCa tc = new TangCa();
-            tc.Show();
+            MoFormCon(new TangCa(), sender); 
         }
     }
 }
