@@ -1,4 +1,4 @@
--- Tạo CSDL
+﻿-- Tạo CSDL
 CREATE DATABASE QLNS
 GO
 -- Sử dụng CSDL
@@ -507,20 +507,6 @@ VALUES (15, 2500.0, 'TRUE', N'Ứng lương giữa kỳ',(SELECT NhanVien_ID FRO
 GO
 
 --Bảng Kỳ Công Chi Tiết
-INSERT INTO KyCongChiTiet(KyCongChiTiet_NhanVien, KyCongChiTiet_KyCong, KyCongChiTiet_NgayNghi, KyCongChiTiet_CongChuNhat, KyCongChiTiet_NgayCongThucTe)
-VALUES
-(1,1,2,4,24),
-(2,2,0,3,26),
-(3,3,1,4,25),
-(4,4,0,4,26),
-(5,5,3,2,23),
-(6,6,2,4,24),
-(7,7,2,4,24),
-(8,8,1,1,25),
-(9,9,5,4,21),
-(10,10,3,1,23),
-(11,11,3,2,24),
-(12,12,4,4,22)
 
 GO
 --Bảng Tăng Ca--
@@ -918,18 +904,35 @@ GO
 
 -- BangLuong
 
-
-
-INSERT INTO BangLuong(BangLuong_NhanVien, BangLuong_KyCong, BangLuong_LuongNgayThuong, BangLuong_LuongNgayCN, 
-BangLuong_TangCa, BangLuong_UngLuong, BangLuong_PhuCap, BangLuong_LuongNhanDuoc, BangLuong_ThucLanh)
-SELECT nv.NhanVien_ID,kc.KyCong_MaKyCong,kcct.KyCongChiTiet_NgayCongThucTe*((3250000*hsl.HeSoLuong_GiaTri)/26) , kcct.KyCongChiTiet_CongChuNhat*((3250000*hsl.HeSoLuong_GiaTri)/26)*2 ,
-tc.TangCa_SoGio*ltc.LoaiTangCa_HeSo*((3250000*hsl.HeSoLuong_GiaTri)/26),
-ul.UngLuong_SoTien ,556 ,kcct.KyCongChiTiet_NgayCongThucTe*((3250000*hsl.HeSoLuong_GiaTri)/26)+kcct.KyCongChiTiet_CongChuNhat*((3250000*hsl.HeSoLuong_GiaTri)/26)*2 +tc.TangCa_SoGio*ltc.LoaiTangCa_HeSo*((3250000*hsl.HeSoLuong_GiaTri)/26) - ul.UngLuong_SoTien +556 , (kcct.KyCongChiTiet_NgayCongThucTe*((3250000*hsl.HeSoLuong_GiaTri)/26)+kcct.KyCongChiTiet_CongChuNhat*((3250000*hsl.HeSoLuong_GiaTri)/26)*2 +tc.TangCa_SoGio*ltc.LoaiTangCa_HeSo*((3250000*hsl.HeSoLuong_GiaTri)/26) - ul.UngLuong_SoTien +556 )*0.9
-FROM NhanVien nv,KyCong kc,KyCongChiTiet kcct,TangCa tc,LoaiTangCa ltc,UngLuong ul,HopDong hd,HeSoLuong hsl
-WHERE kc.KyCong_MaKyCong = kcct.KyCongChiTiet_KyCong AND tc.TangCa_LoaiTangCa = ltc.LoaiTangCa_ID AND ul.UngLuong_NhanVien = nv.NhanVien_ID
-AND kcct.KyCongChiTiet_NhanVien = nv.NhanVien_ID  and tc.TangCa_NhanVien = nv.NhanVien_ID  AND ul.UngLuong_KyCong = kc.KyCong_MaKyCong
-AND hd.HopDong_NhanVien = nv.NhanVien_ID AND hsl.HeSoLuong_ID = hd.HopDong_HeSoLuong
-
+CREATE PROC TinhLuong @MaKyCong INT
+AS
+BEGIN
+    DECLARE @NhanVienID INT, @SoNgayLyThuyet INT, @LuongCB FLOAT, @HeSoLuong FLOAT , @giotangca FLOAT
+    DECLARE @ThucTe INT, @CongCN INT, @LuongUng FLOAT, @PhuCap FLOAT, @LuongNhanDuoc FLOAT, @LuongThucLanh FLOAT, @UngLuong FLOAT, @TangCa FLOAT, @LuongCN FLOAT, @LuongThuong FLOAT
+    SET @PhuCap = 556
+    SELECT @NhanVienID = MIN(KyCongChiTiet_NhanVien) FROM KyCongChiTiet WHERE KyCongChiTiet_KyCong = @MaKyCong
+    SELECT @SoNgayLyThuyet = KyCong_SoNgayCong FROM KyCong WHERE KyCong_MaKyCong = @MaKyCong
+    while @NhanVienID IS NOT NULL
+    BEGIN
+        SELECT @ThucTe = KyCongChiTiet_NgayCongThucTe, @CongCN = KyCongChiTiet_CongChuNhat FROM KyCongChiTiet WHERE KyCongChiTiet_KyCong = @MaKyCong AND KyCongChiTiet_NhanVien = @NhanVienID
+        SELECT @LuongCB = HopDong_LuongCanBan, @HeSoLuong = HopDong_HeSoLuong  FROM HopDong WHERE HopDong_NhanVien = @NhanVienID
+        -- SELECT @SoGio = SUM(TangCa_SoGio) FROM TangCa WHERE TangCa_KyCong = @MaKyCong AND TangCa_NhanVien = @NhanVienID 
+        SET @LuongThuong = @ThucTe * (@LuongCB * @HeSoLuong)/@SoNgayLyThuyet * 1000
+        SET @LuongCN = COALESCE(@CongCN,0) * 2 * (@LuongCB * @HeSoLuong)/@SoNgayLyThuyet * 1000
+        SELECT @UngLuong = COALESCE(SUM(ul.UngLuong_SoTien),0) FROM UngLuong ul WHERE ul.UngLuong_NhanVien = @NhanVienID AND ul.UngLuong_KyCong = @MaKyCong AND ul.UngLuong_TrangThaiXoa = 0
+        SELECT @giotangca = COALESCE(SUM(tc.TangCa_SoGio*ltc.LoaiTangCa_HeSo),0) 
+        FROM TangCa tc,LoaiTangCa ltc 
+        WHERE tc.TangCa_NhanVien = @NhanVienID AND tc.TangCa_KyCong = @MaKyCong AND 
+        tc.TangCa_LoaiTangCa = ltc.LoaiTangCa_ID
+        SET @TangCa = @giotangca * (@LuongCB * @HeSoLuong)/@SoNgayLyThuyet * 1000 / 8 
+        SET @LuongNhanDuoc = @LuongThuong + @LuongCN - @UngLuong + @PhuCap + @TangCa
+        SET @LuongThucLanh = @LuongNhanDuoc * 0.895
+        INSERT INTO BangLuong (BangLuong_NhanVien,BangLuong_KyCong,BangLuong_LuongNgayThuong,BangLuong_LuongNgayCN,BangLuong_TangCa,BangLuong_UngLuong,BangLuong_PhuCap,BangLuong_LuongNhanDuoc, BangLuong_ThucLanh) VALUES (@NhanVienID,@MaKyCong,@LuongThuong,@LuongCN,@TangCa,@UngLuong,@PhuCap,@LuongNhanDuoc,CEILING(@LuongThucLanh))
+        SELECT @NhanVienID = MIN(KyCongChiTiet_NhanVien)
+        FROM KyCongChiTiet
+        WHERE KyCongChiTiet_NhanVien > @NhanVienID AND KyCongChiTiet_KyCong = @MaKyCong     
+    END
+END
 GO
 
 CREATE FUNCTION Luong_HienThi()
