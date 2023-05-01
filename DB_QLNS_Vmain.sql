@@ -372,32 +372,6 @@ VALUES (1, N'Bậc 1', 1.07),
 (4, N'Bậc 4', 1.42);
 GO
 
---Bảng Hợp đồng
-INSERT INTO HopDong (HopDong_NgayBatDau, HopDong_NgayKetThuc,
-    HopDong_LanKy, HopDong_NoiDung, HopDong_LuongCanBan, HopDong_HeSoLuong, HopDong_NhanVien)
-VALUES
-('1/1/2019','1/1/2021', 1, 'A',3.250,1,(SELECT NhanVien_ID FROM NhanVien WHERE NhanVien_HoTen=N'Nguyễn Văn Phát')),
-('3/1/2018','3/1/2021', 1, 'A',3.250,1,(SELECT NhanVien_ID FROM NhanVien WHERE NhanVien_HoTen= N'Huỳnh Văn Bá')),
-('3/1/2019','3/1/2021', 1, 'A',3.250,1,(SELECT NhanVien_ID FROM NhanVien WHERE NhanVien_HoTen= N'Nguyễn Thị Hà')),
-('1/1/2019','1/1/2021', 1, 'A',3.250,1,(SELECT NhanVien_ID FROM NhanVien WHERE NhanVien_HoTen= N'Nguyễn Thị Hạ')),
-('11/1/2019','1/11/2021', 1, 'A',3.250,1,(SELECT NhanVien_ID FROM NhanVien WHERE NhanVien_HoTen= N'Huỳnh Văn Ba')),
-('11/1/2019','1/11/2021', 1, 'A',3.250,1,(SELECT NhanVien_ID FROM NhanVien WHERE NhanVien_HoTen= N'Huỳnh Văn Vũ')),
-('12/1/2019','12/1/2021', 1, 'A',3.250,1,(SELECT NhanVien_ID FROM NhanVien WHERE NhanVien_HoTen= N'Nguyễn Văn Khánh')),
-('12/1/2019','12/1/2021', 1, 'A',3.250,1,(SELECT NhanVien_ID FROM NhanVien WHERE NhanVien_HoTen= N'Nguyễn Văn Ba')),
-('12/1/2019','12/1/2021', 1, 'A',3.250,1,(SELECT NhanVien_ID FROM NhanVien WHERE NhanVien_HoTen= N'Nguyễn Công Huynh')),
-('12/1/2019','12/1/2021', 1, 'A',3.250,1,(SELECT NhanVien_ID FROM NhanVien WHERE NhanVien_HoTen= N'Nguyễn Phát Tài')),
-('11/1/2019','11/1/2021', 1, 'A',3.250,1,(SELECT NhanVien_ID FROM NhanVien WHERE NhanVien_HoTen= N'Lý Tiến Thành')),
-('12/1/2019','12/1/2021', 1, 'A',3.250,1,(SELECT NhanVien_ID FROM NhanVien WHERE NhanVien_HoTen= N'Mai Thành Chung')),
-('11/1/2019','11/1/2021', 1, 'A',3.250,1,(SELECT NhanVien_ID FROM NhanVien WHERE NhanVien_HoTen= N'Mai Trọng Khánh')),
-('1/1/2019','1/1/2021', 1, 'A',3.250,1,(SELECT NhanVien_ID FROM NhanVien WHERE NhanVien_HoTen= N'Quách Đình Trường Thi')),
-('1/1/2019','1/1/2021', 1, 'A',3.250,1,(SELECT NhanVien_ID FROM NhanVien WHERE NhanVien_HoTen= N'Quách Diệu Khánh')),
-('1/1/2019','1/1/2021', 1, 'A',3.250,1,(SELECT NhanVien_ID FROM NhanVien WHERE NhanVien_HoTen= N'Phan Thanh Lâm')),
-('1/1/2019','1/1/2021', 1, 'A',3.250,1,(SELECT NhanVien_ID FROM NhanVien WHERE NhanVien_HoTen= N'Đinh Bảo Long')),
-('1/1/2019','1/1/2021', 1, 'A',3.250,1,(SELECT NhanVien_ID FROM NhanVien WHERE NhanVien_HoTen= N'Huỳnh Thị My')),
-('1/1/2019','1/1/2021', 1, 'A',3.250,1,(SELECT NhanVien_ID FROM NhanVien WHERE NhanVien_HoTen= N'Võ Thị Phước')),
-('1/1/2019','1/1/2021', 1, 'A',3.250,1,(SELECT NhanVien_ID FROM NhanVien WHERE NhanVien_HoTen= N'Mai Hoàng Hương'));
-GO
-
 --Bảng Nhân Viên
 INSERT INTO NhanVien(
     NhanVien_HoTen, NhanVien_SDT,NhanVien_CCCD,
@@ -425,6 +399,33 @@ VALUES
 (N'Võ Thị Phước', '0123079124', '049000913233', N'Nữ',NULL, N'119/2 đường số 9, Linh Đông, Thủ Đức, TPHCM', '1/1/2001', (SELECT ChucVu_ID FROM CHUCVU WHERE ChucVu_TenCV =N' Nhân viên'), (SELECT PhongBan_MaPB FROM PhongBan WHERE PhongBan_TenPB=N'Phòng Hành Chính')),
 (N'Mai Hoàng Hương', '0123900124', '073000913233',N'Nữ',NULL, N'18/2 Phạm Văn Đồng, Linh Trung, Thủ Đức, TPHCM', '1/1/2001', (SELECT ChucVu_ID FROM CHUCVU WHERE ChucVu_TenCV =N' Nhân viên'), (SELECT PhongBan_MaPB FROM PhongBan WHERE PhongBan_TenPB=N'Phòng Hành Chính'));
 GO
+
+--Bảng Hợp đồng
+INSERT INTO HopDong (HopDong_NgayBatDau, HopDong_NgayKetThuc,
+    HopDong_LanKy, HopDong_NoiDung, HopDong_LuongCanBan, HopDong_HeSoLuong, HopDong_NhanVien)
+VALUES
+('1/1/2019','1/1/2021', 1, 'A',3.250,1,(SELECT NhanVien_ID FROM NhanVien WHERE NhanVien_HoTen=N'Nguyễn Văn Phát')),
+('3/1/2018','3/1/2021', 1, 'A',3.250,1,(SELECT NhanVien_ID FROM NhanVien WHERE NhanVien_HoTen= N'Huỳnh Văn Bá')),
+('3/1/2019','3/1/2021', 1, 'A',3.250,1,(SELECT NhanVien_ID FROM NhanVien WHERE NhanVien_HoTen= N'Nguyễn Thị Hà')),
+('1/1/2019','1/1/2021', 1, 'A',3.250,1,(SELECT NhanVien_ID FROM NhanVien WHERE NhanVien_HoTen= N'Nguyễn Thị Hạ')),
+('11/1/2019','1/11/2021', 1, 'A',3.250,1,(SELECT NhanVien_ID FROM NhanVien WHERE NhanVien_HoTen= N'Huỳnh Văn Ba')),
+('11/1/2019','1/11/2021', 1, 'A',3.250,1,(SELECT NhanVien_ID FROM NhanVien WHERE NhanVien_HoTen= N'Huỳnh Văn Vũ')),
+('12/1/2019','12/1/2021', 1, 'A',3.250,1,(SELECT NhanVien_ID FROM NhanVien WHERE NhanVien_HoTen= N'Nguyễn Văn Khánh')),
+('12/1/2019','12/1/2021', 1, 'A',3.250,1,(SELECT NhanVien_ID FROM NhanVien WHERE NhanVien_HoTen= N'Nguyễn Văn Ba')),
+('12/1/2019','12/1/2021', 1, 'A',3.250,1,(SELECT NhanVien_ID FROM NhanVien WHERE NhanVien_HoTen= N'Nguyễn Công Huynh')),
+('12/1/2019','12/1/2021', 1, 'A',3.250,1,(SELECT NhanVien_ID FROM NhanVien WHERE NhanVien_HoTen= N'Nguyễn Phát Tài')),
+('11/1/2019','11/1/2021', 1, 'A',3.250,1,(SELECT NhanVien_ID FROM NhanVien WHERE NhanVien_HoTen= N'Lý Tiến Thành')),
+('12/1/2019','12/1/2021', 1, 'A',3.250,1,(SELECT NhanVien_ID FROM NhanVien WHERE NhanVien_HoTen= N'Mai Thành Chung')),
+('11/1/2019','11/1/2021', 1, 'A',3.250,1,(SELECT NhanVien_ID FROM NhanVien WHERE NhanVien_HoTen= N'Mai Trọng Khánh')),
+('1/1/2019','1/1/2021', 1, 'A',3.250,1,(SELECT NhanVien_ID FROM NhanVien WHERE NhanVien_HoTen= N'Quách Đình Trường Thi')),
+('1/1/2019','1/1/2021', 1, 'A',3.250,1,(SELECT NhanVien_ID FROM NhanVien WHERE NhanVien_HoTen= N'Quách Diệu Khánh')),
+('1/1/2019','1/1/2021', 1, 'A',3.250,1,(SELECT NhanVien_ID FROM NhanVien WHERE NhanVien_HoTen= N'Phan Thanh Lâm')),
+('1/1/2019','1/1/2021', 1, 'A',3.250,1,(SELECT NhanVien_ID FROM NhanVien WHERE NhanVien_HoTen= N'Đinh Bảo Long')),
+('1/1/2019','1/1/2021', 1, 'A',3.250,1,(SELECT NhanVien_ID FROM NhanVien WHERE NhanVien_HoTen= N'Huỳnh Thị My')),
+('1/1/2019','1/1/2021', 1, 'A',3.250,1,(SELECT NhanVien_ID FROM NhanVien WHERE NhanVien_HoTen= N'Võ Thị Phước')),
+('1/1/2019','1/1/2021', 1, 'A',3.250,1,(SELECT NhanVien_ID FROM NhanVien WHERE NhanVien_HoTen= N'Mai Hoàng Hương'));
+GO
+
 ---
 INSERT INTO KyCong(KyCong_Nam, KyCong_Thang, KyCong_SoNgayCong, KyCong_TrangThaiXoa)
 VALUES 
