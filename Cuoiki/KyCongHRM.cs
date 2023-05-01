@@ -70,7 +70,7 @@ namespace Cuoiki
 
                 conn = DBUtils.GetDBConnection();
                 conn.Open();
-                SqlCommand cmd = new SqlCommand("SELECT * FROM DS_KyCong", conn);
+                SqlCommand cmd = new SqlCommand("SELECT * FROM DS_KyCong ORDER BY KyCong_Nam ASC", conn);
                 adStore = new SqlDataAdapter(cmd);
                 dtStore = new DataTable();
                 adStore.Fill(dtStore);

@@ -102,7 +102,7 @@ namespace Cuoiki
             conn.Open();
             try
             {
-                SqlCommand cmd2 = new SqlCommand("SELECT * FROM DS_KyCong", conn);
+                SqlCommand cmd2 = new SqlCommand("SELECT * FROM DS_KyCong ORDER BY KyCong_Nam ASC", conn);
                 adStore = new SqlDataAdapter(cmd2);
                 dtStore = new DataTable();
                 adStore.Fill(dtStore);
@@ -217,7 +217,7 @@ namespace Cuoiki
             try
             {
                 String nam = cbbNam.Text.Trim();
-                SqlCommand cmd2 = new SqlCommand("SELECT * FROM DS_KyCong WHERE KyCong_Nam = " + nam, conn);
+                SqlCommand cmd2 = new SqlCommand("SELECT * FROM DS_KyCong WHERE KyCong_Nam = " + nam + "ORDER BY KyCong_Thang ASC", conn);
                 adStore = new SqlDataAdapter(cmd2);
                 dtStore = new DataTable();
                 adStore.Fill(dtStore);
