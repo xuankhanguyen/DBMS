@@ -1,8 +1,8 @@
 ﻿-- Tạo CSDL
-CREATE DATABASE QLNS
+CREATE DATABASE Test
 GO
 -- Sử dụng CSDL
-USE QLNS
+USE Test
 GO
 
 ------------------------------------ Thực hiện tạo bảng -----------------------------------------------
@@ -448,11 +448,7 @@ INSERT INTO NhanVien
     NhanVien_GioiTinh, NhanVien_HinhAnh, NhanVien_DiaChi, NhanVien_NgaySinh,
     NhanVien_ChucVu, NhanVien_PhongBan)
 VALUES
-    (N'Nguyễn Văn Phát', '0337079124', '049000123233', N'Nam', NULL, N'44/2 đường số 3, Linh Tây, Thủ Đức, TPHCM', '1/1/2001', (SELECT ChucVu_ID
-        FROM CHUCVU
-        WHERE ChucVu_TenCV =N'Giám đốc' ), (SELECT PhongBan_MaPB
-        FROM PhongBan
-        WHERE PhongBan_TenPB=N'Phòng Hành Chính')),
+    (N'Nguyễn Văn Phát', '0337079124', '049000123233', N'Nam', NULL, N'44/2 đường số 3, Linh Tây, Thủ Đức, TPHCM', '1/1/2001', (1 ), (1)),
     (N'Huỳnh Văn Bá', '0313139871', '003001943441', N'Nam', NULL, N'13 Luỹ Bán Bích, Tân Phú, TPHCM' , '1/1/2001', (SELECT ChucVu_ID
         FROM CHUCVU
         WHERE ChucVu_TenCV =N'Nhân viên' ), (SELECT PhongBan_MaPB
@@ -2019,21 +2015,18 @@ BEGIN
     END CATCH
 END
 GO
--- Thống kê phòng ban theo ngày
-CREATE PROCEDURE ThongKePhongBanTheoNgay
-    @ngay DATE
+-- thống kê nhân viên theo phòng ban
+CREATE PROCEDURE ThongKeNhanVienTheoPhongBan
+    @MaPB INT
 AS
 BEGIN
     BEGIN TRY
-        SELECT PhongBan_TenPB, COUNT(NhanVien_ID) as SoLuongNhanVien
-    FROM PhongBan
-        LEFT JOIN NhanVien ON PhongBan.PhoNgBan_MaPB = NhanVien.NhanVien_PhongBan
-    WHERE PhongBan_TG_NhanChuc = @ngay
-    GROUP BY PhongBan_TenPB
+        SELECT NhanVien_ID, NhanVien_HoTen, NhanVien_SDT, NhanVien_CCCD, NhanVien_GioiTinh, NhanVien_HinhAnh, NhanVien_DiaChi, NhanVien_NgaySinh, NhanVien_ChucVu
+        FROM NhanVien
+        WHERE NhanVien_PhongBan = @MaPB AND NhanVien_TrangThaiXoa = 0
     END TRY
     BEGIN CATCH
         SELECT ERROR_MESSAGE()
     END CATCH
 END
 GO
--- thêm đăng nhập

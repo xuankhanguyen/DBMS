@@ -218,3 +218,29 @@ C:\Users\huynhthanhtuan\Desktop\DBMS\Cuoiki\obj\Debug\Cuoiki.csproj.GenerateReso
 C:\Users\huynhthanhtuan\Desktop\DBMS\Cuoiki\obj\Debug\Cuoiki.csproj.CoreCompileInputs.cache
 C:\Users\huynhthanhtuan\Desktop\DBMS\Cuoiki\obj\Debug\Cuoiki.exe
 C:\Users\huynhthanhtuan\Desktop\DBMS\Cuoiki\obj\Debug\Cuoiki.pdb
+D:\hệ quảng trị csdl\DBMS\Cuoiki\bin\Debug\Cuoiki.exe.config
+D:\hệ quảng trị csdl\DBMS\Cuoiki\bin\Debug\Cuoiki.exe
+D:\hệ quảng trị csdl\DBMS\Cuoiki\bin\Debug\Cuoiki.pdb
+D:\hệ quảng trị csdl\DBMS\Cuoiki\obj\Debug\Cuoiki.csproj.AssemblyReference.cache
+D:\hệ quảng trị csdl\DBMS\Cuoiki\obj\Debug\Cuoiki.csproj.SuggestedBindingRedirects.cache
+D:\hệ quảng trị csdl\DBMS\Cuoiki\obj\Debug\Cuoiki.BangLuong.resources
+D:\hệ quảng trị csdl\DBMS\Cuoiki\obj\Debug\Cuoiki.ChiTietHRM.resources
+D:\hệ quảng trị csdl\DBMS\Cuoiki\obj\Debug\Cuoiki.FormChuongTrinh.resources
+D:\hệ quảng trị csdl\DBMS\Cuoiki\obj\Debug\Cuoiki.FormDangNhap.resources
+D:\hệ quảng trị csdl\DBMS\Cuoiki\obj\Debug\Cuoiki.Forms.FormPhongBan.resources
+D:\hệ quảng trị csdl\DBMS\Cuoiki\obj\Debug\Cuoiki.Forms.FormLoaiTangCa.resources
+D:\hệ quảng trị csdl\DBMS\Cuoiki\obj\Debug\Cuoiki.Forms.FormPhanQuyen.resources
+D:\hệ quảng trị csdl\DBMS\Cuoiki\obj\Debug\ProjectHRM.frmHeSoLuong.resources
+D:\hệ quảng trị csdl\DBMS\Cuoiki\obj\Debug\ProjectHRM.frmHopDong.resources
+D:\hệ quảng trị csdl\DBMS\Cuoiki\obj\Debug\ProjectHRM.frmNhanVien.resources
+D:\hệ quảng trị csdl\DBMS\Cuoiki\obj\Debug\Cuoiki.KyCongHRM.resources
+D:\hệ quảng trị csdl\DBMS\Cuoiki\obj\Debug\Cuoiki.Properties.Resources.resources
+D:\hệ quảng trị csdl\DBMS\Cuoiki\obj\Debug\Cuoiki.TangCa.resources
+D:\hệ quảng trị csdl\DBMS\Cuoiki\obj\Debug\Cuoiki.TrangChuHRM.resources
+D:\hệ quảng trị csdl\DBMS\Cuoiki\obj\Debug\Cuoiki.UngLuong.resources
+D:\hệ quảng trị csdl\DBMS\Cuoiki\obj\Debug\Cuoiki.csproj.GenerateResource.cache
+D:\hệ quảng trị csdl\DBMS\Cuoiki\obj\Debug\Cuoiki.csproj.CoreCompileInputs.cache
+D:\hệ quảng trị csdl\DBMS\Cuoiki\obj\Debug\Cuoiki.exe
+D:\hệ quảng trị csdl\DBMS\Cuoiki\obj\Debug\Cuoiki.pdb
+D:\hệ quảng trị csdl\DBMS\Cuoiki\obj\Debug\Cuoiki.Forms.FormChucVu.resources
+D:\hệ quảng trị csdl\DBMS\Cuoiki\obj\Debug\Cuoiki.Forms.FormTaiKhoan.resources

@@ -116,12 +116,12 @@ namespace Cuoiki
 
         private void bt2_Click(object sender, EventArgs e)
         {
-            OpenChildForm(new Forms.Form2(), sender);
+            OpenChildForm(new Forms.FormChucVu(), sender);
         }
 
         private void bt3_Click(object sender, EventArgs e)
         {
-            OpenChildForm(new Forms.Form3(), sender);
+            OpenChildForm(new Forms.FormTaiKhoan(), sender);
         }
 
         private void bt4_Click(object sender, EventArgs e)

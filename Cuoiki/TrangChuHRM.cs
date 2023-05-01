@@ -1,4 +1,5 @@
-﻿using ProjectHRM;
+﻿using Cuoiki.Forms;
+using ProjectHRM;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -24,6 +25,7 @@ namespace Cuoiki
             panelRe.Visible = false;
             panelSYS.Visible = false;
             panelHT.Visible = false;
+            panel1.Visible = false;
         }
         private void TrangChuHRM_Load(object sender, EventArgs e)
         {
@@ -63,6 +65,10 @@ namespace Cuoiki
             {
                 panelHT.Visible = false;
             }
+            if (panel1.Visible == true)
+            {
+                panel1.Visible = false;
+            }
         }
         private void HienMenu(Panel dongmenu) //Hiện menu
         {
@@ -87,25 +93,15 @@ namespace Cuoiki
 
         private void btHT_Click(object sender, EventArgs e)
         {
-            HienMenu(panelSYS);
-        }
-        private void button4_Click(object sender, EventArgs e)
-        {
             HienMenu(panelHT);
         }
-
-        private void btDX_Click(object sender, EventArgs e)
+        private void btQL_Click(object sender, EventArgs e)
         {
-            DialogResult res;
-            res = MessageBox.Show("Do you want to return login ?", "Notification", MessageBoxButtons.YesNo,
-                MessageBoxIcon.Warning);
-            if (res == DialogResult.Yes)
-            {
-                //LoginFrom lg = new LoginFrom();
-                //lg.Show();
-                this.Close();
-            }
-
+            HienMenu(panelSYS);
+        }
+        private void button4_Click_1(object sender, EventArgs e)
+        {
+            HienMenu(panel1);
         }
 
         private void MoFormCon(Form formcon, object btsender)
@@ -177,10 +173,47 @@ namespace Cuoiki
                 label1.Location = new Point(-100, 0);
             }
         }
+        private void BtDX_Click(object sender, EventArgs e)
+        {
+            DialogResult res;
+            res = MessageBox.Show("Do you want to return login ?", "Notification", MessageBoxButtons.YesNo,
+                MessageBoxIcon.Warning);
+            if (res == DialogResult.Yes)
+            {
+                //LoginFrom lg = new LoginFrom();
+                //lg.Show();
+                this.Close();
+            }
+        }
 
-        private void btnExit_Click(object sender, EventArgs e)
+        private void BtnExit_Click(object sender, EventArgs e)
         {
             Application.Exit();
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            MoFormCon(new FormChucVu(), sender);
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            MoFormCon(new FormLoaiTangCa(), sender);
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            MoFormCon(new FormPhongBan(), sender);
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            MoFormCon(new FormPhanQuyen(), sender);
+        }
+
+        private void button9_Click(object sender, EventArgs e)
+        {
+            MoFormCon(new FormTaiKhoan(), sender);
         }
     }
 }

@@ -238,6 +238,11 @@ namespace ProjectHRM
                 dgvDanhSachNhanVien.Rows.Remove(row);
             }
         }
+
+        private void frmNhanVien_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
 
