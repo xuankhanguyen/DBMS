@@ -218,64 +218,77 @@ GO
 ------------------------------------------- View -------------------------------------------
 
 -- Bảng Ứng lương
-CREATE VIEW DS_UngLuong AS
-SELECT UngLuong_ID, UngLuong_Ngay, UngLuong_NhanVien, UngLuong_SoTien, UngLuong_GhiChu
-FROM UngLuong
-WHERE UngLuong_TrangThaiXoa = 0
+CREATE VIEW DS_UngLuong
+AS
+    SELECT UngLuong_ID, UngLuong_Ngay, UngLuong_NhanVien, UngLuong_SoTien, UngLuong_GhiChu
+    FROM UngLuong
+    WHERE UngLuong_TrangThaiXoa = 0
 GO
 
 -- Bảng PhongBan
-CREATE VIEW DS_Phongban AS
-SELECT PhongBan_MaPB, PhongBan_TenPB
-FROM PhongBan
+CREATE VIEW DS_Phongban
+AS
+    SELECT PhongBan_MaPB, PhongBan_TenPB
+    FROM PhongBan
 GO
 
 -- Bảng PhanQuyen
-CREATE VIEW DS_Quyen AS
-SELECT PhanQuyen_TenQuyen
-FROM PhanQuyen
+CREATE VIEW DS_Quyen
+AS
+    SELECT PhanQuyen_TenQuyen
+    FROM PhanQuyen
 GO
 
 -- Bảng TaiKhoan
-CREATE VIEW DS_TaiKhoan AS
-SELECT TaiKhoan_SoTK, TaiKhoan_MatKhau, TaiKhoan_NhanVien
-FROM TaiKhoan
+CREATE VIEW DS_TaiKhoan
+AS
+    SELECT TaiKhoan_SoTK, TaiKhoan_MatKhau, TaiKhoan_NhanVien
+    FROM TaiKhoan
 GO
 -- Bảng Kỳ Công
-CREATE VIEW DS_KyCong AS
-SELECT KyCong_MaKyCong , KyCong_Nam ,KyCong_Thang ,KyCong_SoNgayCong 
-FROM KyCong
-WHERE KyCong_TrangThaiXoa = 0
+CREATE VIEW DS_KyCong
+AS
+    SELECT KyCong_MaKyCong , KyCong_Nam , KyCong_Thang , KyCong_SoNgayCong
+    FROM KyCong
+    WHERE KyCong_TrangThaiXoa = 0
 GO
 
 -- Bảng Châm Công
-CREATE VIEW View_ChamCong AS
-SELECT ChamCong_ID, ChamCong_Ngay ,ChamCong_NhanVien,ChamCong_KyCong
-FROM ChamCong
+CREATE VIEW View_ChamCong
+AS
+    SELECT ChamCong_ID, ChamCong_Ngay , ChamCong_NhanVien, ChamCong_KyCong
+    FROM ChamCong
 GO
 
 --Bảng Kỳ Công Chấm Công
-CREATE VIEW View_ChamCongKyCong AS
-SELECT ChamCong.ChamCong_ID, ChamCong.ChamCong_NhanVien, ChamCong.ChamCong_Ngay, KyCong.KyCong_Thang, KyCong.KyCong_Nam
-FROM ChamCong
-JOIN KyCongChiTiet ON ChamCong.ChamCong_NhanVien = KyCongChiTiet.KyCongChiTiet_NhanVien AND ChamCong.ChamCong_KyCong = KyCongChiTiet.KyCongChiTiet_KyCong
-JOIN KyCong ON KyCongChiTiet.KyCongChiTiet_KyCong = KyCong.KyCong_MaKyCong;
+CREATE VIEW View_ChamCongKyCong
+AS
+    SELECT ChamCong.ChamCong_ID, ChamCong.ChamCong_NhanVien, ChamCong.ChamCong_Ngay, KyCong.KyCong_Thang, KyCong.KyCong_Nam
+    FROM ChamCong
+        JOIN KyCongChiTiet ON ChamCong.ChamCong_NhanVien = KyCongChiTiet.KyCongChiTiet_NhanVien AND ChamCong.ChamCong_KyCong = KyCongChiTiet.KyCongChiTiet_KyCong
+        JOIN KyCong ON KyCongChiTiet.KyCongChiTiet_KyCong = KyCong.KyCong_MaKyCong;
 GO
 
 -- Bang Chuc vu , Nhan Vien, LoaiTangCa
-CREATE VIEW v_ChucVu AS
-SELECT * FROM dbo.ChucVu;
+CREATE VIEW v_ChucVu
+AS
+    SELECT *
+    FROM dbo.ChucVu;
 
 go
 
 
-CREATE VIEW v_NhanVienCoTangCa AS
-SELECT * FROM dbo.TangCa
-WHERE TangCa_NgayTangCa IS NOT NULL
+CREATE VIEW v_NhanVienCoTangCa
+AS
+    SELECT *
+    FROM dbo.TangCa
+    WHERE TangCa_NgayTangCa IS NOT NULL
 GO
 
-CREATE VIEW v_LoaiTangCa AS
-SELECT * FROM dbo.LoaiTangCa;
+CREATE VIEW v_LoaiTangCa
+AS
+    SELECT *
+    FROM dbo.LoaiTangCa;
 GO
 
 ------------------------------------------- Trigger ----------------------------------------
@@ -286,17 +299,19 @@ ON UngLuong
 INSTEAD OF INSERT
 AS
 BEGIN
-  DECLARE @maxid int = 0
-  SELECT @maxid = MAX(UngLuong_ID) FROM UngLuong
-  IF @maxid IS NULL SET @maxid = 1;
+    DECLARE @maxid int = 0
+    SELECT @maxid = MAX(UngLuong_ID)
+    FROM UngLuong
+    IF @maxid IS NULL SET @maxid = 1;
   ELSE SET @maxid = @maxid + 1;
-  INSERT INTO UngLuong (UngLuong_ID)
-  VALUES(@maxid)
-  UPDATE UngLuong
+    INSERT INTO UngLuong
+        (UngLuong_ID)
+    VALUES(@maxid)
+    UPDATE UngLuong
   SET UngLuong_Ngay = i.UngLuong_Ngay, UngLuong_SoTien=i.UngLuong_SoTien, UngLuong_TrangThaiXoa=i.UngLuong_TrangThaiXoa, UngLuong_GhiChu=i.UngLuong_GhiChu, UngLuong_NhanVien=i.UngLuong_NhanVien, UngLuong_KyCong=i.UngLuong_KyCong
   FROM inserted i
   WHERE UngLuong.UngLuong_ID = @maxid
-  PRINT N'Đã thêm ứng lương có mã là: '+ CAST(@maxid AS VARCHAR)
+    PRINT N'Đã thêm ứng lương có mã là: '+ CAST(@maxid AS VARCHAR)
 END;
 GO
 
@@ -307,11 +322,14 @@ INSTEAD OF INSERT
 AS
 BEGIN
     DECLARE @maxid int = 0
-    SELECT @maxid = MAX(PhongBan_MaPB) FROM PhongBan
+    SELECT @maxid = MAX(PhongBan_MaPB)
+    FROM PhongBan
     IF @maxid IS NULL SET @maxid = 1
     ELSE SET @maxid = @maxid + 1
-    INSERT INTO PhongBan (PhongBan_MaPB)
-    VALUES (@maxid)
+    INSERT INTO PhongBan
+        (PhongBan_MaPB)
+    VALUES
+        (@maxid)
     UPDATE PhongBan
     SET PhongBan_TenPB = i.PhongBan_TenPB, PhongBan_TG_NhanChuc = i.PhongBan_TG_NhanChuc, PhongBan_TruongPhong = i.PhongBan_TruongPhong
     FROM inserted i
@@ -327,10 +345,12 @@ INSTEAD OF INSERT
 AS
 BEGIN
     DECLARE @maxid int = 0
-    SELECT @maxid = MAX(PhanQuyen_ID) FROM PhanQuyen
+    SELECT @maxid = MAX(PhanQuyen_ID)
+    FROM PhanQuyen
     IF @maxid IS NULL SET @maxid = 1
     ELSE SET @maxid = @maxid + 1
-    INSERT INTO PhanQuyen (PhanQuyen_ID)
+    INSERT INTO PhanQuyen
+        (PhanQuyen_ID)
     VALUES(@maxid)
     UPDATE PhanQuyen
     SET PhanQuyen_TenQuyen = i.PhanQuyen_TenQuyen
@@ -347,10 +367,15 @@ INSTEAD OF INSERT
 AS
 BEGIN
     DECLARE @checkid int
-    SELECT @checkid = i.TaiKhoan_SoTK FROM inserted i
-    IF NOT EXISTS(SELECT * FROM TaiKhoan WHERE TaiKhoan_SoTK = @checkid)
-    INSERT INTO TaiKhoan (TaiKhoan_SoTK, TaiKhoan_MatKhau, TaiKhoan_NhanVien, TaiKhoan_PhanQuyen)
-    SELECT i.TaiKhoan_SoTK, (CONVERT(VARCHAR(32), HashBytes('MD5', i.TaiKhoan_MatKhau), 2)), i.TaiKhoan_NhanVien, i.TaiKhoan_PhanQuyen FROM inserted i
+    SELECT @checkid = i.TaiKhoan_SoTK
+    FROM inserted i
+    IF NOT EXISTS(SELECT *
+    FROM TaiKhoan
+    WHERE TaiKhoan_SoTK = @checkid)
+    INSERT INTO TaiKhoan
+        (TaiKhoan_SoTK, TaiKhoan_MatKhau, TaiKhoan_NhanVien, TaiKhoan_PhanQuyen)
+    SELECT i.TaiKhoan_SoTK, (CONVERT(VARCHAR(32), HashBytes('MD5', i.TaiKhoan_MatKhau), 2)), i.TaiKhoan_NhanVien, i.TaiKhoan_PhanQuyen
+    FROM inserted i
     ELSE
     PRINT N'Số tài khoản: '+ CAST(@checkid AS VARCHAR)+N' đã tồn tại.'
 END;
@@ -361,7 +386,9 @@ ON KyCong
 AFTER INSERT, UPDATE
 AS
 BEGIN
-    IF EXISTS (SELECT 1 FROM inserted WHERE inserted.KyCong_Thang < 1 OR inserted.KyCong_Thang > 12)
+    IF EXISTS (SELECT 1
+    FROM inserted
+    WHERE inserted.KyCong_Thang < 1 OR inserted.KyCong_Thang > 12)
     BEGIN
         RAISERROR('Giá trị của KyCong_Thang phải nằm trong khoảng từ 1 đến 12', 16, 1)
         ROLLBACK TRANSACTION
@@ -377,8 +404,8 @@ AS
 BEGIN
     IF EXISTS (
         SELECT *
-        FROM inserted
-        WHERE ChamCong_Ngay < 1 OR ChamCong_Ngay > 31
+    FROM inserted
+    WHERE ChamCong_Ngay < 1 OR ChamCong_Ngay > 31
     )
     BEGIN
         RAISERROR('Ngày chấm công không hợp lệ', 16, 1)
@@ -393,157 +420,359 @@ ON dbo.TangCa
 FOR INSERT
 AS
 BEGIN
-	DECLARE @day INT =0;
-	SELECT @day = TangCa_NgayTangCa FROM dbo.TangCa
-	IF(@day <=0 or @day >31)
+    DECLARE @day INT =0;
+    SELECT @day = TangCa_NgayTangCa
+    FROM dbo.TangCa
+    IF(@day <=0 or @day >31)
 		ROLLBACK TRAN
 END
 GO
- 
+
 
 -------------------------------------------  Data ------------------------------------------
 
 --Bảng Hệ số lương
-INSERT INTO HeSoLuong (HeSoLuong_ID, HeSoLuong_Ten, HeSoLuong_GiaTri)
-VALUES (1, N'Bậc 1', 1.07), 
-(2, N'Bậc 2', 1.13), 
-(3, N'Bậc 3', 1.19), 
-(4, N'Bậc 4', 1.42);
+INSERT INTO HeSoLuong
+    (HeSoLuong_ID, HeSoLuong_Ten, HeSoLuong_GiaTri)
+VALUES
+    (1, N'Bậc 1', 1.07),
+    (2, N'Bậc 2', 1.13),
+    (3, N'Bậc 3', 1.19),
+    (4, N'Bậc 4', 1.42);
 GO
 
 --Bảng Nhân Viên
-INSERT INTO NhanVien(
+INSERT INTO NhanVien
+    (
     NhanVien_HoTen, NhanVien_SDT,NhanVien_CCCD,
-    NhanVien_GioiTinh, NhanVien_HinhAnh, NhanVien_DiaChi, NhanVien_NgaySinh, 
+    NhanVien_GioiTinh, NhanVien_HinhAnh, NhanVien_DiaChi, NhanVien_NgaySinh,
     NhanVien_ChucVu, NhanVien_PhongBan)
 VALUES
-(N'Nguyễn Văn Phát', '0337079124', '049000123233', N'Nam',NULL, N'44/2 đường số 3, Linh Tây, Thủ Đức, TPHCM', '1/1/2001', (SELECT ChucVu_ID FROM CHUCVU WHERE ChucVu_TenCV =N'Giám đốc' ), (SELECT PhongBan_MaPB FROM PhongBan WHERE PhongBan_TenPB=N'Phòng Hành Chính')),
-(N'Huỳnh Văn Bá', '0313139871', '003001943441', N'Nam', NULL, N'13 Luỹ Bán Bích, Tân Phú, TPHCM' , '1/1/2001', (SELECT ChucVu_ID FROM CHUCVU WHERE ChucVu_TenCV =N'Nhân viên' ), (SELECT PhongBan_MaPB FROM PhongBan WHERE PhongBan_TenPB=N'Phòng Hành Chính')),
-(N'Nguyễn Thị Hà', '0312888122', '000321212932', N'Nữ',NULL, N'91 Tam Hà, Tam Phú, Thủ Đức, TPHCM', '1/1/2001', (SELECT ChucVu_ID FROM CHUCVU WHERE ChucVu_TenCV =N' Nhân viên'), (SELECT PhongBan_MaPB FROM PhongBan WHERE PhongBan_TenPB=N'Phòng Hành Chính')),
-(N'Nguyễn Thị Hạ', '0312834122', '000398912932', N'Nữ',NULL, N'3 Tam Hà, Tam Phú, Thủ Đức, TPHCM', '1/1/2001', (SELECT ChucVu_ID FROM CHUCVU WHERE ChucVu_TenCV =N' Nhân viên'), (SELECT PhongBan_MaPB FROM PhongBan WHERE PhongBan_TenPB=N'Phòng Hành Chính')),
-(N'Huỳnh Văn Ba', '0313139871', '003001943441', N'Nam',NULL, N'137 Luỹ Bán Bích, Tân Phú, TPHCM', '1/1/2001', (SELECT ChucVu_ID FROM CHUCVU WHERE ChucVu_TenCV =N' Nhân viên'), (SELECT PhongBan_MaPB FROM PhongBan WHERE PhongBan_TenPB=N'Phòng Hành Chính')),
-(N'Huỳnh Văn Vũ', '0319199871', '003111943441', N'Nam',NULL, N'198 Luỹ Bán Bích, Tân Phú, TPHCM', '1/1/2001', (SELECT ChucVu_ID FROM CHUCVU WHERE ChucVu_TenCV =N' Nhân viên'), (SELECT PhongBan_MaPB FROM PhongBan WHERE PhongBan_TenPB=N'Phòng Hành Chính')),
-(N'Nguyễn Văn Khánh', '0324079124', '049008923233', N'Nam',NULL, N'44/7 đường số 3, Linh Tây, Thủ Đức, TPHCM', '1/1/2001', (SELECT ChucVu_ID FROM CHUCVU WHERE ChucVu_TenCV =N' Nhân viên'), (SELECT PhongBan_MaPB FROM PhongBan WHERE PhongBan_TenPB=N'Phòng Hành Chính')),
-(N'Nguyễn Văn Ba', '0339079124', '049000912233', N'Nam',NULL, N'48/2 đường số 9, Linh Trung, Thủ Đức, TPHCM', '1/1/2001', (SELECT ChucVu_ID FROM CHUCVU WHERE ChucVu_TenCV =N' Nhân viên'), (SELECT PhongBan_MaPB FROM PhongBan WHERE PhongBan_TenPB=N'Phòng Hành Chính')),
-(N'Nguyễn Công Huynh', '0337079192', '049000129233', N'Nam',NULL, N'42/2 đường số 3, Linh Tây, Thủ Đức, TPHCM', '1/1/2001', (SELECT ChucVu_ID FROM CHUCVU WHERE ChucVu_TenCV =N' Nhân viên'), (SELECT PhongBan_MaPB FROM PhongBan WHERE PhongBan_TenPB=N'Phòng Hành Chính')),
-(N'Nguyễn Phát Tài' , '0127079124', '049120123233', N'Nam',NULL, N'41/4 đường số 1, Linh Tây, Thủ Đức, TPHCM', '1/1/2001', (SELECT ChucVu_ID FROM CHUCVU WHERE ChucVu_TenCV =N' Nhân viên'), (SELECT PhongBan_MaPB FROM PhongBan WHERE PhongBan_TenPB=N'Phòng Hành Chính')),
-(N'Lý Tiến Thành', '0337098124', '049000192233', N'Nam',NULL, N'14/2 đường số 8, Linh Chiểu, Thủ Đức, TPHCM', '1/1/2001', (SELECT ChucVu_ID FROM CHUCVU WHERE ChucVu_TenCV =N' Nhân viên'), (SELECT PhongBan_MaPB FROM PhongBan WHERE PhongBan_TenPB=N'Phòng Hành Chính')),
-(N'Mai Thành Chung', '0391079124', '049000913233', N'Nam',NULL, N'19 đường số 4, Linh Đông, Thủ Đức, TPHCM', '1/1/2001', (SELECT ChucVu_ID FROM CHUCVU WHERE ChucVu_TenCV =N' Nhân viên'), (SELECT PhongBan_MaPB FROM PhongBan WHERE PhongBan_TenPB=N'Phòng Hành Chính')),
-(N'Mai Trọng Khánh', '0891079124', '049111913233', N'Nam',NULL, N'29 đường số 4, Linh Đông, Thủ Đức, TPHCM', '1/1/2001', (SELECT ChucVu_ID FROM CHUCVU WHERE ChucVu_TenCV =N' Nhân viên'), (SELECT PhongBan_MaPB FROM PhongBan WHERE PhongBan_TenPB=N'Phòng Hành Chính')),
-(N'Quách Đình Trường Thi', '0891079124', '049000913233', N'Nam',NULL, N'111 đường số 4, Linh Đông, Thủ Đức, TPHCM', '1/1/2001', (SELECT ChucVu_ID FROM CHUCVU WHERE ChucVu_TenCV =N' Nhân viên'), (SELECT PhongBan_MaPB FROM PhongBan WHERE PhongBan_TenPB=N'Phòng Hành Chính')),
-(N'Quách Diệu Khánh', '0312079124', '049009013233', N'Nam',NULL, N'90 đường số 2, Linh Đông, Thủ Đức, TPHCM', '1/1/2001', (SELECT ChucVu_ID FROM CHUCVU WHERE ChucVu_TenCV =N' Nhân viên'), (SELECT PhongBan_MaPB FROM PhongBan WHERE PhongBan_TenPB=N'Phòng Hành Chính')),
-(N'Phan Thanh Lâm', '0399019124', '049123913233', N'Nam',NULL, N'19 đường số 9, Linh Đông, Thủ Đức, TPHCM', '1/1/2001', (SELECT ChucVu_ID FROM CHUCVU WHERE ChucVu_TenCV =N' Nhân viên'), (SELECT PhongBan_MaPB FROM PhongBan WHERE PhongBan_TenPB=N'Phòng Hành Chính')),
-(N'Đinh Bảo Long', '0391123124', '049000192233', N'Nam', NULL,N'19 đường số 2, Linh Đông, Thủ Đức, TPHCM', '1/1/2001', (SELECT ChucVu_ID FROM CHUCVU WHERE ChucVu_TenCV =N' Nhân viên'), (SELECT PhongBan_MaPB FROM PhongBan WHERE PhongBan_TenPB=N'Phòng Hành Chính')),
-(N'Huỳnh Thị My', '0312179124', '049002113233', N'Nữ', NULL,N'122 đường số 9, Linh Đông, Thủ Đức, TPHCM', '1/1/2001', (SELECT ChucVu_ID FROM CHUCVU WHERE ChucVu_TenCV =N' Nhân viên'), (SELECT PhongBan_MaPB FROM PhongBan WHERE PhongBan_TenPB=N'Phòng Hành Chính')),
-(N'Võ Thị Phước', '0123079124', '049000913233', N'Nữ',NULL, N'119/2 đường số 9, Linh Đông, Thủ Đức, TPHCM', '1/1/2001', (SELECT ChucVu_ID FROM CHUCVU WHERE ChucVu_TenCV =N' Nhân viên'), (SELECT PhongBan_MaPB FROM PhongBan WHERE PhongBan_TenPB=N'Phòng Hành Chính')),
-(N'Mai Hoàng Hương', '0123900124', '073000913233',N'Nữ',NULL, N'18/2 Phạm Văn Đồng, Linh Trung, Thủ Đức, TPHCM', '1/1/2001', (SELECT ChucVu_ID FROM CHUCVU WHERE ChucVu_TenCV =N' Nhân viên'), (SELECT PhongBan_MaPB FROM PhongBan WHERE PhongBan_TenPB=N'Phòng Hành Chính'));
+    (N'Nguyễn Văn Phát', '0337079124', '049000123233', N'Nam', NULL, N'44/2 đường số 3, Linh Tây, Thủ Đức, TPHCM', '1/1/2001', (SELECT ChucVu_ID
+        FROM CHUCVU
+        WHERE ChucVu_TenCV =N'Giám đốc' ), (SELECT PhongBan_MaPB
+        FROM PhongBan
+        WHERE PhongBan_TenPB=N'Phòng Hành Chính')),
+    (N'Huỳnh Văn Bá', '0313139871', '003001943441', N'Nam', NULL, N'13 Luỹ Bán Bích, Tân Phú, TPHCM' , '1/1/2001', (SELECT ChucVu_ID
+        FROM CHUCVU
+        WHERE ChucVu_TenCV =N'Nhân viên' ), (SELECT PhongBan_MaPB
+        FROM PhongBan
+        WHERE PhongBan_TenPB=N'Phòng Hành Chính')),
+    (N'Nguyễn Thị Hà', '0312888122', '000321212932', N'Nữ', NULL, N'91 Tam Hà, Tam Phú, Thủ Đức, TPHCM', '1/1/2001', (SELECT ChucVu_ID
+        FROM CHUCVU
+        WHERE ChucVu_TenCV =N' Nhân viên'), (SELECT PhongBan_MaPB
+        FROM PhongBan
+        WHERE PhongBan_TenPB=N'Phòng Hành Chính')),
+    (N'Nguyễn Thị Hạ', '0312834122', '000398912932', N'Nữ', NULL, N'3 Tam Hà, Tam Phú, Thủ Đức, TPHCM', '1/1/2001', (SELECT ChucVu_ID
+        FROM CHUCVU
+        WHERE ChucVu_TenCV =N' Nhân viên'), (SELECT PhongBan_MaPB
+        FROM PhongBan
+        WHERE PhongBan_TenPB=N'Phòng Hành Chính')),
+    (N'Huỳnh Văn Ba', '0313139871', '003001943441', N'Nam', NULL, N'137 Luỹ Bán Bích, Tân Phú, TPHCM', '1/1/2001', (SELECT ChucVu_ID
+        FROM CHUCVU
+        WHERE ChucVu_TenCV =N' Nhân viên'), (SELECT PhongBan_MaPB
+        FROM PhongBan
+        WHERE PhongBan_TenPB=N'Phòng Hành Chính')),
+    (N'Huỳnh Văn Vũ', '0319199871', '003111943441', N'Nam', NULL, N'198 Luỹ Bán Bích, Tân Phú, TPHCM', '1/1/2001', (SELECT ChucVu_ID
+        FROM CHUCVU
+        WHERE ChucVu_TenCV =N' Nhân viên'), (SELECT PhongBan_MaPB
+        FROM PhongBan
+        WHERE PhongBan_TenPB=N'Phòng Hành Chính')),
+    (N'Nguyễn Văn Khánh', '0324079124', '049008923233', N'Nam', NULL, N'44/7 đường số 3, Linh Tây, Thủ Đức, TPHCM', '1/1/2001', (SELECT ChucVu_ID
+        FROM CHUCVU
+        WHERE ChucVu_TenCV =N' Nhân viên'), (SELECT PhongBan_MaPB
+        FROM PhongBan
+        WHERE PhongBan_TenPB=N'Phòng Hành Chính')),
+    (N'Nguyễn Văn Ba', '0339079124', '049000912233', N'Nam', NULL, N'48/2 đường số 9, Linh Trung, Thủ Đức, TPHCM', '1/1/2001', (SELECT ChucVu_ID
+        FROM CHUCVU
+        WHERE ChucVu_TenCV =N' Nhân viên'), (SELECT PhongBan_MaPB
+        FROM PhongBan
+        WHERE PhongBan_TenPB=N'Phòng Hành Chính')),
+    (N'Nguyễn Công Huynh', '0337079192', '049000129233', N'Nam', NULL, N'42/2 đường số 3, Linh Tây, Thủ Đức, TPHCM', '1/1/2001', (SELECT ChucVu_ID
+        FROM CHUCVU
+        WHERE ChucVu_TenCV =N' Nhân viên'), (SELECT PhongBan_MaPB
+        FROM PhongBan
+        WHERE PhongBan_TenPB=N'Phòng Hành Chính')),
+    (N'Nguyễn Phát Tài' , '0127079124', '049120123233', N'Nam', NULL, N'41/4 đường số 1, Linh Tây, Thủ Đức, TPHCM', '1/1/2001', (SELECT ChucVu_ID
+        FROM CHUCVU
+        WHERE ChucVu_TenCV =N' Nhân viên'), (SELECT PhongBan_MaPB
+        FROM PhongBan
+        WHERE PhongBan_TenPB=N'Phòng Hành Chính')),
+    (N'Lý Tiến Thành', '0337098124', '049000192233', N'Nam', NULL, N'14/2 đường số 8, Linh Chiểu, Thủ Đức, TPHCM', '1/1/2001', (SELECT ChucVu_ID
+        FROM CHUCVU
+        WHERE ChucVu_TenCV =N' Nhân viên'), (SELECT PhongBan_MaPB
+        FROM PhongBan
+        WHERE PhongBan_TenPB=N'Phòng Hành Chính')),
+    (N'Mai Thành Chung', '0391079124', '049000913233', N'Nam', NULL, N'19 đường số 4, Linh Đông, Thủ Đức, TPHCM', '1/1/2001', (SELECT ChucVu_ID
+        FROM CHUCVU
+        WHERE ChucVu_TenCV =N' Nhân viên'), (SELECT PhongBan_MaPB
+        FROM PhongBan
+        WHERE PhongBan_TenPB=N'Phòng Hành Chính')),
+    (N'Mai Trọng Khánh', '0891079124', '049111913233', N'Nam', NULL, N'29 đường số 4, Linh Đông, Thủ Đức, TPHCM', '1/1/2001', (SELECT ChucVu_ID
+        FROM CHUCVU
+        WHERE ChucVu_TenCV =N' Nhân viên'), (SELECT PhongBan_MaPB
+        FROM PhongBan
+        WHERE PhongBan_TenPB=N'Phòng Hành Chính')),
+    (N'Quách Đình Trường Thi', '0891079124', '049000913233', N'Nam', NULL, N'111 đường số 4, Linh Đông, Thủ Đức, TPHCM', '1/1/2001', (SELECT ChucVu_ID
+        FROM CHUCVU
+        WHERE ChucVu_TenCV =N' Nhân viên'), (SELECT PhongBan_MaPB
+        FROM PhongBan
+        WHERE PhongBan_TenPB=N'Phòng Hành Chính')),
+    (N'Quách Diệu Khánh', '0312079124', '049009013233', N'Nam', NULL, N'90 đường số 2, Linh Đông, Thủ Đức, TPHCM', '1/1/2001', (SELECT ChucVu_ID
+        FROM CHUCVU
+        WHERE ChucVu_TenCV =N' Nhân viên'), (SELECT PhongBan_MaPB
+        FROM PhongBan
+        WHERE PhongBan_TenPB=N'Phòng Hành Chính')),
+    (N'Phan Thanh Lâm', '0399019124', '049123913233', N'Nam', NULL, N'19 đường số 9, Linh Đông, Thủ Đức, TPHCM', '1/1/2001', (SELECT ChucVu_ID
+        FROM CHUCVU
+        WHERE ChucVu_TenCV =N' Nhân viên'), (SELECT PhongBan_MaPB
+        FROM PhongBan
+        WHERE PhongBan_TenPB=N'Phòng Hành Chính')),
+    (N'Đinh Bảo Long', '0391123124', '049000192233', N'Nam', NULL, N'19 đường số 2, Linh Đông, Thủ Đức, TPHCM', '1/1/2001', (SELECT ChucVu_ID
+        FROM CHUCVU
+        WHERE ChucVu_TenCV =N' Nhân viên'), (SELECT PhongBan_MaPB
+        FROM PhongBan
+        WHERE PhongBan_TenPB=N'Phòng Hành Chính')),
+    (N'Huỳnh Thị My', '0312179124', '049002113233', N'Nữ', NULL, N'122 đường số 9, Linh Đông, Thủ Đức, TPHCM', '1/1/2001', (SELECT ChucVu_ID
+        FROM CHUCVU
+        WHERE ChucVu_TenCV =N' Nhân viên'), (SELECT PhongBan_MaPB
+        FROM PhongBan
+        WHERE PhongBan_TenPB=N'Phòng Hành Chính')),
+    (N'Võ Thị Phước', '0123079124', '049000913233', N'Nữ', NULL, N'119/2 đường số 9, Linh Đông, Thủ Đức, TPHCM', '1/1/2001', (SELECT ChucVu_ID
+        FROM CHUCVU
+        WHERE ChucVu_TenCV =N' Nhân viên'), (SELECT PhongBan_MaPB
+        FROM PhongBan
+        WHERE PhongBan_TenPB=N'Phòng Hành Chính')),
+    (N'Mai Hoàng Hương', '0123900124', '073000913233', N'Nữ', NULL, N'18/2 Phạm Văn Đồng, Linh Trung, Thủ Đức, TPHCM', '1/1/2001', (SELECT ChucVu_ID
+        FROM CHUCVU
+        WHERE ChucVu_TenCV =N' Nhân viên'), (SELECT PhongBan_MaPB
+        FROM PhongBan
+        WHERE PhongBan_TenPB=N'Phòng Hành Chính'));
 GO
 
 --Bảng Hợp đồng
-INSERT INTO HopDong (HopDong_NgayBatDau, HopDong_NgayKetThuc,
+INSERT INTO HopDong
+    (HopDong_NgayBatDau, HopDong_NgayKetThuc,
     HopDong_LanKy, HopDong_NoiDung, HopDong_LuongCanBan, HopDong_HeSoLuong, HopDong_NhanVien)
 VALUES
-('1/1/2019','1/1/2021', 1, 'A',3.250,1,(SELECT NhanVien_ID FROM NhanVien WHERE NhanVien_HoTen=N'Nguyễn Văn Phát')),
-('3/1/2018','3/1/2021', 1, 'A',3.250,1,(SELECT NhanVien_ID FROM NhanVien WHERE NhanVien_HoTen= N'Huỳnh Văn Bá')),
-('3/1/2019','3/1/2021', 1, 'A',3.250,1,(SELECT NhanVien_ID FROM NhanVien WHERE NhanVien_HoTen= N'Nguyễn Thị Hà')),
-('1/1/2019','1/1/2021', 1, 'A',3.250,1,(SELECT NhanVien_ID FROM NhanVien WHERE NhanVien_HoTen= N'Nguyễn Thị Hạ')),
-('11/1/2019','1/11/2021', 1, 'A',3.250,1,(SELECT NhanVien_ID FROM NhanVien WHERE NhanVien_HoTen= N'Huỳnh Văn Ba')),
-('11/1/2019','1/11/2021', 1, 'A',3.250,1,(SELECT NhanVien_ID FROM NhanVien WHERE NhanVien_HoTen= N'Huỳnh Văn Vũ')),
-('12/1/2019','12/1/2021', 1, 'A',3.250,1,(SELECT NhanVien_ID FROM NhanVien WHERE NhanVien_HoTen= N'Nguyễn Văn Khánh')),
-('12/1/2019','12/1/2021', 1, 'A',3.250,1,(SELECT NhanVien_ID FROM NhanVien WHERE NhanVien_HoTen= N'Nguyễn Văn Ba')),
-('12/1/2019','12/1/2021', 1, 'A',3.250,1,(SELECT NhanVien_ID FROM NhanVien WHERE NhanVien_HoTen= N'Nguyễn Công Huynh')),
-('12/1/2019','12/1/2021', 1, 'A',3.250,1,(SELECT NhanVien_ID FROM NhanVien WHERE NhanVien_HoTen= N'Nguyễn Phát Tài')),
-('11/1/2019','11/1/2021', 1, 'A',3.250,1,(SELECT NhanVien_ID FROM NhanVien WHERE NhanVien_HoTen= N'Lý Tiến Thành')),
-('12/1/2019','12/1/2021', 1, 'A',3.250,1,(SELECT NhanVien_ID FROM NhanVien WHERE NhanVien_HoTen= N'Mai Thành Chung')),
-('11/1/2019','11/1/2021', 1, 'A',3.250,1,(SELECT NhanVien_ID FROM NhanVien WHERE NhanVien_HoTen= N'Mai Trọng Khánh')),
-('1/1/2019','1/1/2021', 1, 'A',3.250,1,(SELECT NhanVien_ID FROM NhanVien WHERE NhanVien_HoTen= N'Quách Đình Trường Thi')),
-('1/1/2019','1/1/2021', 1, 'A',3.250,1,(SELECT NhanVien_ID FROM NhanVien WHERE NhanVien_HoTen= N'Quách Diệu Khánh')),
-('1/1/2019','1/1/2021', 1, 'A',3.250,1,(SELECT NhanVien_ID FROM NhanVien WHERE NhanVien_HoTen= N'Phan Thanh Lâm')),
-('1/1/2019','1/1/2021', 1, 'A',3.250,1,(SELECT NhanVien_ID FROM NhanVien WHERE NhanVien_HoTen= N'Đinh Bảo Long')),
-('1/1/2019','1/1/2021', 1, 'A',3.250,1,(SELECT NhanVien_ID FROM NhanVien WHERE NhanVien_HoTen= N'Huỳnh Thị My')),
-('1/1/2019','1/1/2021', 1, 'A',3.250,1,(SELECT NhanVien_ID FROM NhanVien WHERE NhanVien_HoTen= N'Võ Thị Phước')),
-('1/1/2019','1/1/2021', 1, 'A',3.250,1,(SELECT NhanVien_ID FROM NhanVien WHERE NhanVien_HoTen= N'Mai Hoàng Hương'));
+    ('1/1/2019', '1/1/2021', 1, 'A', 3.250, 1, (SELECT NhanVien_ID
+        FROM NhanVien
+        WHERE NhanVien_HoTen=N'Nguyễn Văn Phát')),
+    ('3/1/2018', '3/1/2021', 1, 'A', 3.250, 1, (SELECT NhanVien_ID
+        FROM NhanVien
+        WHERE NhanVien_HoTen= N'Huỳnh Văn Bá')),
+    ('3/1/2019', '3/1/2021', 1, 'A', 3.250, 1, (SELECT NhanVien_ID
+        FROM NhanVien
+        WHERE NhanVien_HoTen= N'Nguyễn Thị Hà')),
+    ('1/1/2019', '1/1/2021', 1, 'A', 3.250, 1, (SELECT NhanVien_ID
+        FROM NhanVien
+        WHERE NhanVien_HoTen= N'Nguyễn Thị Hạ')),
+    ('11/1/2019', '1/11/2021', 1, 'A', 3.250, 1, (SELECT NhanVien_ID
+        FROM NhanVien
+        WHERE NhanVien_HoTen= N'Huỳnh Văn Ba')),
+    ('11/1/2019', '1/11/2021', 1, 'A', 3.250, 1, (SELECT NhanVien_ID
+        FROM NhanVien
+        WHERE NhanVien_HoTen= N'Huỳnh Văn Vũ')),
+    ('12/1/2019', '12/1/2021', 1, 'A', 3.250, 1, (SELECT NhanVien_ID
+        FROM NhanVien
+        WHERE NhanVien_HoTen= N'Nguyễn Văn Khánh')),
+    ('12/1/2019', '12/1/2021', 1, 'A', 3.250, 1, (SELECT NhanVien_ID
+        FROM NhanVien
+        WHERE NhanVien_HoTen= N'Nguyễn Văn Ba')),
+    ('12/1/2019', '12/1/2021', 1, 'A', 3.250, 1, (SELECT NhanVien_ID
+        FROM NhanVien
+        WHERE NhanVien_HoTen= N'Nguyễn Công Huynh')),
+    ('12/1/2019', '12/1/2021', 1, 'A', 3.250, 1, (SELECT NhanVien_ID
+        FROM NhanVien
+        WHERE NhanVien_HoTen= N'Nguyễn Phát Tài')),
+    ('11/1/2019', '11/1/2021', 1, 'A', 3.250, 1, (SELECT NhanVien_ID
+        FROM NhanVien
+        WHERE NhanVien_HoTen= N'Lý Tiến Thành')),
+    ('12/1/2019', '12/1/2021', 1, 'A', 3.250, 1, (SELECT NhanVien_ID
+        FROM NhanVien
+        WHERE NhanVien_HoTen= N'Mai Thành Chung')),
+    ('11/1/2019', '11/1/2021', 1, 'A', 3.250, 1, (SELECT NhanVien_ID
+        FROM NhanVien
+        WHERE NhanVien_HoTen= N'Mai Trọng Khánh')),
+    ('1/1/2019', '1/1/2021', 1, 'A', 3.250, 1, (SELECT NhanVien_ID
+        FROM NhanVien
+        WHERE NhanVien_HoTen= N'Quách Đình Trường Thi')),
+    ('1/1/2019', '1/1/2021', 1, 'A', 3.250, 1, (SELECT NhanVien_ID
+        FROM NhanVien
+        WHERE NhanVien_HoTen= N'Quách Diệu Khánh')),
+    ('1/1/2019', '1/1/2021', 1, 'A', 3.250, 1, (SELECT NhanVien_ID
+        FROM NhanVien
+        WHERE NhanVien_HoTen= N'Phan Thanh Lâm')),
+    ('1/1/2019', '1/1/2021', 1, 'A', 3.250, 1, (SELECT NhanVien_ID
+        FROM NhanVien
+        WHERE NhanVien_HoTen= N'Đinh Bảo Long')),
+    ('1/1/2019', '1/1/2021', 1, 'A', 3.250, 1, (SELECT NhanVien_ID
+        FROM NhanVien
+        WHERE NhanVien_HoTen= N'Huỳnh Thị My')),
+    ('1/1/2019', '1/1/2021', 1, 'A', 3.250, 1, (SELECT NhanVien_ID
+        FROM NhanVien
+        WHERE NhanVien_HoTen= N'Võ Thị Phước')),
+    ('1/1/2019', '1/1/2021', 1, 'A', 3.250, 1, (SELECT NhanVien_ID
+        FROM NhanVien
+        WHERE NhanVien_HoTen= N'Mai Hoàng Hương'));
 GO
 
 ---
-INSERT INTO KyCong(KyCong_Nam, KyCong_Thang, KyCong_SoNgayCong, KyCong_TrangThaiXoa)
-VALUES 
-(2022, 6, 26, 0),
-(2022, 7, 26, 0),
-(2022, 8, 27, 0),
-(2022, 9, 26, 0),
-(2022, 10, 26, 0),
-(2022, 11, 26, 0),
-(2022, 12, 27, 0),
-(2023, 1, 26, 0),
-(2023, 2, 24, 0),
-(2023, 3, 27, 0),
-(2023, 4, 25, 0),
-(2023, 5, 27, 0);
+INSERT INTO KyCong
+    (KyCong_Nam, KyCong_Thang, KyCong_SoNgayCong, KyCong_TrangThaiXoa)
+VALUES
+    (2022, 6, 26, 0),
+    (2022, 7, 26, 0),
+    (2022, 8, 27, 0),
+    (2022, 9, 26, 0),
+    (2022, 10, 26, 0),
+    (2022, 11, 26, 0),
+    (2022, 12, 27, 0),
+    (2023, 1, 26, 0),
+    (2023, 2, 24, 0),
+    (2023, 3, 27, 0),
+    (2023, 4, 25, 0),
+    (2023, 5, 27, 0);
 GO
 
 -- Bảng loại tăng ca
 INSERT INTO dbo.LoaiTangCa
-(
+    (
     LoaiTangCa_ID,
     LoaiTangCa_TenLoai,
     LoaiTangCa_HeSo
-)
+    )
 VALUES
-(   1,    -- LoaiTangCa_ID - int
-    N'Ngày Nghỉ', -- LoaiTangCa_TenLoai - nvarchar(20)
-    2  -- LoaiTangCa_HeSo - float
+    ( 1, -- LoaiTangCa_ID - int
+        N'Ngày Nghỉ', -- LoaiTangCa_TenLoai - nvarchar(20)
+        2  -- LoaiTangCa_HeSo - float
     ),
-(   2,    -- LoaiTangCa_ID - int
-    N'Ngày Lễ', -- LoaiTangCa_TenLoai - nvarchar(20)
-    3  -- LoaiTangCa_HeSo - float
+    ( 2, -- LoaiTangCa_ID - int
+        N'Ngày Lễ', -- LoaiTangCa_TenLoai - nvarchar(20)
+        3  -- LoaiTangCa_HeSo - float
     ),
-(   3,    -- LoaiTangCa_ID - int
-    N'Ca Tối', -- LoaiTangCa_TenLoai - nvarchar(20)
-    1.5  -- LoaiTangCa_HeSo - float
+    ( 3, -- LoaiTangCa_ID - int
+        N'Ca Tối', -- LoaiTangCa_TenLoai - nvarchar(20)
+        1.5  -- LoaiTangCa_HeSo - float
     )
 GO
 
 -- Bảng phân quyền
-INSERT INTO PhanQuyen(PhanQuyen_TenQuyen)
-VALUES (N'Quản trị hệ thống');
-INSERT INTO PhanQuyen(PhanQuyen_TenQuyen)
-VALUES (N'Nhân viên nhân sự');
+INSERT INTO PhanQuyen
+    (PhanQuyen_TenQuyen)
+VALUES
+    (N'Quản trị hệ thống');
+INSERT INTO PhanQuyen
+    (PhanQuyen_TenQuyen)
+VALUES
+    (N'Nhân viên nhân sự');
 GO
 
 -- bảng TaiKhoan
-INSERT INTO TaiKhoan(TaiKhoan_SoTK, TaiKhoan_MatKhau, TaiKhoan_PhanQuyen, TaiKhoan_NhanVien)
-VALUES ('20110110', '123', (SELECT PhanQuyen_ID From PhanQuyen WHERE PhanQuyen_TenQuyen = N'Quản trị hệ thống'), (SELECT NhanVien_ID FROM NhanVien WHERE NhanVien_HoTen= N'Đinh Bảo Long'))
-INSERT INTO TaiKhoan(TaiKhoan_SoTK, TaiKhoan_MatKhau, TaiKhoan_PhanQuyen, TaiKhoan_NhanVien)
-VALUES ('20110111', '123', (SELECT PhanQuyen_ID From PhanQuyen WHERE PhanQuyen_TenQuyen = N'Quản trị hệ thống'), (SELECT NhanVien_ID FROM NhanVien WHERE NhanVien_HoTen= N'Mai Hoàng Hương'))
-INSERT INTO TaiKhoan(TaiKhoan_SoTK, TaiKhoan_MatKhau, TaiKhoan_PhanQuyen, TaiKhoan_NhanVien)
-VALUES ('20110112', '123', (SELECT PhanQuyen_ID From PhanQuyen WHERE PhanQuyen_TenQuyen = N'Nhân viên nhân sự'), (SELECT NhanVien_ID FROM NhanVien WHERE NhanVien_HoTen= N'Mai Trọng Khánh'))
-INSERT INTO TaiKhoan(TaiKhoan_SoTK, TaiKhoan_MatKhau, TaiKhoan_PhanQuyen, TaiKhoan_NhanVien)
-VALUES ('20110113', '123', (SELECT PhanQuyen_ID From PhanQuyen WHERE PhanQuyen_TenQuyen = N'Nhân viên nhân sự'), (SELECT NhanVien_ID FROM NhanVien WHERE NhanVien_HoTen= N'Nguyễn Thị Hạ'))
-INSERT INTO TaiKhoan(TaiKhoan_SoTK, TaiKhoan_MatKhau, TaiKhoan_PhanQuyen, TaiKhoan_NhanVien)
-VALUES ('20110114', '123', (SELECT PhanQuyen_ID From PhanQuyen WHERE PhanQuyen_TenQuyen = N'Nhân viên nhân sự'), (SELECT NhanVien_ID FROM NhanVien WHERE NhanVien_HoTen=N'Nguyễn Văn Phát'))
+INSERT INTO TaiKhoan
+    (TaiKhoan_SoTK, TaiKhoan_MatKhau, TaiKhoan_PhanQuyen, TaiKhoan_NhanVien)
+VALUES
+    ('20110110', '123', (SELECT PhanQuyen_ID
+        From PhanQuyen
+        WHERE PhanQuyen_TenQuyen = N'Quản trị hệ thống'), (SELECT NhanVien_ID
+        FROM NhanVien
+        WHERE NhanVien_HoTen= N'Đinh Bảo Long'))
+INSERT INTO TaiKhoan
+    (TaiKhoan_SoTK, TaiKhoan_MatKhau, TaiKhoan_PhanQuyen, TaiKhoan_NhanVien)
+VALUES
+    ('20110111', '123', (SELECT PhanQuyen_ID
+        From PhanQuyen
+        WHERE PhanQuyen_TenQuyen = N'Quản trị hệ thống'), (SELECT NhanVien_ID
+        FROM NhanVien
+        WHERE NhanVien_HoTen= N'Mai Hoàng Hương'))
+INSERT INTO TaiKhoan
+    (TaiKhoan_SoTK, TaiKhoan_MatKhau, TaiKhoan_PhanQuyen, TaiKhoan_NhanVien)
+VALUES
+    ('20110112', '123', (SELECT PhanQuyen_ID
+        From PhanQuyen
+        WHERE PhanQuyen_TenQuyen = N'Nhân viên nhân sự'), (SELECT NhanVien_ID
+        FROM NhanVien
+        WHERE NhanVien_HoTen= N'Mai Trọng Khánh'))
+INSERT INTO TaiKhoan
+    (TaiKhoan_SoTK, TaiKhoan_MatKhau, TaiKhoan_PhanQuyen, TaiKhoan_NhanVien)
+VALUES
+    ('20110113', '123', (SELECT PhanQuyen_ID
+        From PhanQuyen
+        WHERE PhanQuyen_TenQuyen = N'Nhân viên nhân sự'), (SELECT NhanVien_ID
+        FROM NhanVien
+        WHERE NhanVien_HoTen= N'Nguyễn Thị Hạ'))
+INSERT INTO TaiKhoan
+    (TaiKhoan_SoTK, TaiKhoan_MatKhau, TaiKhoan_PhanQuyen, TaiKhoan_NhanVien)
+VALUES
+    ('20110114', '123', (SELECT PhanQuyen_ID
+        From PhanQuyen
+        WHERE PhanQuyen_TenQuyen = N'Nhân viên nhân sự'), (SELECT NhanVien_ID
+        FROM NhanVien
+        WHERE NhanVien_HoTen=N'Nguyễn Văn Phát'))
 GO
 
 -- Bảng phòng ban
-INSERT INTO PhongBan(PhongBan_TenPB, PhongBan_TruongPhong, PhongBan_TG_NhanChuc)
-VALUES (N'Phòng Hành Chính',(SELECT NhanVien_ID FROM NhanVien WHERE NhanVien_HoTen= N'Huỳnh Văn Vũ'), '2020-5-22');
-INSERT INTO PhongBan(PhongBan_TenPB, PhongBan_TruongPhong, PhongBan_TG_NhanChuc)
-VALUES (N'Phòng Tài chính Kế toán', (SELECT NhanVien_ID FROM NhanVien WHERE NhanVien_HoTen= N'Huỳnh Thị My'), '2022-6-19');
-INSERT INTO PhongBan(PhongBan_TenPB, PhongBan_TruongPhong, PhongBan_TG_NhanChuc)
-VALUES (N'Phòng Kế hoạch Kinh doanh', (SELECT NhanVien_ID FROM NhanVien WHERE NhanVien_HoTen= N'Mai Hoàng Hương'), '2021-1-1');
+INSERT INTO PhongBan
+    (PhongBan_TenPB, PhongBan_TruongPhong, PhongBan_TG_NhanChuc)
+VALUES
+    (N'Phòng Hành Chính', (SELECT NhanVien_ID
+        FROM NhanVien
+        WHERE NhanVien_HoTen= N'Huỳnh Văn Vũ'), '2020-5-22');
+INSERT INTO PhongBan
+    (PhongBan_TenPB, PhongBan_TruongPhong, PhongBan_TG_NhanChuc)
+VALUES
+    (N'Phòng Tài chính Kế toán', (SELECT NhanVien_ID
+        FROM NhanVien
+        WHERE NhanVien_HoTen= N'Huỳnh Thị My'), '2022-6-19');
+INSERT INTO PhongBan
+    (PhongBan_TenPB, PhongBan_TruongPhong, PhongBan_TG_NhanChuc)
+VALUES
+    (N'Phòng Kế hoạch Kinh doanh', (SELECT NhanVien_ID
+        FROM NhanVien
+        WHERE NhanVien_HoTen= N'Mai Hoàng Hương'), '2021-1-1');
 GO
 
 -- Bảng ứng lương
-INSERT INTO UngLuong (UngLuong_Ngay, UngLuong_SoTien, UngLuong_TrangThaiXoa, UngLuong_GhiChu, UngLuong_NhanVien, UngLuong_KyCong)
-VALUES (1, 2500.0, 'FALSE', N'Ứng lương đầu kỳ',(SELECT NhanVien_ID FROM NhanVien WHERE NhanVien_HoTen=N'Nguyễn Văn Phát'), (SELECT KyCong_MaKyCong FROM KyCong WHERE KyCong_Nam = 2022 AND KyCong_Thang = 6));
-INSERT INTO UngLuong (UngLuong_Ngay, UngLuong_SoTien, UngLuong_TrangThaiXoa, UngLuong_GhiChu, UngLuong_NhanVien, UngLuong_KyCong)
-VALUES (1, 500.0, 'FALSE', N'Ứng lương đầu kỳ',(SELECT NhanVien_ID FROM NhanVien WHERE NhanVien_HoTen= N'Huỳnh Văn Bá'),(SELECT KyCong_MaKyCong FROM KyCong WHERE KyCong_Nam = 2022 AND KyCong_Thang = 7));
-INSERT INTO UngLuong (UngLuong_Ngay, UngLuong_SoTien, UngLuong_TrangThaiXoa, UngLuong_GhiChu, UngLuong_NhanVien, UngLuong_KyCong)
-VALUES (1, 200.0, 'FALSE', N'Ứng lương đầu kỳ',(SELECT NhanVien_ID FROM NhanVien WHERE NhanVien_HoTen= N'Nguyễn Thị Hà'), (SELECT KyCong_MaKyCong FROM KyCong WHERE KyCong_Nam = 2022 AND KyCong_Thang = 8));
-INSERT INTO UngLuong (UngLuong_Ngay, UngLuong_SoTien, UngLuong_TrangThaiXoa, UngLuong_GhiChu, UngLuong_NhanVien, UngLuong_KyCong)
-VALUES (15, 2000.0, 'FALSE', N'Ứng lương giữa kỳ',(SELECT NhanVien_ID FROM NhanVien WHERE NhanVien_HoTen= N'Nguyễn Thị Hạ'), (SELECT KyCong_MaKyCong FROM KyCong WHERE KyCong_Nam = 2022 AND KyCong_Thang = 9));
-INSERT INTO UngLuong (UngLuong_Ngay, UngLuong_SoTien, UngLuong_TrangThaiXoa, UngLuong_GhiChu, UngLuong_NhanVien, UngLuong_KyCong)
-VALUES (15, 2500.0, 'TRUE', N'Ứng lương giữa kỳ',(SELECT NhanVien_ID FROM NhanVien WHERE NhanVien_HoTen= N'Huỳnh Văn Ba'), (SELECT KyCong_MaKyCong FROM KyCong WHERE KyCong_Nam = 2022 AND KyCong_Thang = 10));
+INSERT INTO UngLuong
+    (UngLuong_Ngay, UngLuong_SoTien, UngLuong_TrangThaiXoa, UngLuong_GhiChu, UngLuong_NhanVien, UngLuong_KyCong)
+VALUES
+    (1, 2500.0, 'FALSE', N'Ứng lương đầu kỳ', (SELECT NhanVien_ID
+        FROM NhanVien
+        WHERE NhanVien_HoTen=N'Nguyễn Văn Phát'), (SELECT KyCong_MaKyCong
+        FROM KyCong
+        WHERE KyCong_Nam = 2022 AND KyCong_Thang = 6));
+INSERT INTO UngLuong
+    (UngLuong_Ngay, UngLuong_SoTien, UngLuong_TrangThaiXoa, UngLuong_GhiChu, UngLuong_NhanVien, UngLuong_KyCong)
+VALUES
+    (1, 500.0, 'FALSE', N'Ứng lương đầu kỳ', (SELECT NhanVien_ID
+        FROM NhanVien
+        WHERE NhanVien_HoTen= N'Huỳnh Văn Bá'), (SELECT KyCong_MaKyCong
+        FROM KyCong
+        WHERE KyCong_Nam = 2022 AND KyCong_Thang = 7));
+INSERT INTO UngLuong
+    (UngLuong_Ngay, UngLuong_SoTien, UngLuong_TrangThaiXoa, UngLuong_GhiChu, UngLuong_NhanVien, UngLuong_KyCong)
+VALUES
+    (1, 200.0, 'FALSE', N'Ứng lương đầu kỳ', (SELECT NhanVien_ID
+        FROM NhanVien
+        WHERE NhanVien_HoTen= N'Nguyễn Thị Hà'), (SELECT KyCong_MaKyCong
+        FROM KyCong
+        WHERE KyCong_Nam = 2022 AND KyCong_Thang = 8));
+INSERT INTO UngLuong
+    (UngLuong_Ngay, UngLuong_SoTien, UngLuong_TrangThaiXoa, UngLuong_GhiChu, UngLuong_NhanVien, UngLuong_KyCong)
+VALUES
+    (15, 2000.0, 'FALSE', N'Ứng lương giữa kỳ', (SELECT NhanVien_ID
+        FROM NhanVien
+        WHERE NhanVien_HoTen= N'Nguyễn Thị Hạ'), (SELECT KyCong_MaKyCong
+        FROM KyCong
+        WHERE KyCong_Nam = 2022 AND KyCong_Thang = 9));
+INSERT INTO UngLuong
+    (UngLuong_Ngay, UngLuong_SoTien, UngLuong_TrangThaiXoa, UngLuong_GhiChu, UngLuong_NhanVien, UngLuong_KyCong)
+VALUES
+    (15, 2500.0, 'TRUE', N'Ứng lương giữa kỳ', (SELECT NhanVien_ID
+        FROM NhanVien
+        WHERE NhanVien_HoTen= N'Huỳnh Văn Ba'), (SELECT KyCong_MaKyCong
+        FROM KyCong
+        WHERE KyCong_Nam = 2022 AND KyCong_Thang = 10));
 GO
 
 --Bảng Kỳ Công Chi Tiết
@@ -551,125 +780,191 @@ GO
 GO
 --Bảng Tăng Ca--
 INSERT INTO dbo.TangCa
-(
+    (
     TangCa_NgayTangCa,
     TangCa_SoGio,
     TangCa_NhanVien,
     TangCa_LoaiTangCa,
-	TangCa_KyCong
-)
+    TangCa_KyCong
+    )
 VALUES
-(	13, 
-    2, 
-    (SELECT NhanVien_ID FROM dbo.NhanVien WHERE NhanVien_HoTen = N'Nguyễn Văn Phát'),
-    (SELECT LoaiTangCa_ID FROM dbo.LoaiTangCa WHERE LoaiTangCa_TenLoai = N'Ngày Nghỉ'),
-	(SELECT KyCong_MaKyCong FROM dbo.KyCong WHERE KyCong_Thang = 6 AND KyCong_Nam=2022)
+    ( 13,
+        2,
+        (SELECT NhanVien_ID
+        FROM dbo.NhanVien
+        WHERE NhanVien_HoTen = N'Nguyễn Văn Phát'),
+        (SELECT LoaiTangCa_ID
+        FROM dbo.LoaiTangCa
+        WHERE LoaiTangCa_TenLoai = N'Ngày Nghỉ'),
+        (SELECT KyCong_MaKyCong
+        FROM dbo.KyCong
+        WHERE KyCong_Thang = 6 AND KyCong_Nam=2022)
 ),
-(	15, 
-    4, 
-    (SELECT NhanVien_ID FROM dbo.NhanVien WHERE NhanVien_HoTen = N'Huỳnh Văn Bá'),
-    2,
-	(SELECT KyCong_MaKyCong FROM dbo.KyCong WHERE KyCong_Thang = 7 AND KyCong_Nam=2022)
+    ( 15,
+        4,
+        (SELECT NhanVien_ID
+        FROM dbo.NhanVien
+        WHERE NhanVien_HoTen = N'Huỳnh Văn Bá'),
+        2,
+        (SELECT KyCong_MaKyCong
+        FROM dbo.KyCong
+        WHERE KyCong_Thang = 7 AND KyCong_Nam=2022)
 ),
-(	10, 
-    1, 
-    (SELECT NhanVien_ID FROM dbo.NhanVien WHERE NhanVien_HoTen = N'Nguyễn Thị Hà'),
-    (SELECT LoaiTangCa_ID FROM dbo.LoaiTangCa WHERE LoaiTangCa_TenLoai = N'Ca Tối'),
-	(SELECT KyCong_MaKyCong FROM dbo.KyCong WHERE KyCong_Thang = 8 AND KyCong_Nam=2022)
+    ( 10,
+        1,
+        (SELECT NhanVien_ID
+        FROM dbo.NhanVien
+        WHERE NhanVien_HoTen = N'Nguyễn Thị Hà'),
+        (SELECT LoaiTangCa_ID
+        FROM dbo.LoaiTangCa
+        WHERE LoaiTangCa_TenLoai = N'Ca Tối'),
+        (SELECT KyCong_MaKyCong
+        FROM dbo.KyCong
+        WHERE KyCong_Thang = 8 AND KyCong_Nam=2022)
 ),
-(	15, 
-    2.5, 
-    (SELECT NhanVien_ID FROM dbo.NhanVien WHERE NhanVien_HoTen = N'Nguyễn Thị Hạ'),
-    (SELECT LoaiTangCa_ID FROM dbo.LoaiTangCa WHERE LoaiTangCa_TenLoai = N'Ngày Lễ'),
-	(SELECT KyCong_MaKyCong FROM dbo.KyCong WHERE KyCong_Thang = 9 AND KyCong_Nam=2022)
+    ( 15,
+        2.5,
+        (SELECT NhanVien_ID
+        FROM dbo.NhanVien
+        WHERE NhanVien_HoTen = N'Nguyễn Thị Hạ'),
+        (SELECT LoaiTangCa_ID
+        FROM dbo.LoaiTangCa
+        WHERE LoaiTangCa_TenLoai = N'Ngày Lễ'),
+        (SELECT KyCong_MaKyCong
+        FROM dbo.KyCong
+        WHERE KyCong_Thang = 9 AND KyCong_Nam=2022)
 ),
-(	20, 
-    4, 
-    (SELECT NhanVien_ID FROM dbo.NhanVien WHERE NhanVien_HoTen = N'Huỳnh Văn Vũ'),
-    (SELECT LoaiTangCa_ID FROM dbo.LoaiTangCa WHERE LoaiTangCa_TenLoai = N'Ngày Nghỉ'),
-	(SELECT KyCong_MaKyCong FROM dbo.KyCong WHERE KyCong_Thang = 10 AND KyCong_Nam=2022)
+    ( 20,
+        4,
+        (SELECT NhanVien_ID
+        FROM dbo.NhanVien
+        WHERE NhanVien_HoTen = N'Huỳnh Văn Vũ'),
+        (SELECT LoaiTangCa_ID
+        FROM dbo.LoaiTangCa
+        WHERE LoaiTangCa_TenLoai = N'Ngày Nghỉ'),
+        (SELECT KyCong_MaKyCong
+        FROM dbo.KyCong
+        WHERE KyCong_Thang = 10 AND KyCong_Nam=2022)
 ),
-(	28, 
-    1.5, 
-    (SELECT NhanVien_ID FROM dbo.NhanVien WHERE NhanVien_HoTen = N'Nguyễn Văn Khánh'),
-    (SELECT LoaiTangCa_ID FROM dbo.LoaiTangCa WHERE LoaiTangCa_TenLoai = N'Ca Tối'),
-	(SELECT KyCong_MaKyCong FROM dbo.KyCong WHERE KyCong_Thang = 11 AND KyCong_Nam=2022)
+    ( 28,
+        1.5,
+        (SELECT NhanVien_ID
+        FROM dbo.NhanVien
+        WHERE NhanVien_HoTen = N'Nguyễn Văn Khánh'),
+        (SELECT LoaiTangCa_ID
+        FROM dbo.LoaiTangCa
+        WHERE LoaiTangCa_TenLoai = N'Ca Tối'),
+        (SELECT KyCong_MaKyCong
+        FROM dbo.KyCong
+        WHERE KyCong_Thang = 11 AND KyCong_Nam=2022)
 ),
-(	1, 
-    3, 
-    (SELECT NhanVien_ID FROM dbo.NhanVien WHERE NhanVien_HoTen = N'Nguyễn Văn Ba'),
-    (SELECT LoaiTangCa_ID FROM dbo.LoaiTangCa WHERE LoaiTangCa_TenLoai = N'Ngày Lễ'),
-	(SELECT KyCong_MaKyCong FROM dbo.KyCong WHERE KyCong_Thang = 12 AND KyCong_Nam=2022)
+    ( 1,
+        3,
+        (SELECT NhanVien_ID
+        FROM dbo.NhanVien
+        WHERE NhanVien_HoTen = N'Nguyễn Văn Ba'),
+        (SELECT LoaiTangCa_ID
+        FROM dbo.LoaiTangCa
+        WHERE LoaiTangCa_TenLoai = N'Ngày Lễ'),
+        (SELECT KyCong_MaKyCong
+        FROM dbo.KyCong
+        WHERE KyCong_Thang = 12 AND KyCong_Nam=2022)
 ),
-(	10, 
-    0, 
-    (SELECT NhanVien_ID FROM dbo.NhanVien WHERE NhanVien_HoTen = N'Nguyễn Công Huynh'),
-    1,
-	(SELECT KyCong_MaKyCong FROM dbo.KyCong WHERE KyCong_Thang = 1 AND KyCong_Nam=2023)
+    ( 10,
+        0,
+        (SELECT NhanVien_ID
+        FROM dbo.NhanVien
+        WHERE NhanVien_HoTen = N'Nguyễn Công Huynh'),
+        1,
+        (SELECT KyCong_MaKyCong
+        FROM dbo.KyCong
+        WHERE KyCong_Thang = 1 AND KyCong_Nam=2023)
 ),
-(	30, 
-    5, 
-    (SELECT NhanVien_ID FROM dbo.NhanVien WHERE NhanVien_HoTen = N'Nguyễn Phát Tài'),
-    (SELECT LoaiTangCa_ID FROM dbo.LoaiTangCa WHERE LoaiTangCa_TenLoai = N'Ngày Nghỉ'),
-	(SELECT KyCong_MaKyCong FROM dbo.KyCong WHERE KyCong_Thang = 2 AND KyCong_Nam=2023)
+    ( 30,
+        5,
+        (SELECT NhanVien_ID
+        FROM dbo.NhanVien
+        WHERE NhanVien_HoTen = N'Nguyễn Phát Tài'),
+        (SELECT LoaiTangCa_ID
+        FROM dbo.LoaiTangCa
+        WHERE LoaiTangCa_TenLoai = N'Ngày Nghỉ'),
+        (SELECT KyCong_MaKyCong
+        FROM dbo.KyCong
+        WHERE KyCong_Thang = 2 AND KyCong_Nam=2023)
 ),
-(	13, 
-    3.5, 
-    (SELECT NhanVien_ID FROM dbo.NhanVien WHERE NhanVien_HoTen = N'Lý Tiến Thành'),
-    2,
-	(SELECT KyCong_MaKyCong FROM dbo.KyCong WHERE KyCong_Thang = 3 AND KyCong_Nam=2023)
+    ( 13,
+        3.5,
+        (SELECT NhanVien_ID
+        FROM dbo.NhanVien
+        WHERE NhanVien_HoTen = N'Lý Tiến Thành'),
+        2,
+        (SELECT KyCong_MaKyCong
+        FROM dbo.KyCong
+        WHERE KyCong_Thang = 3 AND KyCong_Nam=2023)
 ),
-(	21, 
-    3, 
-    (SELECT NhanVien_ID FROM dbo.NhanVien WHERE NhanVien_HoTen = N'Mai Thành Chung'),
-    (SELECT LoaiTangCa_ID FROM dbo.LoaiTangCa WHERE LoaiTangCa_TenLoai = N'Ca Tối'),
-	(SELECT KyCong_MaKyCong FROM dbo.KyCong WHERE KyCong_Thang = 4 AND KyCong_Nam=2023)
+    ( 21,
+        3,
+        (SELECT NhanVien_ID
+        FROM dbo.NhanVien
+        WHERE NhanVien_HoTen = N'Mai Thành Chung'),
+        (SELECT LoaiTangCa_ID
+        FROM dbo.LoaiTangCa
+        WHERE LoaiTangCa_TenLoai = N'Ca Tối'),
+        (SELECT KyCong_MaKyCong
+        FROM dbo.KyCong
+        WHERE KyCong_Thang = 4 AND KyCong_Nam=2023)
 ),
-(	11, 
-    3.5, 
-    (SELECT NhanVien_ID FROM dbo.NhanVien WHERE NhanVien_HoTen = N'Mai Trọng Khánh'),
-    (SELECT LoaiTangCa_ID FROM dbo.LoaiTangCa WHERE LoaiTangCa_TenLoai = N'Ngày Lễ'),
-	(SELECT KyCong_MaKyCong FROM dbo.KyCong WHERE KyCong_Thang = 5 AND KyCong_Nam=2023)
+    ( 11,
+        3.5,
+        (SELECT NhanVien_ID
+        FROM dbo.NhanVien
+        WHERE NhanVien_HoTen = N'Mai Trọng Khánh'),
+        (SELECT LoaiTangCa_ID
+        FROM dbo.LoaiTangCa
+        WHERE LoaiTangCa_TenLoai = N'Ngày Lễ'),
+        (SELECT KyCong_MaKyCong
+        FROM dbo.KyCong
+        WHERE KyCong_Thang = 5 AND KyCong_Nam=2023)
 )
 
 GO
 
 --Bảng Chức Vụ--
 INSERT INTO dbo.ChucVu
-(
+    (
     ChucVu_ID,
     ChucVu_TenCV
-)
+    )
 VALUES
-(   1,   -- ChucVu_ID - int
-    N'Giám Đốc' -- ChucVu_TenCV - nvarchar(50)
+    ( 1, -- ChucVu_ID - int
+        N'Giám Đốc' -- ChucVu_TenCV - nvarchar(50)
     ),
-(   2,   -- ChucVu_ID - int
-    N'Phó Giám Đốc Hành Chính' -- ChucVu_TenCV - nvarchar(50)
+    ( 2, -- ChucVu_ID - int
+        N'Phó Giám Đốc Hành Chính' -- ChucVu_TenCV - nvarchar(50)
     ),
-(   3,   -- ChucVu_ID - int
-    N'Phó Giám Đốc Kinh Doanh' -- ChucVu_TenCV - nvarchar(50)
+    ( 3, -- ChucVu_ID - int
+        N'Phó Giám Đốc Kinh Doanh' -- ChucVu_TenCV - nvarchar(50)
     ),
-(   4,   -- ChucVu_ID - int
-    N'Trưởng Phòng Hành Chính' -- ChucVu_TenCV - nvarchar(50)
+    ( 4, -- ChucVu_ID - int
+        N'Trưởng Phòng Hành Chính' -- ChucVu_TenCV - nvarchar(50)
     ),
-(   5,   -- ChucVu_ID - int
-    N'Trưởng Phòng Tài Chính' -- ChucVu_TenCV - nvarchar(50)
+    ( 5, -- ChucVu_ID - int
+        N'Trưởng Phòng Tài Chính' -- ChucVu_TenCV - nvarchar(50)
     ),
-(   6,   -- ChucVu_ID - int
-    N'Trưởng Phòng Kế Hoạch' -- ChucVu_TenCV - nvarchar(50)
+    ( 6, -- ChucVu_ID - int
+        N'Trưởng Phòng Kế Hoạch' -- ChucVu_TenCV - nvarchar(50)
     ),
-(   7,   -- ChucVu_ID - int
-    N'Trưởng Nhóm' -- ChucVu_TenCV - nvarchar(50)
+    ( 7, -- ChucVu_ID - int
+        N'Trưởng Nhóm' -- ChucVu_TenCV - nvarchar(50)
     ),
-(   8,   -- ChucVu_ID - int
-    N'Trưởng Nhóm' -- ChucVu_TenCV - nvarchar(50)
+    ( 8, -- ChucVu_ID - int
+        N'Trưởng Nhóm' -- ChucVu_TenCV - nvarchar(50)
     ),
-(   9,   -- ChucVu_ID - int
-    N'Nhân Viên' -- ChucVu_TenCV - nvarchar(50)
+    ( 9, -- ChucVu_ID - int
+        N'Nhân Viên' -- ChucVu_TenCV - nvarchar(50)
     ),
-(   10,   -- ChucVu_ID - int
-    N'Nhân Viên' -- ChucVu_TenCV - nvarchar(50)
+    ( 10, -- ChucVu_ID - int
+        N'Nhân Viên' -- ChucVu_TenCV - nvarchar(50)
     )
 
 GO
@@ -687,21 +982,24 @@ CREATE FUNCTION UngLuong_HienThi()
 RETURNS TABLE
 AS
 RETURN (
-    SELECT ul.UngLuong_ID, ul.UngLuong_Ngay, ul.UngLuong_SoTien, ul.UngLuong_TrangThaiXoa, ul.UngLuong_GhiChu, nv.NhanVien_HoTen,kc.KyCong_Nam, kc.KyCong_Thang
-    FROM UngLuong ul
+    SELECT ul.UngLuong_ID, ul.UngLuong_Ngay, ul.UngLuong_SoTien, ul.UngLuong_TrangThaiXoa, ul.UngLuong_GhiChu, nv.NhanVien_HoTen, kc.KyCong_Nam, kc.KyCong_Thang
+FROM UngLuong ul
     INNER JOIN KyCong kc ON kc.KyCong_MaKyCong = ul.UngLuong_KyCong
-	INNER JOIN NhanVien nv ON nv.NhanVien_ID = ul.UngLuong_NhanVien
+    INNER JOIN NhanVien nv ON nv.NhanVien_ID = ul.UngLuong_NhanVien
 )
 GO
 
 CREATE PROC [ungluongtheoid]
-@ma_id INT
+    @ma_id INT
 AS
-SELECT * FROM UngLuong_HienThi() ul WHERE ul.UngLuong_ID=@ma_id 
+SELECT *
+FROM UngLuong_HienThi() ul
+WHERE ul.UngLuong_ID=@ma_id 
 GO
 CREATE PROC [LayThongtinUngLuong]
 AS
-SELECT * FROM dbo.UngLuong_HienThi() 
+SELECT *
+FROM dbo.UngLuong_HienThi() 
 GO
 
 CREATE PROCEDURE [ThemUngLuong]
@@ -710,28 +1008,35 @@ CREATE PROCEDURE [ThemUngLuong]
     @ghichu NVARCHAR(50),
     @nhanvien NVARCHAR(50),
     @nam INT,
-	@thang INT,
-	@ketqua INT OUTPUT
+    @thang INT,
+    @ketqua INT OUTPUT
 AS
 BEGIN
     SET NOCOUNT ON;
     DECLARE @nhanvien_id INT, @kycong_makycon INT
 
-    SELECT @nhanvien_id = NhanVien_ID FROM NhanVien WHERE NhanVien_HoTen = @nhanvien
-    SELECT @kycong_makycon = kc.KyCong_MaKyCong FROM KyCong kc WHERE kc.KyCong_Nam = @nam AND kc.KyCong_Thang = @thang
+    SELECT @nhanvien_id = NhanVien_ID
+    FROM NhanVien
+    WHERE NhanVien_HoTen = @nhanvien
+    SELECT @kycong_makycon = kc.KyCong_MaKyCong
+    FROM KyCong kc
+    WHERE kc.KyCong_Nam = @nam AND kc.KyCong_Thang = @thang
 
-    IF NOT EXISTS(SELECT * FROM UngLuong WHERE UngLuong_Ngay = @ngay AND UngLuong_NhanVien = @nhanvien_id AND UngLuong_KyCong = @kycong_makycon)
+    IF NOT EXISTS(SELECT *
+    FROM UngLuong
+    WHERE UngLuong_Ngay = @ngay AND UngLuong_NhanVien = @nhanvien_id AND UngLuong_KyCong = @kycong_makycon)
     BEGIN
         BEGIN TRANSACTION;
 
         BEGIN TRY
-            INSERT INTO UngLuong (UngLuong_Ngay, UngLuong_SoTien, UngLuong_TrangThaiXoa, UngLuong_GhiChu, UngLuong_NhanVien, UngLuong_KyCong) 
-            VALUES 
+            INSERT INTO UngLuong
+            (UngLuong_Ngay, UngLuong_SoTien, UngLuong_TrangThaiXoa, UngLuong_GhiChu, UngLuong_NhanVien, UngLuong_KyCong)
+        VALUES
             (
                 @ngay,
                 @tien,
-    			0,
-    			@ghichu,
+                0,
+                @ghichu,
                 @nhanvien_id,
                 @kycong_makycon
             );
@@ -748,42 +1053,48 @@ BEGIN
 END
 
 GO
- CREATE PROC [SuaUngLuong]
-	@id INT,
-	@ngay INT,
+CREATE PROC [SuaUngLuong]
+    @id INT,
+    @ngay INT,
     @tien FLOAT,
     @ghichu NVARCHAR(50),
     @nhanvien NVARCHAR(50),
     @nam INT,
-	@thang INT
- AS
- UPDATE UngLuong
+    @thang INT
+AS
+UPDATE UngLuong
  SET UngLuong_Ngay = @ngay, 
  UngLuong_SoTien=@tien, 
  UngLuong_GhiChu = @ghichu, 
- UngLuong_NhanVien = (SELECT NhanVien_ID FROM NhanVien WHERE NhanVien_HoTen = @nhanvien),
- UngLuong_KyCong = (SELECT kc.KyCong_MaKyCong FROM KyCong kc WHERE kc.KyCong_Nam = @nam AND kc.KyCong_Thang = @thang)
+ UngLuong_NhanVien = (SELECT NhanVien_ID
+FROM NhanVien
+WHERE NhanVien_HoTen = @nhanvien),
+ UngLuong_KyCong = (SELECT kc.KyCong_MaKyCong
+FROM KyCong kc
+WHERE kc.KyCong_Nam = @nam AND kc.KyCong_Thang = @thang)
  WHERE UngLuong_ID = @id
 GO
 
 CREATE PROC [XoaUngLuong]
-  @id INT
+    @id INT
 AS
 UPDATE UngLuong
 SET UngLuong_TrangThaiXoa = 1 WHERE UngLuong_ID = @id
 GO
 
 CREATE PROC [LuuXoaUngLuong]
-  @id INT
+    @id INT
 AS
-IF EXISTS(SELECT * FROM UngLuong WHERE UngLuong_ID = @id AND UngLuong_TrangThaiXoa = 1)
+IF EXISTS(SELECT *
+FROM UngLuong
+WHERE UngLuong_ID = @id AND UngLuong_TrangThaiXoa = 1)
 BEGIN
     DELETE FROM UngLuong WHERE UngLuong_ID = @id AND UngLuong_TrangThaiXoa = 1
 END
 GO
 
 CREATE PROC [HuyXoaUngLuong]
-  @id INT
+    @id INT
 AS
 UPDATE UngLuong
 SET UngLuong_TrangThaiXoa = 0 WHERE UngLuong_ID = @id
@@ -794,44 +1105,56 @@ RETURNS TABLE
 AS
 RETURN (
     SELECT TC.TangCa_ID, TC.TangCa_NgayTangCa, TC.TangCa_SoGio, NV.NhanVien_HoTen, LTC.LoaiTangCa_TenLoai, kc.KyCong_Thang, kc.KyCong_Nam
-    FROM TangCa TC
+FROM TangCa TC
     INNER JOIN NhanVien NV ON TC.TangCa_NhanVien = NV.NhanVien_ID
     INNER JOIN LoaiTangCa LTC ON TC.TangCa_LoaiTangCa = LTC.LoaiTangCa_ID
-	INNER JOIN KyCong kc ON kc.KyCong_MaKyCong = TC.TangCa_KyCong
+    INNER JOIN KyCong kc ON kc.KyCong_MaKyCong = TC.TangCa_KyCong
 )
 GO
 CREATE PROC LayThongtinTangCa
 AS
-SELECT * FROM dbo.TangCa_HienThi() tc
+SELECT *
+FROM dbo.TangCa_HienThi() tc
 GO
 
- CREATE PROC [SuaTangCa]
-@id INT,
-@ngay INT,
-@gio FLOAT,
-@tennv NVARCHAR(50),
-@tenloaitc NVARCHAR(50),
-@thangkycong INT,
-@namkycong INT
+CREATE PROC [SuaTangCa]
+    @id INT,
+    @ngay INT,
+    @gio FLOAT,
+    @tennv NVARCHAR(50),
+    @tenloaitc NVARCHAR(50),
+    @thangkycong INT,
+    @namkycong INT
 AS
 BEGIN
-SET NOCOUNT ON;
-DECLARE @nhanvien_id INT;
-DECLARE @loaitc_id INT;
--- Kiểm tra xem có bản ghi nào trong bảng TangCa trùng với các giá trị truyền vào không
-IF EXISTS (SELECT * FROM TangCa 
-        WHERE TangCa_NgayTangCa = @ngay 
-        AND TangCa_NhanVien = (SELECT NhanVien_ID FROM NhanVien WHERE NhanVien_HoTen = @tennv)
-        AND TangCa_KyCong = (SELECT kc.KyCong_MaKyCong FROM KyCong kc WHERE kc.KyCong_Thang = @thangkycong AND kc.KyCong_Nam = @namkycong))
+    SET NOCOUNT ON;
+    DECLARE @nhanvien_id INT;
+    DECLARE @loaitc_id INT;
+    -- Kiểm tra xem có bản ghi nào trong bảng TangCa trùng với các giá trị truyền vào không
+    IF EXISTS (SELECT *
+    FROM TangCa
+    WHERE TangCa_NgayTangCa = @ngay
+        AND TangCa_NhanVien = (SELECT NhanVien_ID
+        FROM NhanVien
+        WHERE NhanVien_HoTen = @tennv)
+        AND TangCa_KyCong = (SELECT kc.KyCong_MaKyCong
+        FROM KyCong kc
+        WHERE kc.KyCong_Thang = @thangkycong AND kc.KyCong_Nam = @namkycong))
     BEGIN
         BEGIN TRANSACTION;
-    BEGIN TRY
+        BEGIN TRY
         UPDATE TangCa
         SET TangCa_NgayTangCa = @ngay, 
             TangCa_SoGio = @gio, 
-            TangCa_NhanVien = (SELECT NhanVien_ID FROM NhanVien WHERE NhanVien_HoTen = @tennv), 
-            TangCa_LoaiTangCa = (SELECT ltc.LoaiTangCa_ID FROM LoaiTangCa ltc WHERE ltc.LoaiTangCa_TenLoai = @tenloaitc),
-            TangCa_KyCong = (SELECT kc.KyCong_MaKyCong FROM KyCong kc WHERE kc.KyCong_Thang = @thangkycong AND kc.KyCong_Nam = @namkycong)
+            TangCa_NhanVien = (SELECT NhanVien_ID
+        FROM NhanVien
+        WHERE NhanVien_HoTen = @tennv), 
+            TangCa_LoaiTangCa = (SELECT ltc.LoaiTangCa_ID
+        FROM LoaiTangCa ltc
+        WHERE ltc.LoaiTangCa_TenLoai = @tenloaitc),
+            TangCa_KyCong = (SELECT kc.KyCong_MaKyCong
+        FROM KyCong kc
+        WHERE kc.KyCong_Thang = @thangkycong AND kc.KyCong_Nam = @namkycong)
         WHERE TangCa_ID = @id;
 
         COMMIT TRANSACTION;
@@ -846,9 +1169,11 @@ END
 GO
 
 CREATE PROC [tangcatheoid]
-@ma_id INT
+    @ma_id INT
 AS
-SELECT * FROM dbo.TangCa_HienThi() tc WHERE tc.TangCa_ID=@ma_id 
+SELECT *
+FROM dbo.TangCa_HienThi() tc
+WHERE tc.TangCa_ID=@ma_id 
 GO
 
 CREATE PROCEDURE [ThemTangCa]
@@ -865,30 +1190,42 @@ BEGIN
     DECLARE @loaitc_id INT;
 
     -- Kiểm tra xem dữ liệu đã tồn tại hay chưa
-    IF EXISTS (SELECT * FROM TangCa 
-        WHERE TangCa_NgayTangCa = @ngay 
-        AND TangCa_NhanVien = (SELECT NhanVien_ID FROM NhanVien WHERE NhanVien_HoTen = @tennv)
-        AND TangCa_KyCong = (SELECT kc.KyCong_MaKyCong FROM KyCong kc WHERE kc.KyCong_Thang = @thangkycong AND kc.KyCong_Nam = @namkycong))
+    IF EXISTS (SELECT *
+    FROM TangCa
+    WHERE TangCa_NgayTangCa = @ngay
+        AND TangCa_NhanVien = (SELECT NhanVien_ID
+        FROM NhanVien
+        WHERE NhanVien_HoTen = @tennv)
+        AND TangCa_KyCong = (SELECT kc.KyCong_MaKyCong
+        FROM KyCong kc
+        WHERE kc.KyCong_Thang = @thangkycong AND kc.KyCong_Nam = @namkycong))
     BEGIN
         RAISERROR('Dữ liệu đã tồn tại', 16, 1);
         RETURN;
     END
 
     -- Lấy ID của loại tăng ca
-    SELECT @loaitc_id = LoaiTangCa_ID FROM LoaiTangCa WHERE LoaiTangCa_TenLoai = @tenloaitc;
+    SELECT @loaitc_id = LoaiTangCa_ID
+    FROM LoaiTangCa
+    WHERE LoaiTangCa_TenLoai = @tenloaitc;
     IF(@loaitc_id IS NULL)
         THROW 50000, 'Không tìm thấy loại tăng ca', 1;
 
     BEGIN TRANSACTION;
     BEGIN TRY
-        INSERT INTO TangCa (TangCa_NgayTangCa, TangCa_SoGio, TangCa_NhanVien, TangCa_LoaiTangCa, TangCa_KyCong) 
-        VALUES 
+        INSERT INTO TangCa
+        (TangCa_NgayTangCa, TangCa_SoGio, TangCa_NhanVien, TangCa_LoaiTangCa, TangCa_KyCong)
+    VALUES
         (
             @ngay,
             @gio,
-            (SELECT NhanVien_ID FROM NhanVien WHERE NhanVien_HoTen = @tennv),
+            (SELECT NhanVien_ID
+            FROM NhanVien
+            WHERE NhanVien_HoTen = @tennv),
             @loaitc_id,
-            (SELECT kc.KyCong_MaKyCong FROM KyCong kc WHERE kc.KyCong_Thang = @thangkycong AND kc.KyCong_Nam = @namkycong)
+            (SELECT kc.KyCong_MaKyCong
+            FROM KyCong kc
+            WHERE kc.KyCong_Thang = @thangkycong AND kc.KyCong_Nam = @namkycong)
         );
         COMMIT TRANSACTION;
     END TRY
@@ -900,42 +1237,56 @@ BEGIN
 END
 
 GO
-  CREATE PROC [XoaTangCa]
-  @id INT
-  AS
-  DELETE FROM TangCa WHERE TangCa_ID = @id
+CREATE PROC [XoaTangCa]
+    @id INT
+AS
+DELETE FROM TangCa WHERE TangCa_ID = @id
 
 GO
 
 -- BangLuong
 
-CREATE PROC TinhLuong @MaKyCong INT
+CREATE PROC TinhLuong
+    @MaKyCong INT
 AS
 BEGIN
     DECLARE @NhanVienID INT, @SoNgayLyThuyet INT, @LuongCB FLOAT, @HeSoLuong FLOAT , @giotangca FLOAT
     DECLARE @ThucTe INT, @CongCN INT, @LuongUng FLOAT, @PhuCap FLOAT, @LuongNhanDuoc FLOAT, @LuongThucLanh FLOAT, @UngLuong FLOAT, @TangCa FLOAT, @LuongCN FLOAT, @LuongThuong FLOAT
     SET @PhuCap = 556
-    SELECT @NhanVienID = MIN(KyCongChiTiet_NhanVien) FROM KyCongChiTiet WHERE KyCongChiTiet_KyCong = @MaKyCong
-    SELECT @SoNgayLyThuyet = KyCong_SoNgayCong FROM KyCong WHERE KyCong_MaKyCong = @MaKyCong
+    SELECT @NhanVienID = MIN(KyCongChiTiet_NhanVien)
+    FROM KyCongChiTiet
+    WHERE KyCongChiTiet_KyCong = @MaKyCong
+    SELECT @SoNgayLyThuyet = KyCong_SoNgayCong
+    FROM KyCong
+    WHERE KyCong_MaKyCong = @MaKyCong
     while @NhanVienID IS NOT NULL
     BEGIN
-        SELECT @ThucTe = KyCongChiTiet_NgayCongThucTe, @CongCN = KyCongChiTiet_CongChuNhat FROM KyCongChiTiet WHERE KyCongChiTiet_KyCong = @MaKyCong AND KyCongChiTiet_NhanVien = @NhanVienID
-        SELECT @LuongCB = HopDong_LuongCanBan, @HeSoLuong = HopDong_HeSoLuong  FROM HopDong WHERE HopDong_NhanVien = @NhanVienID
+        SELECT @ThucTe = KyCongChiTiet_NgayCongThucTe, @CongCN = KyCongChiTiet_CongChuNhat
+        FROM KyCongChiTiet
+        WHERE KyCongChiTiet_KyCong = @MaKyCong AND KyCongChiTiet_NhanVien = @NhanVienID
+        SELECT @LuongCB = HopDong_LuongCanBan, @HeSoLuong = HopDong_HeSoLuong
+        FROM HopDong
+        WHERE HopDong_NhanVien = @NhanVienID
         -- SELECT @SoGio = SUM(TangCa_SoGio) FROM TangCa WHERE TangCa_KyCong = @MaKyCong AND TangCa_NhanVien = @NhanVienID 
         SET @LuongThuong = @ThucTe * (@LuongCB * @HeSoLuong)/@SoNgayLyThuyet * 1000
         SET @LuongCN = COALESCE(@CongCN,0) * 2 * (@LuongCB * @HeSoLuong)/@SoNgayLyThuyet * 1000
-        SELECT @UngLuong = COALESCE(SUM(ul.UngLuong_SoTien),0) FROM UngLuong ul WHERE ul.UngLuong_NhanVien = @NhanVienID AND ul.UngLuong_KyCong = @MaKyCong AND ul.UngLuong_TrangThaiXoa = 0
-        SELECT @giotangca = COALESCE(SUM(tc.TangCa_SoGio*ltc.LoaiTangCa_HeSo),0) 
-        FROM TangCa tc,LoaiTangCa ltc 
-        WHERE tc.TangCa_NhanVien = @NhanVienID AND tc.TangCa_KyCong = @MaKyCong AND 
-        tc.TangCa_LoaiTangCa = ltc.LoaiTangCa_ID
-        SET @TangCa = @giotangca * (@LuongCB * @HeSoLuong)/@SoNgayLyThuyet * 1000 / 8 
+        SELECT @UngLuong = COALESCE(SUM(ul.UngLuong_SoTien),0)
+        FROM UngLuong ul
+        WHERE ul.UngLuong_NhanVien = @NhanVienID AND ul.UngLuong_KyCong = @MaKyCong AND ul.UngLuong_TrangThaiXoa = 0
+        SELECT @giotangca = COALESCE(SUM(tc.TangCa_SoGio*ltc.LoaiTangCa_HeSo),0)
+        FROM TangCa tc, LoaiTangCa ltc
+        WHERE tc.TangCa_NhanVien = @NhanVienID AND tc.TangCa_KyCong = @MaKyCong AND
+            tc.TangCa_LoaiTangCa = ltc.LoaiTangCa_ID
+        SET @TangCa = @giotangca * (@LuongCB * @HeSoLuong)/@SoNgayLyThuyet * 1000 / 8
         SET @LuongNhanDuoc = @LuongThuong + @LuongCN - @UngLuong + @PhuCap + @TangCa
         SET @LuongThucLanh = @LuongNhanDuoc * 0.895
-        INSERT INTO BangLuong (BangLuong_NhanVien,BangLuong_KyCong,BangLuong_LuongNgayThuong,BangLuong_LuongNgayCN,BangLuong_TangCa,BangLuong_UngLuong,BangLuong_PhuCap,BangLuong_LuongNhanDuoc, BangLuong_ThucLanh) VALUES (@NhanVienID,@MaKyCong,@LuongThuong,@LuongCN,@TangCa,@UngLuong,@PhuCap,@LuongNhanDuoc,CEILING(@LuongThucLanh))
+        INSERT INTO BangLuong
+            (BangLuong_NhanVien,BangLuong_KyCong,BangLuong_LuongNgayThuong,BangLuong_LuongNgayCN,BangLuong_TangCa,BangLuong_UngLuong,BangLuong_PhuCap,BangLuong_LuongNhanDuoc, BangLuong_ThucLanh)
+        VALUES
+            (@NhanVienID, @MaKyCong, @LuongThuong, @LuongCN, @TangCa, @UngLuong, @PhuCap, @LuongNhanDuoc, CEILING(@LuongThucLanh))
         SELECT @NhanVienID = MIN(KyCongChiTiet_NhanVien)
         FROM KyCongChiTiet
-        WHERE KyCongChiTiet_NhanVien > @NhanVienID AND KyCongChiTiet_KyCong = @MaKyCong     
+        WHERE KyCongChiTiet_NhanVien > @NhanVienID AND KyCongChiTiet_KyCong = @MaKyCong
     END
 END
 GO
@@ -944,16 +1295,17 @@ CREATE FUNCTION Luong_HienThi()
 RETURNS TABLE
 AS
 RETURN (
-    SELECT nv.NhanVien_HoTen,kc.KyCong_Thang,kc.KyCong_Nam,bl.BangLuong_LuongNgayThuong, bl.BangLuong_LuongNgayCN, bl.BangLuong_TangCa, bl.BangLuong_UngLuong, bl.BangLuong_PhuCap, bl.BangLuong_LuongNhanDuoc, bl.BangLuong_ThucLanh
-    FROM BangLuong bl 
+    SELECT nv.NhanVien_HoTen, kc.KyCong_Thang, kc.KyCong_Nam, bl.BangLuong_LuongNgayThuong, bl.BangLuong_LuongNgayCN, bl.BangLuong_TangCa, bl.BangLuong_UngLuong, bl.BangLuong_PhuCap, bl.BangLuong_LuongNhanDuoc, bl.BangLuong_ThucLanh
+FROM BangLuong bl
     INNER JOIN NhanVien nv ON bl.BangLuong_NhanVien = nv.NhanVien_ID
-	INNER JOIN KyCong kc ON kc.KyCong_MaKyCong = bl.BangLuong_KyCong
+    INNER JOIN KyCong kc ON kc.KyCong_MaKyCong = bl.BangLuong_KyCong
 )
 GO
 
 CREATE PROC hienthiluong
 AS
-SELECT * FROM Luong_HienThi()
+SELECT *
+FROM Luong_HienThi()
 GO
 
 -- <Tuan>
@@ -1396,8 +1748,10 @@ CREATE PROCEDURE sp_ThemMoiLoaiTangCa
     @LoaiTangCa_HeSo FLOAT
 AS
 BEGIN
-    INSERT INTO LoaiTangCa (LoaiTangCa_ID, LoaiTangCa_TenLoai, LoaiTangCa_HeSo)
-    VALUES (@LoaiTangCa_ID, @LoaiTangCa_TenLoai, @LoaiTangCa_HeSo)
+    INSERT INTO LoaiTangCa
+        (LoaiTangCa_ID, LoaiTangCa_TenLoai, LoaiTangCa_HeSo)
+    VALUES
+        (@LoaiTangCa_ID, @LoaiTangCa_TenLoai, @LoaiTangCa_HeSo)
 END
 GO
 
@@ -1429,8 +1783,10 @@ CREATE PROCEDURE sp_ThemMoiChucVu
     @ChucVu_TenCV NVARCHAR(50)
 AS
 BEGIN
-    INSERT INTO ChucVu (ChucVu_ID, ChucVu_TenCV)
-    VALUES (@ChucVu_ID, @ChucVu_TenCV)
+    INSERT INTO ChucVu
+        (ChucVu_ID, ChucVu_TenCV)
+    VALUES
+        (@ChucVu_ID, @ChucVu_TenCV)
 END
 GO
 CREATE PROCEDURE sp_XoaChucVu
@@ -1453,8 +1809,8 @@ END
 GO
 
 -- PhongBan
-CREATE PROCEDURE sp_ThemPhongBan 
-(
+CREATE PROCEDURE sp_ThemPhongBan
+    (
     @MaPB INT,
     @TenPB NVARCHAR(50),
     @TruongPhong INT,
@@ -1462,13 +1818,15 @@ CREATE PROCEDURE sp_ThemPhongBan
 )
 AS
 BEGIN
-    INSERT INTO PhongBan (PhongBan_MaPB, PhongBan_TenPB, PhongBan_TruongPhong, PhongBan_TG_NhanChuc)
-    VALUES (@MaPB, @TenPB, @TruongPhong, @TG_NhanChuc);
+    INSERT INTO PhongBan
+        (PhongBan_MaPB, PhongBan_TenPB, PhongBan_TruongPhong, PhongBan_TG_NhanChuc)
+    VALUES
+        (@MaPB, @TenPB, @TruongPhong, @TG_NhanChuc);
 END
 GO
 
 CREATE PROCEDURE sp_XoaPhongBan
-(
+    (
     @MaPB INT
 )
 AS
@@ -1477,21 +1835,23 @@ BEGIN
 END
 GO
 
-ALTER PROCEDURE sp_ThemPhongBan 
-(
+ALTER PROCEDURE sp_ThemPhongBan
+    (
     @TenPB NVARCHAR(50),
     @TruongPhong INT,
     @TG_NhanChuc DATE
 )
 AS
 BEGIN
-    INSERT INTO PhongBan (PhongBan_TenPB, PhongBan_TruongPhong, PhongBan_TG_NhanChuc)
-    VALUES (@TenPB, @TruongPhong, @TG_NhanChuc);
+    INSERT INTO PhongBan
+        (PhongBan_TenPB, PhongBan_TruongPhong, PhongBan_TG_NhanChuc)
+    VALUES
+        (@TenPB, @TruongPhong, @TG_NhanChuc);
 END
 GO
 
 CREATE PROCEDURE sp_CapNhatPhongBan
-(
+    (
     @MaPB INT,
     @TenPB NVARCHAR(50),
     @TruongPhong INT,
@@ -1515,8 +1875,10 @@ CREATE PROCEDURE ThemTaiKhoan
     @NhanVien INT
 AS
 BEGIN
-    INSERT INTO TaiKhoan (TaiKhoan_SoTK, TaiKhoan_MatKhau, TaiKhoan_PhanQuyen, TaiKhoan_NhanVien)
-    VALUES (@SoTK, @MatKhau, @PhanQuyen, @NhanVien);
+    INSERT INTO TaiKhoan
+        (TaiKhoan_SoTK, TaiKhoan_MatKhau, TaiKhoan_PhanQuyen, TaiKhoan_NhanVien)
+    VALUES
+        (@SoTK, @MatKhau, @PhanQuyen, @NhanVien);
 END
 GO
 
@@ -1547,37 +1909,38 @@ GO
 -- PhanQuyen
 
 CREATE PROCEDURE ThemMoiPhanQuyen
-@TenQuyen NVARCHAR(20)
+    @TenQuyen NVARCHAR(20)
 AS
 BEGIN
-INSERT INTO PhanQuyen(PhanQuyen_TenQuyen)
-VALUES(@TenQuyen)
+    INSERT INTO PhanQuyen
+        (PhanQuyen_TenQuyen)
+    VALUES(@TenQuyen)
 END;
 GO
 --Xóa một bản ghi khỏi bảng PhanQuyen dựa trên PhanQuyen_ID:
 CREATE PROCEDURE XoaPhanQuyen
-@PhanQuyen_ID INT
+    @PhanQuyen_ID INT
 AS
 BEGIN
-DELETE FROM PhanQuyen
+    DELETE FROM PhanQuyen
 WHERE PhanQuyen_ID = @PhanQuyen_ID
 END;
 GO
 --Cập nhật một bản ghi trong bảng PhanQuyen dựa trên PhanQuyen_ID:
 CREATE PROCEDURE CapNhatPhanQuyen
-@PhanQuyen_ID INT,
-@TenQuyen NVARCHAR(20)
+    @PhanQuyen_ID INT,
+    @TenQuyen NVARCHAR(20)
 AS
 BEGIN
-UPDATE PhanQuyen
+    UPDATE PhanQuyen
 SET PhanQuyen_TenQuyen = @TenQuyen
 WHERE PhanQuyen_ID = @PhanQuyen_ID
 END;
 GO
 CREATE VIEW vw_PhanQuyen
 AS
-SELECT PhanQuyen_ID, PhanQuyen_TenQuyen
-FROM PhanQuyen
+    SELECT PhanQuyen_ID, PhanQuyen_TenQuyen
+    FROM PhanQuyen
 GO
 -- tìm kiếu loai tăng ca
 CREATE PROCEDURE TimKiemLoaiTangCa
@@ -1585,8 +1948,9 @@ CREATE PROCEDURE TimKiemLoaiTangCa
 AS
 BEGIN
     BEGIN TRY
-        SELECT * FROM LoaiTangCa
-        WHERE LoaiTangCa_ID = @timKiem 
+        SELECT *
+    FROM LoaiTangCa
+    WHERE LoaiTangCa_ID = @timKiem 
     END TRY
     BEGIN CATCH
         SELECT ERROR_MESSAGE()
@@ -1599,7 +1963,9 @@ CREATE PROCEDURE TimKiemPhongBan
 AS
 BEGIN
     BEGIN TRY
-        SELECT * FROM PhongBan WHERE PhongBan_MaPB = @maPB
+        SELECT *
+    FROM PhongBan
+    WHERE PhongBan_MaPB = @maPB
     END TRY
     BEGIN CATCH
         SELECT ERROR_MESSAGE()
@@ -1612,7 +1978,9 @@ CREATE PROCEDURE TimKiemChucVu
 AS
 BEGIN
     BEGIN TRY
-        SELECT * FROM ChucVu WHERE ChucVu_ID = @chucVu_ID
+        SELECT *
+    FROM ChucVu
+    WHERE ChucVu_ID = @chucVu_ID
     END TRY
     BEGIN CATCH
         SELECT ERROR_MESSAGE()
@@ -1625,8 +1993,9 @@ CREATE PROCEDURE TimKiemTaiKhoan
 AS
 BEGIN
     BEGIN TRY
-        SELECT * FROM TaiKhoan
-        WHERE TaiKhoan_SoTK = @timKiem OR TaiKhoan_NhanVien = @timKiem
+        SELECT *
+    FROM TaiKhoan
+    WHERE TaiKhoan_SoTK = @timKiem OR TaiKhoan_NhanVien = @timKiem
     END TRY
     BEGIN CATCH
         SELECT ERROR_MESSAGE()
@@ -1640,9 +2009,9 @@ CREATE PROCEDURE TimKiemPhanQuyen
 AS
 BEGIN
     BEGIN TRY
-        SELECT * 
-        FROM PhanQuyen 
-        WHERE (@phanQuyen_ID IS NULL OR PhanQuyen_ID = @phanQuyen_ID)
+        SELECT *
+    FROM PhanQuyen
+    WHERE (@phanQuyen_ID IS NULL OR PhanQuyen_ID = @phanQuyen_ID)
         AND (@phanQuyen_TenQuyen IS NULL OR PhanQuyen_TenQuyen LIKE '%' + @phanQuyen_TenQuyen + '%')
     END TRY
     BEGIN CATCH
@@ -1657,10 +2026,10 @@ AS
 BEGIN
     BEGIN TRY
         SELECT PhongBan_TenPB, COUNT(NhanVien_ID) as SoLuongNhanVien
-        FROM PhongBan
+    FROM PhongBan
         LEFT JOIN NhanVien ON PhongBan.PhoNgBan_MaPB = NhanVien.NhanVien_PhongBan
-        WHERE PhongBan_TG_NhanChuc = @ngay
-        GROUP BY PhongBan_TenPB
+    WHERE PhongBan_TG_NhanChuc = @ngay
+    GROUP BY PhongBan_TenPB
     END TRY
     BEGIN CATCH
         SELECT ERROR_MESSAGE()
