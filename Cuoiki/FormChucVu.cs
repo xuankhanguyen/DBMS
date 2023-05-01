@@ -13,7 +13,6 @@ namespace Cuoiki.Forms
 {
     public partial class FormChucVu: Form
     {
-        private string connectionString = "Data Source=DESKTOP-H2SC4QA\\MSSQLSERVER02;Initial Catalog=QLNS;Integrated Security=True";
         public FormChucVu()
         {
             InitializeComponent();
@@ -40,7 +39,7 @@ namespace Cuoiki.Forms
         {
             LoadTheme();
             // Tạo kết nối đến database
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (SqlConnection connection = DBUtils.GetDBConnection())
             {
                 // Tạo đối tượng SqlDataAdapter để lấy dữ liệu từ database
                 SqlDataAdapter adapter = new SqlDataAdapter("SELECT * FROM ChucVu", connection);
@@ -65,7 +64,7 @@ namespace Cuoiki.Forms
         {
             
             // Kết nối đến cơ sở dữ liệu
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (SqlConnection connection = DBUtils.GetDBConnection())
             {
                 connection.Open();
 
@@ -102,7 +101,7 @@ namespace Cuoiki.Forms
 
             try
             {
-                using (SqlConnection connection = new SqlConnection(connectionString))
+                using (SqlConnection connection = DBUtils.GetDBConnection())
                 {
                     connection.Open();
 
@@ -131,7 +130,7 @@ namespace Cuoiki.Forms
                 string tenChucVu = txtTenChucVu.Text;
 
                 // Khởi tạo kết nối đến database
-                using (SqlConnection connection = new SqlConnection(connectionString))
+                using (SqlConnection connection = DBUtils.GetDBConnection())
                 {
                     // Khởi tạo đối tượng SqlCommand để thực thi thủ tục
                     using (SqlCommand command = new SqlCommand("sp_SuaChucVu", connection))
@@ -171,7 +170,7 @@ namespace Cuoiki.Forms
         {
             try
             {
-                using (SqlConnection conn = new SqlConnection(connectionString))
+                using (SqlConnection conn = DBUtils.GetDBConnection())
                 {
                     using (SqlCommand cmd = new SqlCommand("TimKiemChucVu", conn))
                     {
