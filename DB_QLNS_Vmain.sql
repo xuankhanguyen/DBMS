@@ -4,8 +4,8 @@ GO
 -- Sử dụng CSDL
 USE QLNS
 GO
--- Thực hiện tạo bảng
 
+------------------------------------ Thực hiện tạo bảng -----------------------------------------------
 --Bảng Nhân viên
 CREATE TABLE NhanVien
 (
@@ -162,7 +162,9 @@ CREATE TABLE PhanQuyen
 );
 GO
 
+
 ---------------------------------- Thực hiện tạo Ràng buộc khóa ngoại ----------------------------------
+
 -- Bảng nhân viên
 ALTER TABLE NhanVien
 ADD CONSTRAINT FK_ChucVuNhanVien FOREIGN KEY(NhanVien_ChucVu) REFERENCES ChucVu(ChucVu_ID)ON DELETE SET NULL ON UPDATE CASCADE;
@@ -211,7 +213,10 @@ ALTER TABLE TaiKhoan
 ADD CONSTRAINT FK_PhanQuyenTaiKhoan FOREIGN KEY(TaiKhoan_PhanQuyen) REFERENCES PhanQuyen(PhanQuyen_ID) ON DELETE SET NULL ON UPDATE CASCADE;
 GO
 
+
+
 ------------------------------------------- View -------------------------------------------
+
 -- Bảng Ứng lương
 CREATE VIEW DS_UngLuong AS
 SELECT UngLuong_ID, UngLuong_Ngay, UngLuong_NhanVien, UngLuong_SoTien, UngLuong_GhiChu
@@ -256,7 +261,25 @@ FROM ChamCong
 JOIN KyCongChiTiet ON ChamCong.ChamCong_NhanVien = KyCongChiTiet.KyCongChiTiet_NhanVien AND ChamCong.ChamCong_KyCong = KyCongChiTiet.KyCongChiTiet_KyCong
 JOIN KyCong ON KyCongChiTiet.KyCongChiTiet_KyCong = KyCong.KyCong_MaKyCong;
 GO
+
+-- Bang Chuc vu , Nhan Vien, LoaiTangCa
+CREATE VIEW v_ChucVu AS
+SELECT * FROM dbo.ChucVu;
+
+go
+
+
+CREATE VIEW v_NhanVienCoTangCa AS
+SELECT * FROM dbo.TangCa
+WHERE TangCa_NgayTangCa IS NOT NULL
+GO
+
+CREATE VIEW v_LoaiTangCa AS
+SELECT * FROM dbo.LoaiTangCa;
+GO
+
 ------------------------------------------- Trigger ----------------------------------------
+
 -- Bảng Ứng lương
 CREATE TRIGGER TGR_UngLuong
 ON UngLuong
@@ -363,7 +386,23 @@ BEGIN
     END
 END
 GO
+
+--ChucVu, TangCa, LoaiTangCa-- ??????????????????????????????????????????
+CREATE TRIGGER ThemNVTangCa
+ON dbo.TangCa
+FOR INSERT
+AS
+BEGIN
+	DECLARE @day INT =0;
+	SELECT @day = TangCa_NgayTangCa FROM dbo.TangCa
+	IF(@day <=0 or @day >31)
+		ROLLBACK TRAN
+END
+GO
+ 
+
 -------------------------------------------  Data ------------------------------------------
+
 --Bảng Hệ số lương
 INSERT INTO HeSoLuong (HeSoLuong_ID, HeSoLuong_Ten, HeSoLuong_GiaTri)
 VALUES (1, N'Bậc 1', 1.07), 
@@ -633,42 +672,7 @@ VALUES
     N'Nhân Viên' -- ChucVu_TenCV - nvarchar(50)
     )
 
---View trigger ChucVu,TangCa,LoaiTangCa--
 GO
-
-
-CREATE VIEW v_ChucVu AS
-SELECT * FROM dbo.ChucVu;
-
-go
-
-
-CREATE VIEW v_NhanVienCoTangCa AS
-SELECT * FROM dbo.TangCa
-WHERE TangCa_NgayTangCa IS NOT NULL
-
-
-
-go
-CREATE VIEW v_LoaiTangCa AS
-SELECT * FROM dbo.LoaiTangCa;
-
-
-GO
-
-CREATE TRIGGER ThemNVTangCa
-ON dbo.TangCa
-FOR INSERT
-AS
-BEGIN
-	DECLARE @day INT =0;
-	SELECT @day = TangCa_NgayTangCa FROM dbo.TangCa
-	IF(@day <=0 or @day >31)
-		ROLLBACK TRAN
-END
-
-GO
- 
 -- ============= hàm và thủ tục ===============
 -- <Kha>
 -- 1. NV
@@ -951,8 +955,6 @@ CREATE PROC hienthiluong
 AS
 SELECT * FROM Luong_HienThi()
 GO
--- EXEC hienthiluong
--- GO
 
 -- <Tuan>
 -- KyCong
