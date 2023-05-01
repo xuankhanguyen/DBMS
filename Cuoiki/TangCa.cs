@@ -210,9 +210,9 @@ namespace Cuoiki
                     hienthithongtintangca();
 
                 }
-                catch
+                catch(Exception ex)
                 {
-                    MessageBox.Show("Dữ liệu đã tồn tại.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(ex.Message, "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                 }
             }

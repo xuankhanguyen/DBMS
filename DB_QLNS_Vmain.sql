@@ -1188,7 +1188,7 @@ BEGIN
         FROM KyCong kc
         WHERE kc.KyCong_Thang = @thangkycong AND kc.KyCong_Nam = @namkycong))
     BEGIN
-        RAISERROR('Dữ liệu đã tồn tại', 16, 1);
+        THROW 51000, 'Dữ liệu đã tồn tại',1;
         RETURN;
     END
 

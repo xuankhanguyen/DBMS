@@ -40,12 +40,12 @@
             this.columnHeader9 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader10 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.panel1 = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.cbbNam = new System.Windows.Forms.ComboBox();
-            this.cbbThang = new System.Windows.Forms.ComboBox();
-            this.buttonXem = new System.Windows.Forms.Button();
             this.buttontinhluong = new System.Windows.Forms.Button();
+            this.buttonXem = new System.Windows.Forms.Button();
+            this.cbbThang = new System.Windows.Forms.ComboBox();
+            this.cbbNam = new System.Windows.Forms.ComboBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -137,60 +137,68 @@
             this.panel1.Size = new System.Drawing.Size(1744, 382);
             this.panel1.TabIndex = 39;
             // 
-            // label1
+            // buttontinhluong
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(133, 99);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(56, 25);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Năm";
+            this.buttontinhluong.BackColor = System.Drawing.Color.Cyan;
+            this.buttontinhluong.Font = new System.Drawing.Font("Cambria", 16.125F);
+            this.buttontinhluong.Location = new System.Drawing.Point(1148, 173);
+            this.buttontinhluong.Name = "buttontinhluong";
+            this.buttontinhluong.Size = new System.Drawing.Size(199, 110);
+            this.buttontinhluong.TabIndex = 5;
+            this.buttontinhluong.Text = "Tính Lương";
+            this.buttontinhluong.UseVisualStyleBackColor = false;
+            this.buttontinhluong.Click += new System.EventHandler(this.buttontinhluong_Click);
+            // 
+            // buttonXem
+            // 
+            this.buttonXem.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.buttonXem.Font = new System.Drawing.Font("Cambria", 16.125F);
+            this.buttonXem.Location = new System.Drawing.Point(1148, 26);
+            this.buttonXem.Name = "buttonXem";
+            this.buttonXem.Size = new System.Drawing.Size(199, 98);
+            this.buttonXem.TabIndex = 4;
+            this.buttonXem.Text = "Xem";
+            this.buttonXem.UseVisualStyleBackColor = false;
+            this.buttonXem.Click += new System.EventHandler(this.buttonXem_Click);
+            // 
+            // cbbThang
+            // 
+            this.cbbThang.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.125F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbbThang.FormattingEnabled = true;
+            this.cbbThang.Location = new System.Drawing.Point(802, 108);
+            this.cbbThang.Name = "cbbThang";
+            this.cbbThang.Size = new System.Drawing.Size(228, 39);
+            this.cbbThang.TabIndex = 3;
+            // 
+            // cbbNam
+            // 
+            this.cbbNam.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.125F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbbNam.FormattingEnabled = true;
+            this.cbbNam.Location = new System.Drawing.Point(260, 108);
+            this.cbbNam.Name = "cbbNam";
+            this.cbbNam.Size = new System.Drawing.Size(239, 39);
+            this.cbbNam.TabIndex = 2;
+            this.cbbNam.SelectedIndexChanged += new System.EventHandler(this.cbbNam_SelectedIndexChanged);
             // 
             // label2
             // 
             this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Cambria", 16.125F);
             this.label2.Location = new System.Drawing.Point(659, 99);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(73, 25);
+            this.label2.Size = new System.Drawing.Size(137, 51);
             this.label2.TabIndex = 1;
             this.label2.Text = "Tháng";
             // 
-            // cbbNam
+            // label1
             // 
-            this.cbbNam.FormattingEnabled = true;
-            this.cbbNam.Location = new System.Drawing.Point(227, 90);
-            this.cbbNam.Name = "cbbNam";
-            this.cbbNam.Size = new System.Drawing.Size(239, 33);
-            this.cbbNam.TabIndex = 2;
-            this.cbbNam.SelectedIndexChanged += new System.EventHandler(this.cbbNam_SelectedIndexChanged);
-            // 
-            // cbbThang
-            // 
-            this.cbbThang.FormattingEnabled = true;
-            this.cbbThang.Location = new System.Drawing.Point(799, 91);
-            this.cbbThang.Name = "cbbThang";
-            this.cbbThang.Size = new System.Drawing.Size(157, 33);
-            this.cbbThang.TabIndex = 3;
-            // 
-            // buttonXem
-            // 
-            this.buttonXem.Location = new System.Drawing.Point(1065, 37);
-            this.buttonXem.Name = "buttonXem";
-            this.buttonXem.Size = new System.Drawing.Size(125, 60);
-            this.buttonXem.TabIndex = 4;
-            this.buttonXem.Text = "Xem";
-            this.buttonXem.UseVisualStyleBackColor = true;
-            this.buttonXem.Click += new System.EventHandler(this.buttonXem_Click);
-            // 
-            // buttontinhluong
-            // 
-            this.buttontinhluong.Location = new System.Drawing.Point(1065, 127);
-            this.buttontinhluong.Name = "buttontinhluong";
-            this.buttontinhluong.Size = new System.Drawing.Size(125, 60);
-            this.buttontinhluong.TabIndex = 5;
-            this.buttontinhluong.Text = "Tính Lương";
-            this.buttontinhluong.UseVisualStyleBackColor = true;
-            this.buttontinhluong.Click += new System.EventHandler(this.buttontinhluong_Click);
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Cambria", 16.125F);
+            this.label1.Location = new System.Drawing.Point(133, 99);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(108, 51);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Năm";
             // 
             // BangLuong
             // 
