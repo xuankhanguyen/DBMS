@@ -347,11 +347,6 @@ namespace Cuoiki
             SetBtEdit_Off();
         }
 
-        private void dtGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
 
         //private void btnDetail_Click(object sender, EventArgs e)
         //{

@@ -18,7 +18,8 @@ namespace Cuoiki.Forms
             InitializeComponent();
             
         }
-      
+        // Khai báo biến kiểm tra việc Thêm hay Sửa dữ liệu
+        bool Add = false;
         private void LoadTheme()
         {
             foreach (Control btns in this.Controls)
@@ -57,12 +58,26 @@ namespace Cuoiki.Forms
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-
+            // Lấy Row hiện tại
+            int r = dataGridView1.CurrentCell.RowIndex;
+            // Chuyển thông tin từ Gridview lên
+            txtTenChucVu.Text = dataGridView1.Rows[r].Cells[2].Value.ToString();
+            if (Add == true)
+            {
+                button1.Enabled = false;
+                button2.Enabled = false;
+            }
+            else
+            {
+                button1.Enabled = true;
+                button2.Enabled = true;
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            
+         
+      
             // Kết nối đến cơ sở dữ liệu
             using (SqlConnection connection = DBUtils.GetDBConnection())
             {

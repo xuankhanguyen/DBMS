@@ -260,7 +260,6 @@
             this.dtGridView.RowTemplate.Height = 33;
             this.dtGridView.Size = new System.Drawing.Size(847, 516);
             this.dtGridView.TabIndex = 0;
-            this.dtGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtGridView_CellContentClick);
             // 
             // KyCongHRM
             // 

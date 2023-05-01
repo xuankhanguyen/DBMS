@@ -102,5 +102,10 @@ namespace ProjectHRM
         {
             this.Close();
         }
+
+        private void frmHeSoLuong_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
