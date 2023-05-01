@@ -55,7 +55,6 @@
             // 
             this.splitContainer3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer3.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer3.Margin = new System.Windows.Forms.Padding(4);
             this.splitContainer3.Name = "splitContainer3";
             this.splitContainer3.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -70,8 +69,9 @@
             // splitContainer3.Panel2
             // 
             this.splitContainer3.Panel2.Controls.Add(this.splitContainer2);
-            this.splitContainer3.Size = new System.Drawing.Size(1408, 858);
-            this.splitContainer3.SplitterDistance = 48;
+            this.splitContainer3.Size = new System.Drawing.Size(939, 549);
+            this.splitContainer3.SplitterDistance = 30;
+            this.splitContainer3.SplitterWidth = 3;
             this.splitContainer3.TabIndex = 1;
             // 
             // cbbThang
@@ -93,10 +93,9 @@
             "10",
             "11",
             "12"});
-            this.cbbThang.Location = new System.Drawing.Point(630, 0);
-            this.cbbThang.Margin = new System.Windows.Forms.Padding(4);
+            this.cbbThang.Location = new System.Drawing.Point(421, 0);
             this.cbbThang.Name = "cbbThang";
-            this.cbbThang.Size = new System.Drawing.Size(280, 50);
+            this.cbbThang.Size = new System.Drawing.Size(188, 37);
             this.cbbThang.TabIndex = 22;
             // 
             // label4
@@ -104,10 +103,9 @@
             this.label4.Dock = System.Windows.Forms.DockStyle.Left;
             this.label4.Font = new System.Drawing.Font("Microsoft Tai Le", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.Color.SteelBlue;
-            this.label4.Location = new System.Drawing.Point(466, 0);
-            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label4.Location = new System.Drawing.Point(312, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(164, 48);
+            this.label4.Size = new System.Drawing.Size(109, 30);
             this.label4.TabIndex = 19;
             this.label4.Text = "Tháng";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -118,10 +116,9 @@
             this.cbbNam.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cbbNam.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbbNam.FormattingEnabled = true;
-            this.cbbNam.Location = new System.Drawing.Point(166, 0);
-            this.cbbNam.Margin = new System.Windows.Forms.Padding(4);
+            this.cbbNam.Location = new System.Drawing.Point(111, 0);
             this.cbbNam.Name = "cbbNam";
-            this.cbbNam.Size = new System.Drawing.Size(300, 50);
+            this.cbbNam.Size = new System.Drawing.Size(201, 37);
             this.cbbNam.TabIndex = 21;
             // 
             // label3
@@ -131,9 +128,8 @@
             this.label3.Font = new System.Drawing.Font("Microsoft Tai Le", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.Color.SteelBlue;
             this.label3.Location = new System.Drawing.Point(0, 0);
-            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(166, 48);
+            this.label3.Size = new System.Drawing.Size(111, 30);
             this.label3.TabIndex = 20;
             this.label3.Text = "Năm";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -142,7 +138,6 @@
             // 
             this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer2.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer2.Margin = new System.Windows.Forms.Padding(4);
             this.splitContainer2.Name = "splitContainer2";
             // 
             // splitContainer2.Panel1
@@ -158,8 +153,9 @@
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.dtGridView);
-            this.splitContainer2.Size = new System.Drawing.Size(1408, 806);
-            this.splitContainer2.SplitterDistance = 134;
+            this.splitContainer2.Size = new System.Drawing.Size(939, 516);
+            this.splitContainer2.SplitterDistance = 89;
+            this.splitContainer2.SplitterWidth = 3;
             this.splitContainer2.TabIndex = 0;
             // 
             // btnCancel
@@ -172,10 +168,9 @@
             this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCancel.ForeColor = System.Drawing.Color.Brown;
-            this.btnCancel.Location = new System.Drawing.Point(0, 432);
-            this.btnCancel.Margin = new System.Windows.Forms.Padding(4);
+            this.btnCancel.Location = new System.Drawing.Point(0, 276);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(134, 108);
+            this.btnCancel.Size = new System.Drawing.Size(89, 69);
             this.btnCancel.TabIndex = 33;
             this.btnCancel.Text = "Hủy";
             this.btnCancel.UseVisualStyleBackColor = true;
@@ -191,10 +186,9 @@
             this.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSave.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.btnSave.Location = new System.Drawing.Point(0, 324);
-            this.btnSave.Margin = new System.Windows.Forms.Padding(4);
+            this.btnSave.Location = new System.Drawing.Point(0, 207);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(134, 108);
+            this.btnSave.Size = new System.Drawing.Size(89, 69);
             this.btnSave.TabIndex = 32;
             this.btnSave.Text = "Lưu";
             this.btnSave.UseVisualStyleBackColor = true;
@@ -211,10 +205,9 @@
             this.btnDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnDelete.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnDelete.ForeColor = System.Drawing.Color.White;
-            this.btnDelete.Location = new System.Drawing.Point(0, 216);
-            this.btnDelete.Margin = new System.Windows.Forms.Padding(4);
+            this.btnDelete.Location = new System.Drawing.Point(0, 138);
             this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(134, 108);
+            this.btnDelete.Size = new System.Drawing.Size(89, 69);
             this.btnDelete.TabIndex = 31;
             this.btnDelete.Text = "Xóa";
             this.btnDelete.UseVisualStyleBackColor = false;
@@ -230,10 +223,9 @@
             this.btnEdit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnEdit.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnEdit.ForeColor = System.Drawing.Color.AliceBlue;
-            this.btnEdit.Location = new System.Drawing.Point(0, 108);
-            this.btnEdit.Margin = new System.Windows.Forms.Padding(4);
+            this.btnEdit.Location = new System.Drawing.Point(0, 69);
             this.btnEdit.Name = "btnEdit";
-            this.btnEdit.Size = new System.Drawing.Size(134, 108);
+            this.btnEdit.Size = new System.Drawing.Size(89, 69);
             this.btnEdit.TabIndex = 30;
             this.btnEdit.Text = "Sửa";
             this.btnEdit.UseVisualStyleBackColor = true;
@@ -250,9 +242,8 @@
             this.btnAdd.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAdd.ForeColor = System.Drawing.Color.AliceBlue;
             this.btnAdd.Location = new System.Drawing.Point(0, 0);
-            this.btnAdd.Margin = new System.Windows.Forms.Padding(4);
             this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(134, 108);
+            this.btnAdd.Size = new System.Drawing.Size(89, 69);
             this.btnAdd.TabIndex = 29;
             this.btnAdd.Text = "Thêm";
             this.btnAdd.UseVisualStyleBackColor = true;
@@ -264,22 +255,21 @@
             this.dtGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dtGridView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dtGridView.Location = new System.Drawing.Point(0, 0);
-            this.dtGridView.Margin = new System.Windows.Forms.Padding(4);
             this.dtGridView.Name = "dtGridView";
             this.dtGridView.RowHeadersWidth = 82;
             this.dtGridView.RowTemplate.Height = 33;
-            this.dtGridView.Size = new System.Drawing.Size(1270, 806);
+            this.dtGridView.Size = new System.Drawing.Size(847, 516);
             this.dtGridView.TabIndex = 0;
+            this.dtGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtGridView_CellContentClick);
             // 
             // KyCongHRM
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Silver;
-            this.ClientSize = new System.Drawing.Size(1408, 858);
+            this.ClientSize = new System.Drawing.Size(939, 549);
             this.ControlBox = false;
             this.Controls.Add(this.splitContainer3);
-            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "KyCongHRM";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Kỳ Công";

@@ -14,7 +14,6 @@ namespace Cuoiki.Forms
 {
     public partial class FormLoaiTangCa : Form
     {
-        private string connectionString = "Data Source=DESKTOP-H2SC4QA\\MSSQLSERVER02;Initial Catalog=QLNS;Integrated Security=True";
         public FormLoaiTangCa()
         {
             InitializeComponent();
@@ -41,7 +40,7 @@ namespace Cuoiki.Forms
         {
             LoadTheme();
             // Tạo kết nối đến database
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (SqlConnection connection = DBUtils.GetDBConnection())
             {
                 // Tạo đối tượng SqlDataAdapter để lấy dữ liệu từ database
                 SqlDataAdapter adapter = new SqlDataAdapter("SELECT * FROM LoaiTangCa", connection);
@@ -67,7 +66,7 @@ namespace Cuoiki.Forms
                 float heSo = float.Parse(txtHeSo.Text);
 
                 // Khởi tạo connection và command
-                using (SqlConnection connection = new SqlConnection(connectionString))
+                using (SqlConnection connection = DBUtils.GetDBConnection())
                 using (SqlCommand command = connection.CreateCommand())
                 {
                     connection.Open();
@@ -117,7 +116,7 @@ namespace Cuoiki.Forms
 
             try
             {
-                using (SqlConnection connection = new SqlConnection(connectionString))
+                using (SqlConnection connection = DBUtils.GetDBConnection())
                 {
                     connection.Open();
 
@@ -162,7 +161,7 @@ namespace Cuoiki.Forms
 
             try
             {
-                using (SqlConnection connection = new SqlConnection(connectionString))
+                using (SqlConnection connection = DBUtils.GetDBConnection())
                 {
                     connection.Open();
 
@@ -189,7 +188,7 @@ namespace Cuoiki.Forms
         {
             string timKiem = textBox1.Text;
 
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (SqlConnection connection = DBUtils.GetDBConnection())
             {
                 SqlCommand command = new SqlCommand("TimKiemLoaiTangCa", connection);
                 command.CommandType = CommandType.StoredProcedure;

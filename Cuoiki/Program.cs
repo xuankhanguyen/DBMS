@@ -17,7 +17,7 @@ namespace Cuoiki
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new TrangChuHRM());
+            Application.Run(new FormDangNhap());
         }
     }
 }

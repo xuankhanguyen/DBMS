@@ -13,7 +13,7 @@ namespace Cuoiki.Forms
 {
     public partial class FormPhanQuyen : Form
     {
-        private string connectionString = "Data Source=DESKTOP-H2SC4QA\\MSSQLSERVER02;Initial Catalog=QLNS;Integrated Security=True";
+        
         public FormPhanQuyen()
         {
             InitializeComponent();
@@ -40,7 +40,7 @@ namespace Cuoiki.Forms
         {
             LoadTheme();
             // Tạo kết nối đến database
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (SqlConnection connection = DBUtils.GetDBConnection())
             {
                 // Tạo đối tượng SqlDataAdapter để lấy dữ liệu từ database
                 SqlDataAdapter adapter = new SqlDataAdapter("SELECT * FROM PhanQuyen", connection);
@@ -87,7 +87,7 @@ namespace Cuoiki.Forms
             string tenQuyen = txtTenQuyen.Text;
 
             // Kết nối tới database
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (SqlConnection connection = DBUtils.GetDBConnection())
             {
                 connection.Open();
 
@@ -133,7 +133,7 @@ namespace Cuoiki.Forms
 
             try
             {
-                using (SqlConnection connection = new SqlConnection(connectionString))
+                using (SqlConnection connection = DBUtils.GetDBConnection())
                 {
                     connection.Open();
 
@@ -163,7 +163,7 @@ namespace Cuoiki.Forms
 
             try
             {
-                using (SqlConnection connection = new SqlConnection(connectionString))
+                using (SqlConnection connection = DBUtils.GetDBConnection())
                 {
                     connection.Open();
 
@@ -188,7 +188,7 @@ namespace Cuoiki.Forms
             try
             {
               
-                using (SqlConnection conn = new SqlConnection(connectionString))
+                using (SqlConnection conn = DBUtils.GetDBConnection())
                 {
                     conn.Open();
                     using (SqlCommand cmd = new SqlCommand("TimKiemPhanQuyen", conn))

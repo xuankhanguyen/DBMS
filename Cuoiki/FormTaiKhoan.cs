@@ -13,7 +13,6 @@ namespace Cuoiki.Forms
 {
     public partial class FormTaiKhoan : Form
     {
-        private string connectionString = "Data Source=DESKTOP-H2SC4QA\\MSSQLSERVER02;Initial Catalog=QLNS;Integrated Security=True";
         public FormTaiKhoan()
         {
             InitializeComponent();
@@ -40,7 +39,7 @@ namespace Cuoiki.Forms
         {
             LoadTheme();
             // Tạo kết nối đến database
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (SqlConnection connection = DBUtils.GetDBConnection())
             {
                 // Tạo đối tượng SqlDataAdapter để lấy dữ liệu từ database
                 SqlDataAdapter adapter = new SqlDataAdapter("SELECT * FROM TaiKhoan", connection);
@@ -71,7 +70,7 @@ namespace Cuoiki.Forms
 
             // Kết nối đến database
 
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (SqlConnection connection = DBUtils.GetDBConnection())
 
             {
                 connection.Open();
@@ -108,7 +107,7 @@ namespace Cuoiki.Forms
         {
             string soTK = txtSoTK.Text;
 
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (SqlConnection connection = DBUtils.GetDBConnection())
             {
                 connection.Open();
 
@@ -128,7 +127,7 @@ namespace Cuoiki.Forms
             try
             {
                 // create a new SqlConnection object and open the connection
-                using (SqlConnection conn = new SqlConnection(connectionString))
+                using (SqlConnection conn = DBUtils.GetDBConnection())
                 {
                     conn.Open();
 
@@ -161,7 +160,7 @@ namespace Cuoiki.Forms
         private void button4_Click(object sender, EventArgs e)
         {
             string timKiem = txtTimKiem.Text;
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (SqlConnection connection = DBUtils.GetDBConnection())
             {
                 connection.Open();
                 using (SqlCommand command = new SqlCommand("TimKiemTaiKhoan", connection))

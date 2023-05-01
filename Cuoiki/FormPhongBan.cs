@@ -13,7 +13,7 @@ namespace Cuoiki.Forms
 {
     public partial class FormPhongBan : Form
     {
-        private string connectionString = "Data Source=DESKTOP-H2SC4QA\\MSSQLSERVER02;Initial Catalog=QLNS;Integrated Security=True";
+       
         public FormPhongBan()
         {
             InitializeComponent();
@@ -39,7 +39,7 @@ namespace Cuoiki.Forms
         {
             LoadTheme();
             // Tạo kết nối đến database
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (SqlConnection connection = DBUtils.GetDBConnection())
             {
                 // Tạo đối tượng SqlDataAdapter để lấy dữ liệu từ database
                 SqlDataAdapter adapter = new SqlDataAdapter("SELECT * FROM PhongBan", connection);
@@ -73,7 +73,7 @@ namespace Cuoiki.Forms
 
         private void button1_Click(object sender, EventArgs e)
         {
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            using (SqlConnection conn = DBUtils.GetDBConnection())
             {
                 try
                 {
@@ -110,7 +110,7 @@ namespace Cuoiki.Forms
 
             try
             {
-                using (SqlConnection connection = new SqlConnection(connectionString))
+                using (SqlConnection connection = DBUtils.GetDBConnection())
                 {
                     SqlCommand command = new SqlCommand("sp_XoaPhongBan", connection);
                     command.CommandType = CommandType.StoredProcedure;
@@ -137,7 +137,7 @@ namespace Cuoiki.Forms
 
             try
             {
-                using (SqlConnection connection = new SqlConnection(connectionString))
+                using (SqlConnection connection = DBUtils.GetDBConnection())
                 {
                     connection.Open();
                     SqlCommand command = new SqlCommand("sp_CapNhatPhongBan", connection);
@@ -166,7 +166,7 @@ namespace Cuoiki.Forms
              try
             {
                 int maPB = int.Parse(txtMaPB.Text);
-                using (SqlConnection conn = new SqlConnection(connectionString))
+                using (SqlConnection conn = DBUtils.GetDBConnection())
                 {
                     using (SqlCommand cmd = new SqlCommand("TimKiemPhongBan", conn))
                     {
@@ -221,7 +221,7 @@ namespace Cuoiki.Forms
             }
             try
             {
-                using (SqlConnection conn = new SqlConnection(connectionString))
+                using (SqlConnection conn = DBUtils.GetDBConnection())
                 {
                     conn.Open();
                     SqlCommand cmd = new SqlCommand("ThongKeNhanVienTheoPhongBan", conn);
