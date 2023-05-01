@@ -67,7 +67,7 @@ namespace Cuoiki
             {
                 con.Open();
             }
-            
+
             SqlCommand command = new SqlCommand();
             command.CommandType = CommandType.StoredProcedure;
             command.CommandText = "LayThongtinTangCa";
@@ -129,7 +129,7 @@ namespace Cuoiki
             SqlDataReader reader = command.ExecuteReader();
             if (reader.Read())
             {
-                
+
                 int day = int.Parse(reader.GetInt32(1) + "");
                 textBoxIDTangCa.Text = reader.GetInt32(0) + "";
                 textBoxSoGioTangCa.Text = reader.GetDouble(2) + "";
@@ -137,7 +137,7 @@ namespace Cuoiki
                 comboBoxloaitangca.Text = reader.GetString(4) + "";
                 int month = int.Parse(reader.GetInt32(5) + "");
                 int year = int.Parse(reader.GetInt32(6) + "");
-                DateTime selecteddate = new DateTime(year,month,day);
+                DateTime selecteddate = new DateTime(year, month, day);
                 dateTimePickertangca.Value = selecteddate;
             }
             reader.Close();
@@ -149,7 +149,7 @@ namespace Cuoiki
             buttonXoaTangCa.Enabled = false;
             buttonLuu.Enabled = true;
             buttonhuy.Enabled = true;
-            
+
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -158,7 +158,7 @@ namespace Cuoiki
             buttonXoaTangCa.Enabled = false;
             buttonLuu.Enabled = true;
             buttonhuy.Enabled = true;
-            
+
         }
 
         private void buttonXoaTangCa_Click(object sender, EventArgs e)
@@ -167,13 +167,13 @@ namespace Cuoiki
             buttonSuaTangCa.Enabled = false;
             buttonLuu.Enabled = true;
             buttonhuy.Enabled = true;
-            
+
         }
 
         private void TangCa_Load_1(object sender, EventArgs e)
         {
             hienthithongtintangca();
-            
+
 
         }
         public TangCa()
@@ -183,7 +183,7 @@ namespace Cuoiki
 
         private void buttonLuu_Click(object sender, EventArgs e)
         {
-            if(buttonThemTangCa.Enabled==true)
+            if (buttonThemTangCa.Enabled == true)
             {
                 if (con == null)
                 {
@@ -216,7 +216,7 @@ namespace Cuoiki
 
                 }
             }
-            else if(buttonSuaTangCa.Enabled ==true)
+            else if (buttonSuaTangCa.Enabled == true)
             {
                 if (con == null)
                 {
@@ -259,7 +259,7 @@ namespace Cuoiki
 
                 }
             }
-            else if(buttonXoaTangCa.Enabled ==true)
+            else if (buttonXoaTangCa.Enabled == true)
             {
                 if (con == null)
                 {

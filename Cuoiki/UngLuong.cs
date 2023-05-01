@@ -126,7 +126,7 @@ namespace Cuoiki
             buttonLuu.Enabled = true;
             buttonHuy.Enabled = true;
 
-            
+
         }
 
         private void buttonSuaUngLuong_Click(object sender, EventArgs e)
@@ -136,7 +136,7 @@ namespace Cuoiki
             buttonLuu.Enabled = true;
             buttonHuy.Enabled = true;
 
-            
+
         }
 
         private void buttonXoaUngLuong_Click(object sender, EventArgs e)
@@ -145,7 +145,7 @@ namespace Cuoiki
             buttonSuaUngLuong.Enabled = false;
             buttonLuu.Enabled = true;
             buttonHuy.Enabled = true;
-            
+
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -192,7 +192,7 @@ namespace Cuoiki
                 }
                 hienthithongtinungluong();
             }
-            else if(buttonSuaUngLuong.Enabled == true)
+            else if (buttonSuaUngLuong.Enabled == true)
             {
                 if (con == null)
                 {
@@ -226,7 +226,7 @@ namespace Cuoiki
                     MessageBox.Show("That Bai");
                 }
             }
-            else if(buttonXoaUngLuong.Enabled == true)
+            else if (buttonXoaUngLuong.Enabled == true)
             {
                 if (con == null)
                 {
@@ -253,7 +253,7 @@ namespace Cuoiki
                     MessageBox.Show("That Bai");
                 }
             }
-            
+
         }
 
         private void buttonHuy_Click(object sender, EventArgs e)
@@ -272,6 +272,11 @@ namespace Cuoiki
         public UngLuong()
         {
             InitializeComponent();
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }

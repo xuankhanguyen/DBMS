@@ -1,8 +1,8 @@
 ﻿-- Tạo CSDL
-CREATE DATABASE Test
+CREATE DATABASE QLNS
 GO
 -- Sử dụng CSDL
-USE Test
+USE QLNS
 GO
 
 ------------------------------------ Thực hiện tạo bảng -----------------------------------------------
@@ -430,7 +430,6 @@ GO
 
 
 -------------------------------------------  Data ------------------------------------------
-
 --Bảng Hệ số lương
 INSERT INTO HeSoLuong
     (HeSoLuong_ID, HeSoLuong_Ten, HeSoLuong_GiaTri)
@@ -448,7 +447,11 @@ INSERT INTO NhanVien
     NhanVien_GioiTinh, NhanVien_HinhAnh, NhanVien_DiaChi, NhanVien_NgaySinh,
     NhanVien_ChucVu, NhanVien_PhongBan)
 VALUES
-    (N'Nguyễn Văn Phát', '0337079124', '049000123233', N'Nam', NULL, N'44/2 đường số 3, Linh Tây, Thủ Đức, TPHCM', '1/1/2001', (1 ), (1)),
+    (N'Nguyễn Văn Phát', '0337079124', '049000123233', N'Nam', NULL, N'44/2 đường số 3, Linh Tây, Thủ Đức, TPHCM', '1/1/2001', (SELECT ChucVu_ID
+        FROM CHUCVU
+        WHERE ChucVu_TenCV =N'Giám đốc' ), (SELECT PhongBan_MaPB
+        FROM PhongBan
+        WHERE PhongBan_TenPB=N'Phòng Hành Chính')),
     (N'Huỳnh Văn Bá', '0313139871', '003001943441', N'Nam', NULL, N'13 Luỹ Bán Bích, Tân Phú, TPHCM' , '1/1/2001', (SELECT ChucVu_ID
         FROM CHUCVU
         WHERE ChucVu_TenCV =N'Nhân viên' ), (SELECT PhongBan_MaPB
@@ -876,18 +879,6 @@ VALUES
         FROM dbo.KyCong
         WHERE KyCong_Thang = 1 AND KyCong_Nam=2023)
 ),
-    ( 30,
-        5,
-        (SELECT NhanVien_ID
-        FROM dbo.NhanVien
-        WHERE NhanVien_HoTen = N'Nguyễn Phát Tài'),
-        (SELECT LoaiTangCa_ID
-        FROM dbo.LoaiTangCa
-        WHERE LoaiTangCa_TenLoai = N'Ngày Nghỉ'),
-        (SELECT KyCong_MaKyCong
-        FROM dbo.KyCong
-        WHERE KyCong_Thang = 2 AND KyCong_Nam=2023)
-),
     ( 13,
         3.5,
         (SELECT NhanVien_ID
@@ -1299,7 +1290,7 @@ BEGIN
 END
 GO
 
-ALTER FUNCTION Luong_HienThi(@Nam INT,@Thang INT)
+CREATE FUNCTION Luong_HienThi(@Nam INT,@Thang INT)
 RETURNS TABLE
 AS
 RETURN (
@@ -1311,15 +1302,13 @@ FROM BangLuong bl
 )
 GO
 
-ALTER PROC hienthiluong
+CREATE PROC hienthiluong
 @Nam INT ,@Thang INT
 AS
 SELECT *
 FROM Luong_HienThi(@Nam,@Thang)
 
 GO
-
-
 
 -- <Tuan>
 -- KyCong

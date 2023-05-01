@@ -51,10 +51,10 @@
             this.buttonLuu = new System.Windows.Forms.Button();
             this.buttonHuy = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.dateTimePickerungluong = new System.Windows.Forms.DateTimePicker();
-            this.label8 = new System.Windows.Forms.Label();
-            this.comboBoxnhanvien = new System.Windows.Forms.ComboBox();
             this.comboBoxtienung = new System.Windows.Forms.ComboBox();
+            this.comboBoxnhanvien = new System.Windows.Forms.ComboBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.dateTimePickerungluong = new System.Windows.Forms.DateTimePicker();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -187,9 +187,9 @@
             this.listViewUngLuong.FullRowSelect = true;
             this.listViewUngLuong.GridLines = true;
             this.listViewUngLuong.HideSelection = false;
-            this.listViewUngLuong.Location = new System.Drawing.Point(0, 634);
+            this.listViewUngLuong.Location = new System.Drawing.Point(0, 667);
             this.listViewUngLuong.Name = "listViewUngLuong";
-            this.listViewUngLuong.Size = new System.Drawing.Size(1744, 816);
+            this.listViewUngLuong.Size = new System.Drawing.Size(1744, 783);
             this.listViewUngLuong.TabIndex = 16;
             this.listViewUngLuong.UseCompatibleStateImageBehavior = false;
             this.listViewUngLuong.View = System.Windows.Forms.View.Details;
@@ -278,37 +278,11 @@
             this.panel1.Controls.Add(this.label5);
             this.panel1.Controls.Add(this.label4);
             this.panel1.Controls.Add(this.textBoxGhiChu);
-            this.panel1.Location = new System.Drawing.Point(1, 2);
+            this.panel1.Location = new System.Drawing.Point(1, 4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1736, 626);
+            this.panel1.Size = new System.Drawing.Size(1736, 569);
             this.panel1.TabIndex = 38;
-            // 
-            // dateTimePickerungluong
-            // 
-            this.dateTimePickerungluong.Font = new System.Drawing.Font("Cambria", 10.875F);
-            this.dateTimePickerungluong.Location = new System.Drawing.Point(1033, 44);
-            this.dateTimePickerungluong.Name = "dateTimePickerungluong";
-            this.dateTimePickerungluong.Size = new System.Drawing.Size(496, 41);
-            this.dateTimePickerungluong.TabIndex = 38;
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Cambria", 16.125F);
-            this.label8.Location = new System.Drawing.Point(774, 44);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(228, 51);
-            this.label8.TabIndex = 39;
-            this.label8.Text = "Ứng Lương";
-            // 
-            // comboBoxnhanvien
-            // 
-            this.comboBoxnhanvien.Font = new System.Drawing.Font("Cambria", 10.875F);
-            this.comboBoxnhanvien.FormattingEnabled = true;
-            this.comboBoxnhanvien.Location = new System.Drawing.Point(263, 46);
-            this.comboBoxnhanvien.Name = "comboBoxnhanvien";
-            this.comboBoxnhanvien.Size = new System.Drawing.Size(462, 42);
-            this.comboBoxnhanvien.TabIndex = 40;
+            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
             // comboBoxtienung
             // 
@@ -322,6 +296,33 @@
             this.comboBoxtienung.Name = "comboBoxtienung";
             this.comboBoxtienung.Size = new System.Drawing.Size(261, 42);
             this.comboBoxtienung.TabIndex = 41;
+            // 
+            // comboBoxnhanvien
+            // 
+            this.comboBoxnhanvien.Font = new System.Drawing.Font("Cambria", 10.875F);
+            this.comboBoxnhanvien.FormattingEnabled = true;
+            this.comboBoxnhanvien.Location = new System.Drawing.Point(263, 46);
+            this.comboBoxnhanvien.Name = "comboBoxnhanvien";
+            this.comboBoxnhanvien.Size = new System.Drawing.Size(462, 42);
+            this.comboBoxnhanvien.TabIndex = 40;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Cambria", 16.125F);
+            this.label8.Location = new System.Drawing.Point(774, 44);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(228, 51);
+            this.label8.TabIndex = 39;
+            this.label8.Text = "Ứng Lương";
+            // 
+            // dateTimePickerungluong
+            // 
+            this.dateTimePickerungluong.Font = new System.Drawing.Font("Cambria", 10.875F);
+            this.dateTimePickerungluong.Location = new System.Drawing.Point(1033, 44);
+            this.dateTimePickerungluong.Name = "dateTimePickerungluong";
+            this.dateTimePickerungluong.Size = new System.Drawing.Size(496, 41);
+            this.dateTimePickerungluong.TabIndex = 38;
             // 
             // UngLuong
             // 

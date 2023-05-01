@@ -244,3 +244,29 @@ D:\hệ quảng trị csdl\DBMS\Cuoiki\obj\Debug\Cuoiki.exe
 D:\hệ quảng trị csdl\DBMS\Cuoiki\obj\Debug\Cuoiki.pdb
 D:\hệ quảng trị csdl\DBMS\Cuoiki\obj\Debug\Cuoiki.Forms.FormChucVu.resources
 D:\hệ quảng trị csdl\DBMS\Cuoiki\obj\Debug\Cuoiki.Forms.FormTaiKhoan.resources
+D:\Year2\He_quan_tri_co_so_du_lieu\QLNS_git\DBMS\Cuoiki\bin\Debug\Cuoiki.exe.config
+D:\Year2\He_quan_tri_co_so_du_lieu\QLNS_git\DBMS\Cuoiki\bin\Debug\Cuoiki.exe
+D:\Year2\He_quan_tri_co_so_du_lieu\QLNS_git\DBMS\Cuoiki\bin\Debug\Cuoiki.pdb
+D:\Year2\He_quan_tri_co_so_du_lieu\QLNS_git\DBMS\Cuoiki\obj\Debug\Cuoiki.csproj.AssemblyReference.cache
+D:\Year2\He_quan_tri_co_so_du_lieu\QLNS_git\DBMS\Cuoiki\obj\Debug\Cuoiki.csproj.SuggestedBindingRedirects.cache
+D:\Year2\He_quan_tri_co_so_du_lieu\QLNS_git\DBMS\Cuoiki\obj\Debug\Cuoiki.BangLuong.resources
+D:\Year2\He_quan_tri_co_so_du_lieu\QLNS_git\DBMS\Cuoiki\obj\Debug\Cuoiki.ChiTietHRM.resources
+D:\Year2\He_quan_tri_co_so_du_lieu\QLNS_git\DBMS\Cuoiki\obj\Debug\Cuoiki.Forms.FormChucVu.resources
+D:\Year2\He_quan_tri_co_so_du_lieu\QLNS_git\DBMS\Cuoiki\obj\Debug\Cuoiki.FormChuongTrinh.resources
+D:\Year2\He_quan_tri_co_so_du_lieu\QLNS_git\DBMS\Cuoiki\obj\Debug\Cuoiki.FormDangNhap.resources
+D:\Year2\He_quan_tri_co_so_du_lieu\QLNS_git\DBMS\Cuoiki\obj\Debug\Cuoiki.Forms.FormLoaiTangCa.resources
+D:\Year2\He_quan_tri_co_so_du_lieu\QLNS_git\DBMS\Cuoiki\obj\Debug\Cuoiki.Forms.FormPhanQuyen.resources
+D:\Year2\He_quan_tri_co_so_du_lieu\QLNS_git\DBMS\Cuoiki\obj\Debug\Cuoiki.Forms.FormPhongBan.resources
+D:\Year2\He_quan_tri_co_so_du_lieu\QLNS_git\DBMS\Cuoiki\obj\Debug\Cuoiki.Forms.FormTaiKhoan.resources
+D:\Year2\He_quan_tri_co_so_du_lieu\QLNS_git\DBMS\Cuoiki\obj\Debug\ProjectHRM.frmHeSoLuong.resources
+D:\Year2\He_quan_tri_co_so_du_lieu\QLNS_git\DBMS\Cuoiki\obj\Debug\ProjectHRM.frmHopDong.resources
+D:\Year2\He_quan_tri_co_so_du_lieu\QLNS_git\DBMS\Cuoiki\obj\Debug\ProjectHRM.frmNhanVien.resources
+D:\Year2\He_quan_tri_co_so_du_lieu\QLNS_git\DBMS\Cuoiki\obj\Debug\Cuoiki.KyCongHRM.resources
+D:\Year2\He_quan_tri_co_so_du_lieu\QLNS_git\DBMS\Cuoiki\obj\Debug\Cuoiki.Properties.Resources.resources
+D:\Year2\He_quan_tri_co_so_du_lieu\QLNS_git\DBMS\Cuoiki\obj\Debug\Cuoiki.TangCa.resources
+D:\Year2\He_quan_tri_co_so_du_lieu\QLNS_git\DBMS\Cuoiki\obj\Debug\Cuoiki.TrangChuHRM.resources
+D:\Year2\He_quan_tri_co_so_du_lieu\QLNS_git\DBMS\Cuoiki\obj\Debug\Cuoiki.UngLuong.resources
+D:\Year2\He_quan_tri_co_so_du_lieu\QLNS_git\DBMS\Cuoiki\obj\Debug\Cuoiki.csproj.GenerateResource.cache
+D:\Year2\He_quan_tri_co_so_du_lieu\QLNS_git\DBMS\Cuoiki\obj\Debug\Cuoiki.csproj.CoreCompileInputs.cache
+D:\Year2\He_quan_tri_co_so_du_lieu\QLNS_git\DBMS\Cuoiki\obj\Debug\Cuoiki.exe
+D:\Year2\He_quan_tri_co_so_du_lieu\QLNS_git\DBMS\Cuoiki\obj\Debug\Cuoiki.pdb
