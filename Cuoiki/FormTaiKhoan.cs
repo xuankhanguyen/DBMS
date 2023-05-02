@@ -8,6 +8,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using Button = System.Windows.Forms.Button;
 
 namespace Cuoiki.Forms
 {
@@ -18,7 +20,6 @@ namespace Cuoiki.Forms
             InitializeComponent();
 
         }
-
         private void LoadTheme()
         {
             foreach (Control btns in this.Controls)
@@ -59,6 +60,7 @@ namespace Cuoiki.Forms
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
+           
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -66,8 +68,8 @@ namespace Cuoiki.Forms
             // Lấy thông tin từ các textbox
             string soTK = txtSoTK.Text;
             string matKhau = txtMatKhau.Text;
-            int phanQuyen = int.Parse(comboBox1.Text);
-            int nhanVien = int.Parse(comboBox2.Text);
+            int phanQuyen = int.Parse(textBox1.Text);
+            int nhanVien = int.Parse(textBox2.Text);
 
             // Kết nối đến database
 
@@ -142,8 +144,8 @@ namespace Cuoiki.Forms
                         // set the parameters for the stored procedure
                         cmd.Parameters.AddWithValue("@SoTK", txtSoTK.Text);
                         cmd.Parameters.AddWithValue("@MatKhau", txtMatKhau.Text);
-                        cmd.Parameters.AddWithValue("@PhanQuyen", comboBox1.Text);
-                        cmd.Parameters.AddWithValue("@NhanVien", comboBox2.Text);
+                        cmd.Parameters.AddWithValue("@PhanQuyen", textBox1.Text);
+                        cmd.Parameters.AddWithValue("@NhanVien", textBox2.Text);
 
                         // execute the stored procedure
                         cmd.ExecuteNonQuery();

@@ -120,6 +120,7 @@
             this.cbbNam.Name = "cbbNam";
             this.cbbNam.Size = new System.Drawing.Size(201, 37);
             this.cbbNam.TabIndex = 21;
+            this.cbbNam.SelectedIndexChanged += new System.EventHandler(this.cbbNam_SelectedIndexChanged);
             // 
             // label3
             // 

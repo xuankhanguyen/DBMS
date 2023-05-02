@@ -347,6 +347,11 @@ namespace Cuoiki
             SetBtEdit_Off();
         }
 
+        private void cbbNam_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
 
         //private void btnDetail_Click(object sender, EventArgs e)
         //{
