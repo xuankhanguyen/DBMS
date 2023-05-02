@@ -37,15 +37,26 @@
             this.lbIDPhanQuyen = new System.Windows.Forms.Label();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.button1 = new System.Windows.Forms.Button();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
+            this.splitContainer1.Panel1.SuspendLayout();
+            this.splitContainer1.Panel2.SuspendLayout();
+            this.splitContainer1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
+            this.splitContainer2.Panel1.SuspendLayout();
+            this.splitContainer2.Panel2.SuspendLayout();
+            this.splitContainer2.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnSuaPQ
             // 
-            this.btnSuaPQ.Location = new System.Drawing.Point(443, 42);
+            this.btnSuaPQ.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnSuaPQ.Location = new System.Drawing.Point(0, 46);
             this.btnSuaPQ.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnSuaPQ.Name = "btnSuaPQ";
-            this.btnSuaPQ.Size = new System.Drawing.Size(75, 23);
+            this.btnSuaPQ.Size = new System.Drawing.Size(266, 23);
             this.btnSuaPQ.TabIndex = 15;
             this.btnSuaPQ.Text = "Sửa";
             this.btnSuaPQ.UseVisualStyleBackColor = true;
@@ -53,10 +64,11 @@
             // 
             // btnXoaPQ
             // 
-            this.btnXoaPQ.Location = new System.Drawing.Point(281, 42);
+            this.btnXoaPQ.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnXoaPQ.Location = new System.Drawing.Point(0, 23);
             this.btnXoaPQ.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnXoaPQ.Name = "btnXoaPQ";
-            this.btnXoaPQ.Size = new System.Drawing.Size(75, 23);
+            this.btnXoaPQ.Size = new System.Drawing.Size(266, 23);
             this.btnXoaPQ.TabIndex = 14;
             this.btnXoaPQ.Text = "Xóa";
             this.btnXoaPQ.UseVisualStyleBackColor = true;
@@ -64,10 +76,11 @@
             // 
             // btnThemPQ
             // 
-            this.btnThemPQ.Location = new System.Drawing.Point(119, 42);
+            this.btnThemPQ.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnThemPQ.Location = new System.Drawing.Point(0, 0);
             this.btnThemPQ.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnThemPQ.Name = "btnThemPQ";
-            this.btnThemPQ.Size = new System.Drawing.Size(75, 23);
+            this.btnThemPQ.Size = new System.Drawing.Size(266, 23);
             this.btnThemPQ.TabIndex = 13;
             this.btnThemPQ.Text = "Thêm";
             this.btnThemPQ.UseVisualStyleBackColor = true;
@@ -75,7 +88,7 @@
             // 
             // txtTenQuyen
             // 
-            this.txtTenQuyen.Location = new System.Drawing.Point(572, 114);
+            this.txtTenQuyen.Location = new System.Drawing.Point(585, 25);
             this.txtTenQuyen.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtTenQuyen.Name = "txtTenQuyen";
             this.txtTenQuyen.Size = new System.Drawing.Size(100, 22);
@@ -85,7 +98,7 @@
             // lbPhanQuyen
             // 
             this.lbPhanQuyen.AutoSize = true;
-            this.lbPhanQuyen.Location = new System.Drawing.Point(461, 120);
+            this.lbPhanQuyen.Location = new System.Drawing.Point(474, 31);
             this.lbPhanQuyen.Name = "lbPhanQuyen";
             this.lbPhanQuyen.Size = new System.Drawing.Size(78, 16);
             this.lbPhanQuyen.TabIndex = 23;
@@ -94,7 +107,7 @@
             // 
             // txtIDPQ
             // 
-            this.txtIDPQ.Location = new System.Drawing.Point(225, 114);
+            this.txtIDPQ.Location = new System.Drawing.Point(176, 25);
             this.txtIDPQ.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtIDPQ.Name = "txtIDPQ";
             this.txtIDPQ.Size = new System.Drawing.Size(100, 22);
@@ -104,7 +117,7 @@
             // lbIDPhanQuyen
             // 
             this.lbIDPhanQuyen.AutoSize = true;
-            this.lbIDPhanQuyen.Location = new System.Drawing.Point(114, 120);
+            this.lbIDPhanQuyen.Location = new System.Drawing.Point(65, 31);
             this.lbIDPhanQuyen.Name = "lbIDPhanQuyen";
             this.lbIDPhanQuyen.Size = new System.Drawing.Size(20, 16);
             this.lbIDPhanQuyen.TabIndex = 21;
@@ -114,47 +127,89 @@
             // dataGridView1
             // 
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(93, 188);
+            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridView1.Location = new System.Drawing.Point(0, 0);
             this.dataGridView1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersWidth = 51;
             this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(613, 250);
+            this.dataGridView1.Size = new System.Drawing.Size(529, 355);
             this.dataGridView1.TabIndex = 18;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(585, 42);
+            this.button1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.button1.Location = new System.Drawing.Point(0, 69);
             this.button1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.Size = new System.Drawing.Size(266, 23);
             this.button1.TabIndex = 25;
             this.button1.Text = "Tìm kiếm";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click_1);
+            // 
+            // splitContainer1
+            // 
+            this.splitContainer1.Location = new System.Drawing.Point(0, 1);
+            this.splitContainer1.Name = "splitContainer1";
+            this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainer1.Panel1
+            // 
+            this.splitContainer1.Panel1.Controls.Add(this.txtTenQuyen);
+            this.splitContainer1.Panel1.Controls.Add(this.txtIDPQ);
+            this.splitContainer1.Panel1.Controls.Add(this.lbIDPhanQuyen);
+            this.splitContainer1.Panel1.Controls.Add(this.lbPhanQuyen);
+            // 
+            // splitContainer1.Panel2
+            // 
+            this.splitContainer1.Panel2.Controls.Add(this.splitContainer2);
+            this.splitContainer1.Size = new System.Drawing.Size(799, 454);
+            this.splitContainer1.SplitterDistance = 95;
+            this.splitContainer1.TabIndex = 26;
+            // 
+            // splitContainer2
+            // 
+            this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer2.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer2.Name = "splitContainer2";
+            // 
+            // splitContainer2.Panel1
+            // 
+            this.splitContainer2.Panel1.Controls.Add(this.button1);
+            this.splitContainer2.Panel1.Controls.Add(this.btnSuaPQ);
+            this.splitContainer2.Panel1.Controls.Add(this.btnXoaPQ);
+            this.splitContainer2.Panel1.Controls.Add(this.btnThemPQ);
+            // 
+            // splitContainer2.Panel2
+            // 
+            this.splitContainer2.Panel2.Controls.Add(this.dataGridView1);
+            this.splitContainer2.Size = new System.Drawing.Size(799, 355);
+            this.splitContainer2.SplitterDistance = 266;
+            this.splitContainer2.TabIndex = 0;
             // 
             // FormPhanQuyen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.txtTenQuyen);
-            this.Controls.Add(this.lbPhanQuyen);
-            this.Controls.Add(this.txtIDPQ);
-            this.Controls.Add(this.lbIDPhanQuyen);
-            this.Controls.Add(this.dataGridView1);
-            this.Controls.Add(this.btnSuaPQ);
-            this.Controls.Add(this.btnXoaPQ);
-            this.Controls.Add(this.btnThemPQ);
+            this.Controls.Add(this.splitContainer1);
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "FormPhanQuyen";
             this.Text = "Phân quyền";
             this.Load += new System.EventHandler(this.FormPhanQuyen_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            this.splitContainer1.Panel1.ResumeLayout(false);
+            this.splitContainer1.Panel1.PerformLayout();
+            this.splitContainer1.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
+            this.splitContainer1.ResumeLayout(false);
+            this.splitContainer2.Panel1.ResumeLayout(false);
+            this.splitContainer2.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
+            this.splitContainer2.ResumeLayout(false);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -168,5 +223,7 @@
         private System.Windows.Forms.Label lbIDPhanQuyen;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.SplitContainer splitContainer1;
+        private System.Windows.Forms.SplitContainer splitContainer2;
     }
 }
