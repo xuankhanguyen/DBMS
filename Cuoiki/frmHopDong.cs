@@ -144,5 +144,10 @@ namespace ProjectHRM
         {
             this.Close();
         }
+
+        private void frmHopDong_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

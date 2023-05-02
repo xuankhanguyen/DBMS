@@ -38,9 +38,9 @@ namespace Cuoiki.Forms
         private void Form3_Load(object sender, EventArgs e)
         {
             // TODO: This line of code loads data into the 'qLNSDataSet1.NhanVien' table. You can move, or remove it, as needed.
-            this.nhanVienTableAdapter.Fill(this.qLNSDataSet1.NhanVien);
+         
             // TODO: This line of code loads data into the 'qLNSDataSet.PhanQuyen' table. You can move, or remove it, as needed.
-            this.phanQuyenTableAdapter.Fill(this.qLNSDataSet.PhanQuyen);
+     
             LoadTheme();
             // Tạo kết nối đến database
             using (SqlConnection connection = DBUtils.GetDBConnection())

@@ -129,26 +129,30 @@ namespace Cuoiki.Forms
             {
                 MessageBox.Show("PhanQuyenID phai la mot so nguyen.");
                 return;
-            }
-
-            try
+            } // Kiểm tra User có muốn xóa hàng dữ liệu
+            DialogResult CheckYN;
+            CheckYN = MessageBox.Show("Có chắc xóa không?", "Trả lời", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (CheckYN == DialogResult.Yes)
             {
-                using (SqlConnection connection = DBUtils.GetDBConnection())
+                try
                 {
-                    connection.Open();
-
-                    using (SqlCommand command = new SqlCommand("XoaPhanQuyen", connection))
+                    using (SqlConnection connection = DBUtils.GetDBConnection())
                     {
-                        command.CommandType = CommandType.StoredProcedure;
-                        command.Parameters.AddWithValue("@PhanQuyen_ID", phanQuyenID);
-                        command.ExecuteNonQuery();
-                        MessageBox.Show("Da xoa thanh cong phan quyen co ID = " + phanQuyenID);
+                        connection.Open();
+
+                        using (SqlCommand command = new SqlCommand("XoaPhanQuyen", connection))
+                        {
+                            command.CommandType = CommandType.StoredProcedure;
+                            command.Parameters.AddWithValue("@PhanQuyen_ID", phanQuyenID);
+                            command.ExecuteNonQuery();
+                            MessageBox.Show("Da xoa thanh cong phan quyen co ID = " + phanQuyenID);
+                        }
                     }
                 }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Loi xoa phan quyen: " + ex.Message);
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Loi xoa phan quyen: " + ex.Message);
+                }
             }
         }
 

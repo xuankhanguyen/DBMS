@@ -270,3 +270,4 @@ D:\Year2\He_quan_tri_co_so_du_lieu\QLNS_git\DBMS\Cuoiki\obj\Debug\Cuoiki.csproj.
 D:\Year2\He_quan_tri_co_so_du_lieu\QLNS_git\DBMS\Cuoiki\obj\Debug\Cuoiki.csproj.CoreCompileInputs.cache
 D:\Year2\He_quan_tri_co_so_du_lieu\QLNS_git\DBMS\Cuoiki\obj\Debug\Cuoiki.exe
 D:\Year2\He_quan_tri_co_so_du_lieu\QLNS_git\DBMS\Cuoiki\obj\Debug\Cuoiki.pdb
+D:\hệ quảng trị csdl\DBMS\CuoiKi\obj\Debug\Cuoiki.TrangChuNhanVien.resources

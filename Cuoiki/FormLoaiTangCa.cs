@@ -113,27 +113,32 @@ namespace Cuoiki.Forms
                 MessageBox.Show("LoaiTangCaID phai la mot so nguyen.");
                 return;
             }
-
-            try
+            // Kiểm tra User có muốn xóa hàng dữ liệu
+            DialogResult CheckYN;
+            CheckYN = MessageBox.Show("Có chắc xóa không?", "Trả lời", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (CheckYN == DialogResult.Yes)
             {
-                using (SqlConnection connection = DBUtils.GetDBConnection())
+                try
                 {
-                    connection.Open();
-
-                    using (SqlCommand command = new SqlCommand("sp_XoaLoaiTangCa", connection))
+                    using (SqlConnection connection = DBUtils.GetDBConnection())
                     {
-                        command.CommandType = CommandType.StoredProcedure;
-                        command.Parameters.AddWithValue("@LoaiTangCa_ID", loaiTangCaID);
+                        connection.Open();
 
-                        command.ExecuteNonQuery();
+                        using (SqlCommand command = new SqlCommand("sp_XoaLoaiTangCa", connection))
+                        {
+                            command.CommandType = CommandType.StoredProcedure;
+                            command.Parameters.AddWithValue("@LoaiTangCa_ID", loaiTangCaID);
 
-                        MessageBox.Show("Da xoa thanh cong loai tang ca co ID = " + loaiTangCaID);
+                            command.ExecuteNonQuery();
+
+                            MessageBox.Show("Da xoa thanh cong loai tang ca co ID = " + loaiTangCaID);
+                        }
                     }
                 }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Loi xoa loai tang ca: " + ex.Message);
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Loi xoa loai tang ca: " + ex.Message);
+                }
             }
         }
 

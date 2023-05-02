@@ -127,16 +127,6 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="QLNSDataSet.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>QLNSDataSet.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="QLNSDataSet1.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>QLNSDataSet1.xsd</DependentUpon>
-    </Compile>
     <Compile Include="TangCa.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -149,6 +139,12 @@
     </Compile>
     <Compile Include="TrangChuHRM.Designer.cs">
       <DependentUpon>TrangChuHRM.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TrangChuNhanVien.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TrangChuNhanVien.Designer.cs">
+      <DependentUpon>TrangChuNhanVien.cs</DependentUpon>
     </Compile>
     <Compile Include="UngLuong.cs">
       <SubType>Form</SubType>
@@ -211,6 +207,9 @@
     <EmbeddedResource Include="TrangChuHRM.resx">
       <DependentUpon>TrangChuHRM.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="TrangChuNhanVien.resx">
+      <DependentUpon>TrangChuNhanVien.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UngLuong.resx">
       <DependentUpon>UngLuong.cs</DependentUpon>
     </EmbeddedResource>
@@ -228,28 +227,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="QLNSDataSet.xsc">
-      <DependentUpon>QLNSDataSet.xsd</DependentUpon>
-    </None>
-    <None Include="QLNSDataSet.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>QLNSDataSet.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="QLNSDataSet.xss">
-      <DependentUpon>QLNSDataSet.xsd</DependentUpon>
-    </None>
-    <None Include="QLNSDataSet1.xsc">
-      <DependentUpon>QLNSDataSet1.xsd</DependentUpon>
-    </None>
-    <None Include="QLNSDataSet1.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>QLNSDataSet1.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="QLNSDataSet1.xss">
-      <DependentUpon>QLNSDataSet1.xsd</DependentUpon>
-    </None>
     <None Include="Resources\icons8_Close_40px.png" />
   </ItemGroup>
   <ItemGroup>

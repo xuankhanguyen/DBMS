@@ -32,13 +32,6 @@ namespace Cuoiki.Forms
                     btn.FlatAppearance.BorderColor = ThemeColor.SecondaryColor;
                 }
             }
-            //label4.ForeColor = ThemeColor.SecondaryColor;
-            //label5.ForeColor = ThemeColor.PrimaryColor;
-        }
-
-        private void Form2_Load(object sender, EventArgs e)
-        {
-            LoadTheme();
             // Tạo kết nối đến database
             using (SqlConnection connection = DBUtils.GetDBConnection())
             {
@@ -54,6 +47,12 @@ namespace Cuoiki.Forms
                 // Gán dữ liệu từ DataTable vào DataGridView
                 dataGridView1.DataSource = dataTable;
             }
+        }
+
+        private void Form2_Load(object sender, EventArgs e)
+        {
+            LoadTheme();
+           
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -76,8 +75,8 @@ namespace Cuoiki.Forms
 
         private void button1_Click(object sender, EventArgs e)
         {
-         
-      
+           
+
             // Kết nối đến cơ sở dữ liệu
             using (SqlConnection connection = DBUtils.GetDBConnection())
             {
@@ -100,6 +99,7 @@ namespace Cuoiki.Forms
                     {
                         MessageBox.Show("Lỗi khi thêm chức vụ mới: " + ex.Message);
                     }
+                    LoadTheme();
                 }
             }
 
@@ -113,27 +113,33 @@ namespace Cuoiki.Forms
                 MessageBox.Show("ChucVuID phai la mot so nguyen.");
                 return;
             }
-
-            try
+            // Kiểm tra User có muốn xóa hàng dữ liệu
+            DialogResult CheckYN;
+            CheckYN = MessageBox.Show("Có chắc xóa không?", "Trả lời", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (CheckYN == DialogResult.Yes)
             {
-                using (SqlConnection connection = DBUtils.GetDBConnection())
+                try
                 {
-                    connection.Open();
-
-                    using (SqlCommand command = new SqlCommand("sp_XoaChucVu", connection))
+                    using (SqlConnection connection = DBUtils.GetDBConnection())
                     {
-                        command.CommandType = CommandType.StoredProcedure;
-                        command.Parameters.AddWithValue("@ChucVu_ID", chucVuID);
+                        connection.Open();
 
-                        command.ExecuteNonQuery();
+                        using (SqlCommand command = new SqlCommand("sp_XoaChucVu", connection))
+                        {
+                            command.CommandType = CommandType.StoredProcedure;
+                            command.Parameters.AddWithValue("@ChucVu_ID", chucVuID);
 
-                        MessageBox.Show("Da xoa thanh cong chuc vu co ID = " + chucVuID);
+                            command.ExecuteNonQuery();
+
+                            MessageBox.Show("Da xoa thanh cong chuc vu co ID = " + chucVuID);
+                        }
                     }
                 }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Loi xoa chuc vu: " + ex.Message);
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Loi xoa chuc vu: " + ex.Message);
+                }
+                LoadTheme();
             }
         }
 
@@ -179,6 +185,7 @@ namespace Cuoiki.Forms
             {
                 MessageBox.Show("Đã xảy ra lỗi: " + ex.Message);
             }
+            LoadTheme();
         }
 
         private void button4_Click(object sender, EventArgs e)
@@ -211,6 +218,7 @@ namespace Cuoiki.Forms
             {
                 MessageBox.Show(ex.Message, "Error");
             }
+            LoadTheme();
         }
     }
 }

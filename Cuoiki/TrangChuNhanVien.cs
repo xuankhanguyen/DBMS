@@ -16,5 +16,10 @@ namespace Cuoiki
         {
             InitializeComponent();
         }
+
+        private void TrangChuNhanVien_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
