@@ -430,6 +430,7 @@ GO
 
 
 -------------------------------------------  Data ------------------------------------------
+
 --Bảng Hệ số lương
 INSERT INTO HeSoLuong
     (HeSoLuong_ID, HeSoLuong_Ten, HeSoLuong_GiaTri)
@@ -879,6 +880,18 @@ VALUES
         FROM dbo.KyCong
         WHERE KyCong_Thang = 1 AND KyCong_Nam=2023)
 ),
+    ( 30,
+        5,
+        (SELECT NhanVien_ID
+        FROM dbo.NhanVien
+        WHERE NhanVien_HoTen = N'Nguyễn Phát Tài'),
+        (SELECT LoaiTangCa_ID
+        FROM dbo.LoaiTangCa
+        WHERE LoaiTangCa_TenLoai = N'Ngày Nghỉ'),
+        (SELECT KyCong_MaKyCong
+        FROM dbo.KyCong
+        WHERE KyCong_Thang = 2 AND KyCong_Nam=2023)
+),
     ( 13,
         3.5,
         (SELECT NhanVien_ID
@@ -973,7 +986,6 @@ RETURN (
 FROM UngLuong ul
     INNER JOIN KyCong kc ON kc.KyCong_MaKyCong = ul.UngLuong_KyCong
     INNER JOIN NhanVien nv ON nv.NhanVien_ID = ul.UngLuong_NhanVien
-    WHERE ul.UngLuong_TrangThaiXoa = 0
 )
 GO
 
@@ -987,7 +999,7 @@ GO
 CREATE PROC [LayThongtinUngLuong]
 AS
 SELECT *
-FROM dbo.UngLuong_HienThi()
+FROM dbo.UngLuong_HienThi() 
 GO
 
 CREATE PROCEDURE [ThemUngLuong]
@@ -1188,7 +1200,7 @@ BEGIN
         FROM KyCong kc
         WHERE kc.KyCong_Thang = @thangkycong AND kc.KyCong_Nam = @namkycong))
     BEGIN
-        THROW 51000, 'Dữ liệu đã tồn tại',1;
+        RAISERROR('Dữ liệu đã tồn tại', 16, 1);
         RETURN;
     END
 
@@ -1268,21 +1280,10 @@ BEGIN
         SET @TangCa = @giotangca * (@LuongCB * @HeSoLuong)/@SoNgayLyThuyet * 1000 / 8
         SET @LuongNhanDuoc = @LuongThuong + @LuongCN - @UngLuong + @PhuCap + @TangCa
         SET @LuongThucLanh = @LuongNhanDuoc * 0.895
-        MERGE INTO BangLuong AS target
-        USING (SELECT @NhanVienID AS BangLuong_NhanVien, @MaKyCong AS BangLuong_KyCong) AS source
-        ON target.BangLuong_NhanVien = source.BangLuong_NhanVien AND target.BangLuong_KyCong = source.BangLuong_KyCong
-        WHEN MATCHED THEN
-             UPDATE SET BangLuong_LuongNgayThuong = @LuongThuong,
-               BangLuong_LuongNgayCN = @LuongCN,
-               BangLuong_TangCa = @TangCa,
-               BangLuong_UngLuong = @UngLuong,
-               BangLuong_PhuCap = @PhuCap,
-               BangLuong_LuongNhanDuoc = @LuongNhanDuoc,
-               BangLuong_ThucLanh = CEILING(@LuongThucLanh)
-        WHEN NOT MATCHED THEN
-            INSERT (BangLuong_NhanVien, BangLuong_KyCong, BangLuong_LuongNgayThuong, BangLuong_LuongNgayCN, BangLuong_TangCa, BangLuong_UngLuong, BangLuong_PhuCap, BangLuong_LuongNhanDuoc, BangLuong_ThucLanh)
-            VALUES (@NhanVienID, @MaKyCong, @LuongThuong, @LuongCN, @TangCa, @UngLuong, @PhuCap, @LuongNhanDuoc, CEILING(@LuongThucLanh));
-
+        INSERT INTO BangLuong
+            (BangLuong_NhanVien,BangLuong_KyCong,BangLuong_LuongNgayThuong,BangLuong_LuongNgayCN,BangLuong_TangCa,BangLuong_UngLuong,BangLuong_PhuCap,BangLuong_LuongNhanDuoc, BangLuong_ThucLanh)
+        VALUES
+            (@NhanVienID, @MaKyCong, @LuongThuong, @LuongCN, @TangCa, @UngLuong, @PhuCap, @LuongNhanDuoc, CEILING(@LuongThucLanh))
         SELECT @NhanVienID = MIN(KyCongChiTiet_NhanVien)
         FROM KyCongChiTiet
         WHERE KyCongChiTiet_NhanVien > @NhanVienID AND KyCongChiTiet_KyCong = @MaKyCong
@@ -1290,7 +1291,7 @@ BEGIN
 END
 GO
 
-CREATE FUNCTION Luong_HienThi(@Nam INT,@Thang INT)
+CREATE FUNCTION Luong_HienThi()
 RETURNS TABLE
 AS
 RETURN (
@@ -1298,16 +1299,13 @@ RETURN (
 FROM BangLuong bl
     INNER JOIN NhanVien nv ON bl.BangLuong_NhanVien = nv.NhanVien_ID
     INNER JOIN KyCong kc ON kc.KyCong_MaKyCong = bl.BangLuong_KyCong
-    WHERE kc.KyCong_Nam = @Nam AND kc.KyCong_Thang = @Thang
 )
 GO
 
 CREATE PROC hienthiluong
-@Nam INT ,@Thang INT
 AS
 SELECT *
-FROM Luong_HienThi(@Nam,@Thang)
-
+FROM Luong_HienThi()
 GO
 
 -- <Tuan>
@@ -2021,18 +2019,106 @@ BEGIN
     END CATCH
 END
 GO
--- thống kê nhân viên theo phòng ban
-CREATE PROCEDURE ThongKeNhanVienTheoPhongBan
-    @MaPB INT
+-- Thống kê phòng ban theo ngày
+CREATE PROCEDURE ThongKePhongBanTheoNgay
+    @ngay DATE
 AS
 BEGIN
     BEGIN TRY
-        SELECT NhanVien_ID, NhanVien_HoTen, NhanVien_SDT, NhanVien_CCCD, NhanVien_GioiTinh, NhanVien_HinhAnh, NhanVien_DiaChi, NhanVien_NgaySinh, NhanVien_ChucVu
-        FROM NhanVien
-        WHERE NhanVien_PhongBan = @MaPB AND NhanVien_TrangThaiXoa = 0
+        SELECT PhongBan_TenPB, COUNT(NhanVien_ID) as SoLuongNhanVien
+    FROM PhongBan
+        LEFT JOIN NhanVien ON PhongBan.PhoNgBan_MaPB = NhanVien.NhanVien_PhongBan
+    WHERE PhongBan_TG_NhanChuc = @ngay
+    GROUP BY PhongBan_TenPB
     END TRY
     BEGIN CATCH
         SELECT ERROR_MESSAGE()
     END CATCH
 END
 GO
+-- thêm đăng nhập
+--Thêm mới nhân viên
+CREATE PROCEDURE sp_ThemMoiNhanVien
+	@NhanVien_HoTen NVARCHAR(50),
+	@NhanVien_SDT CHAR(10),
+	@NhanVien_CCCD CHAR(12),
+	@NhanVien_GioiTinh NVARCHAR(3),
+	@NhanVien_HinhAnh IMAGE,
+	@NhanVien_DiaChi NVARCHAR(50),
+	@NhanVien_NgaySinh DATE,
+	@NhanVien_ChucVu INT,
+	@NhanVien_PhongBan INT
+AS
+BEGIN
+	-- Kiểm tra trùng số CCCD
+	IF EXISTS (SELECT 1 FROM NhanVien WHERE NhanVien_CCCD = @NhanVien_CCCD)
+	BEGIN
+		THROW 51000, 'Số CCCD đã tồn tại', 1;
+		RETURN;
+	END
+	
+	-- Thêm mới nhân viên
+	INSERT INTO NhanVien (NhanVien_HoTen, NhanVien_SDT, NhanVien_CCCD, NhanVien_GioiTinh, 
+	NhanVien_HinhAnh, NhanVien_DiaChi, NhanVien_NgaySinh, NhanVien_ChucVu, NhanVien_PhongBan)
+	VALUES (@NhanVien_HoTen, @NhanVien_SDT, @NhanVien_CCCD, @NhanVien_GioiTinh, @NhanVien_HinhAnh, 
+	@NhanVien_DiaChi, @NhanVien_NgaySinh, @NhanVien_ChucVu, @NhanVien_PhongBan);
+
+	-- Trả về ID của nhân viên vừa được thêm mới
+	SELECT @@IDENTITY AS NhanVien_ID;
+END
+--Thủ tục Xoá nhân viên
+CREATE PROCEDURE sp_XoaNhanVien
+	@NhanVien_ID INT
+AS
+BEGIN
+	-- Kiểm tra xem nhân viên có tồn tại trong cơ sở dữ liệu hay không
+	IF NOT EXISTS (SELECT 1 FROM NhanVien WHERE NhanVien_ID = @NhanVien_ID)
+	BEGIN
+		THROW 51000, 'Nhân viên không tồn tại', 1;
+		RETURN;
+	END
+	
+	-- Xoá nhân viên
+	UPDATE NhanVien SET NhanVien_TrangThaiXoa = 1 WHERE NhanVien_ID = @NhanVien_ID;
+END
+--Thủ tục Update nhân viên
+CREATE PROCEDURE sp_SuaThongTinNhanVien
+	@NhanVien_ID INT,
+	@NhanVien_HoTen NVARCHAR(50),
+	@NhanVien_SDT CHAR(10),
+	@NhanVien_CCCD CHAR(12),
+	@NhanVien_GioiTinh NVARCHAR(3),
+	@NhanVien_HinhAnh IMAGE,
+	@NhanVien_DiaChi NVARCHAR(50),
+	@NhanVien_NgaySinh DATE,
+	@NhanVien_ChucVu INT,
+	@NhanVien_PhongBan INT
+AS
+BEGIN
+	-- Kiểm tra xem nhân viên có tồn tại trong cơ sở dữ liệu hay không
+	IF NOT EXISTS (SELECT 1 FROM NhanVien WHERE NhanVien_ID = @NhanVien_ID)
+	BEGIN
+		THROW 51000, 'Nhân viên không tồn tại', 1;
+		RETURN;
+	END
+	
+	-- Kiểm tra trùng số CCCD
+	IF EXISTS (SELECT 1 FROM NhanVien WHERE NhanVien_ID <> @NhanVien_ID AND NhanVien_CCCD = @NhanVien_CCCD)
+	BEGIN
+		THROW 51000, 'Số CCCD đã tồn tại', 1;
+		RETURN;
+	END
+	
+	-- Cập nhật thông tin nhân viên
+	UPDATE NhanVien SET
+		NhanVien_HoTen = @NhanVien_HoTen,
+		NhanVien_SDT = @NhanVien_SDT,
+		NhanVien_CCCD = @NhanVien_CCCD,
+		NhanVien_GioiTinh = @NhanVien_GioiTinh,
+		NhanVien_HinhAnh = @NhanVien_HinhAnh,
+		NhanVien_DiaChi = @NhanVien_DiaChi,
+		NhanVien_NgaySinh = @NhanVien_NgaySinh,
+		NhanVien_ChucVu = @NhanVien_ChucVu,
+		NhanVien_PhongBan = @NhanVien_PhongBan
+	WHERE NhanVien_ID = @NhanVien_ID;
+END
