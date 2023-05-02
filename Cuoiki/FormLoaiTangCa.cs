@@ -31,6 +31,21 @@ namespace Cuoiki.Forms
                     btn.ForeColor = Color.Black;
                     btn.FlatAppearance.BorderColor = ThemeColor.SecondaryColor;
                 }
+                // Tạo kết nối đến database
+                using (SqlConnection connection = DBUtils.GetDBConnection())
+                {
+                    // Tạo đối tượng SqlDataAdapter để lấy dữ liệu từ database
+                    SqlDataAdapter adapter = new SqlDataAdapter("SELECT * FROM ChucVu", connection);
+
+                    // Tạo đối tượng DataTable để lưu trữ dữ liệu
+                    DataTable dataTable = new DataTable();
+
+                    // Sử dụng phương thức Fill của SqlDataAdapter để đổ dữ liệu từ database vào DataTable
+                    adapter.Fill(dataTable);
+
+                    // Gán dữ liệu từ DataTable vào DataGridView
+                    dataGridView1.DataSource = dataTable;
+                }
             }
             //label4.ForeColor = ThemeColor.SecondaryColor;
             //label5.ForeColor = ThemeColor.PrimaryColor;
@@ -39,21 +54,7 @@ namespace Cuoiki.Forms
         private void Form1_Load(object sender, EventArgs e)
         {
             LoadTheme();
-            // Tạo kết nối đến database
-            using (SqlConnection connection = DBUtils.GetDBConnection())
-            {
-                // Tạo đối tượng SqlDataAdapter để lấy dữ liệu từ database
-                SqlDataAdapter adapter = new SqlDataAdapter("SELECT * FROM LoaiTangCa", connection);
-
-                // Tạo đối tượng DataTable để lưu trữ dữ liệu
-                DataTable dataTable = new DataTable();
-
-                // Sử dụng phương thức Fill của SqlDataAdapter để đổ dữ liệu từ database vào DataTable
-                adapter.Fill(dataTable);
-
-                // Gán dữ liệu từ DataTable vào DataGridView
-                dataGridView1.DataSource = dataTable;
-            }
+            
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -92,7 +93,7 @@ namespace Cuoiki.Forms
             {
                 MessageBox.Show("Lỗi khi thêm mới loại tăng ca: " + ex.Message);
             }
-
+            LoadTheme();
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -187,6 +188,7 @@ namespace Cuoiki.Forms
             {
                 MessageBox.Show("Loi sua loai tang ca: " + ex.Message);
             }
+            LoadTheme();
         }
 
         private void button4_Click(object sender, EventArgs e)
@@ -217,6 +219,7 @@ namespace Cuoiki.Forms
                     connection.Close();
                 }
             }
+            LoadTheme();
         }
 
     }

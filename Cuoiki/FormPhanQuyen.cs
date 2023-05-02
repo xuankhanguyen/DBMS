@@ -32,18 +32,11 @@ namespace Cuoiki.Forms
                     btn.FlatAppearance.BorderColor = ThemeColor.SecondaryColor;
                 }
             }
-            //label4.ForeColor = ThemeColor.SecondaryColor;
-            //label5.ForeColor = ThemeColor.PrimaryColor;
-        }
-
-        private void FormPhanQuyen_Load(object sender, EventArgs e)
-        {
-            LoadTheme();
             // Tạo kết nối đến database
             using (SqlConnection connection = DBUtils.GetDBConnection())
             {
                 // Tạo đối tượng SqlDataAdapter để lấy dữ liệu từ database
-                SqlDataAdapter adapter = new SqlDataAdapter("SELECT * FROM PhanQuyen", connection);
+                SqlDataAdapter adapter = new SqlDataAdapter("SELECT * FROM ChucVu", connection);
 
                 // Tạo đối tượng DataTable để lưu trữ dữ liệu
                 DataTable dataTable = new DataTable();
@@ -54,6 +47,13 @@ namespace Cuoiki.Forms
                 // Gán dữ liệu từ DataTable vào DataGridView
                 dataGridView1.DataSource = dataTable;
             }
+            //label4.ForeColor = ThemeColor.SecondaryColor;
+            //label5.ForeColor = ThemeColor.PrimaryColor;
+        }
+
+        private void FormPhanQuyen_Load(object sender, EventArgs e)
+        {
+            LoadTheme();
         }
 
         private void lbIDChucVu_Click(object sender, EventArgs e)
@@ -114,6 +114,7 @@ namespace Cuoiki.Forms
                     }
                 }
             }
+            LoadTheme();
         }
 
         private void btnXoaPQ_Click(object sender, EventArgs e)
@@ -154,6 +155,7 @@ namespace Cuoiki.Forms
                     MessageBox.Show("Loi xoa phan quyen: " + ex.Message);
                 }
             }
+            LoadTheme();
         }
 
         private void btnSuaPQ_Click(object sender, EventArgs e)
@@ -185,6 +187,7 @@ namespace Cuoiki.Forms
             {
                 MessageBox.Show("Loi cap nhat phan quyen: " + ex.Message);
             }
+            LoadTheme();
         }
 
         private void button1_Click_1(object sender, EventArgs e)
@@ -211,6 +214,7 @@ namespace Cuoiki.Forms
             {
                 MessageBox.Show(ex.Message);
             }
+            LoadTheme();
         }
     }
 }

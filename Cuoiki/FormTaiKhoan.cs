@@ -31,17 +31,6 @@ namespace Cuoiki.Forms
                     btn.FlatAppearance.BorderColor = ThemeColor.SecondaryColor;
                 }
             }
-            //label4.ForeColor = ThemeColor.SecondaryColor;
-            //label5.ForeColor = ThemeColor.PrimaryColor;
-        }
-
-        private void Form3_Load(object sender, EventArgs e)
-        {
-            // TODO: This line of code loads data into the 'qLNSDataSet1.NhanVien' table. You can move, or remove it, as needed.
-         
-            // TODO: This line of code loads data into the 'qLNSDataSet.PhanQuyen' table. You can move, or remove it, as needed.
-     
-            LoadTheme();
             // Tạo kết nối đến database
             using (SqlConnection connection = DBUtils.GetDBConnection())
             {
@@ -57,6 +46,14 @@ namespace Cuoiki.Forms
                 // Gán dữ liệu từ DataTable vào DataGridView
                 dataGridView1.DataSource = dataTable;
             }
+            //label4.ForeColor = ThemeColor.SecondaryColor;
+            //label5.ForeColor = ThemeColor.PrimaryColor;
+        }
+
+        private void Form3_Load(object sender, EventArgs e)
+        {
+            LoadTheme();
+          
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -101,9 +98,10 @@ namespace Cuoiki.Forms
                 {
                     MessageBox.Show("Thêm tài khoản không thành công!");
                 }
-
+                LoadTheme();
                 // Đóng kết nối
                 connection.Close();
+                
             }
         }
 
@@ -124,6 +122,7 @@ namespace Cuoiki.Forms
 
                 MessageBox.Show("Đã xóa tài khoản có số tài khoản là " + soTK);
             }
+            LoadTheme();
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -159,6 +158,7 @@ namespace Cuoiki.Forms
                 // display a message box with the error message if an exception occurs
                 MessageBox.Show(ex.Message);
             }
+            LoadTheme();
         }
 
         private void button4_Click(object sender, EventArgs e)
@@ -179,6 +179,7 @@ namespace Cuoiki.Forms
                     }
                 }
             }
+            LoadTheme();
         }
 
         private void txtSoTK_TextChanged(object sender, EventArgs e)

@@ -30,6 +30,21 @@ namespace Cuoiki.Forms
                     btn.ForeColor = Color.Black;
                     btn.FlatAppearance.BorderColor = ThemeColor.SecondaryColor;
                 }
+                // Tạo kết nối đến database
+                using (SqlConnection connection = DBUtils.GetDBConnection())
+                {
+                    // Tạo đối tượng SqlDataAdapter để lấy dữ liệu từ database
+                    SqlDataAdapter adapter = new SqlDataAdapter("SELECT * FROM PhongBan", connection);
+
+                    // Tạo đối tượng DataTable để lưu trữ dữ liệu
+                    DataTable dataTable = new DataTable();
+
+                    // Sử dụng phương thức Fill của SqlDataAdapter để đổ dữ liệu từ database vào DataTable
+                    adapter.Fill(dataTable);
+
+                    // Gán dữ liệu từ DataTable vào DataGridView
+                    dataGridView1.DataSource = dataTable;
+                }
             }
             //label4.ForeColor = ThemeColor.SecondaryColor;
             //label5.ForeColor = ThemeColor.PrimaryColor;
@@ -38,21 +53,7 @@ namespace Cuoiki.Forms
         private void FormPhongBan_Load(object sender, EventArgs e)
         {
             LoadTheme();
-            // Tạo kết nối đến database
-            using (SqlConnection connection = DBUtils.GetDBConnection())
-            {
-                // Tạo đối tượng SqlDataAdapter để lấy dữ liệu từ database
-                SqlDataAdapter adapter = new SqlDataAdapter("SELECT * FROM PhongBan", connection);
-
-                // Tạo đối tượng DataTable để lưu trữ dữ liệu
-                DataTable dataTable = new DataTable();
-
-                // Sử dụng phương thức Fill của SqlDataAdapter để đổ dữ liệu từ database vào DataTable
-                adapter.Fill(dataTable);
-
-                // Gán dữ liệu từ DataTable vào DataGridView
-                dataGridView1.DataSource = dataTable;
-            }
+           
         }
 
 
@@ -98,7 +99,7 @@ namespace Cuoiki.Forms
                     conn.Close();
                 }
             }
-
+            LoadTheme();
 
         }
 
@@ -126,6 +127,7 @@ namespace Cuoiki.Forms
             {
                 MessageBox.Show("Xóa phòng ban thất bại: " + ex.Message);
             }
+            LoadTheme();
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -154,6 +156,7 @@ namespace Cuoiki.Forms
             {
                 MessageBox.Show("Lỗi khi cập nhật thông tin phòng ban: " + ex.Message);
             }
+            LoadTheme();
         }
 
         private void dataGridView1_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
@@ -184,6 +187,7 @@ namespace Cuoiki.Forms
             {
                 MessageBox.Show(ex.Message, "Lỗi");
             }
+            LoadTheme();
         }
 
         private void button5_Click(object sender, EventArgs e)
@@ -237,6 +241,7 @@ namespace Cuoiki.Forms
             {
                 MessageBox.Show("Lỗi: " + ex.Message);
             }
+            LoadTheme();
         }
     }
 }
