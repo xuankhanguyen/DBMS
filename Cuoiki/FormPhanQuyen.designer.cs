@@ -56,7 +56,7 @@
             this.btnSuaPQ.Location = new System.Drawing.Point(0, 46);
             this.btnSuaPQ.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnSuaPQ.Name = "btnSuaPQ";
-            this.btnSuaPQ.Size = new System.Drawing.Size(266, 23);
+            this.btnSuaPQ.Size = new System.Drawing.Size(106, 23);
             this.btnSuaPQ.TabIndex = 15;
             this.btnSuaPQ.Text = "Sửa";
             this.btnSuaPQ.UseVisualStyleBackColor = true;
@@ -68,7 +68,7 @@
             this.btnXoaPQ.Location = new System.Drawing.Point(0, 23);
             this.btnXoaPQ.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnXoaPQ.Name = "btnXoaPQ";
-            this.btnXoaPQ.Size = new System.Drawing.Size(266, 23);
+            this.btnXoaPQ.Size = new System.Drawing.Size(106, 23);
             this.btnXoaPQ.TabIndex = 14;
             this.btnXoaPQ.Text = "Xóa";
             this.btnXoaPQ.UseVisualStyleBackColor = true;
@@ -80,7 +80,7 @@
             this.btnThemPQ.Location = new System.Drawing.Point(0, 0);
             this.btnThemPQ.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnThemPQ.Name = "btnThemPQ";
-            this.btnThemPQ.Size = new System.Drawing.Size(266, 23);
+            this.btnThemPQ.Size = new System.Drawing.Size(106, 23);
             this.btnThemPQ.TabIndex = 13;
             this.btnThemPQ.Text = "Thêm";
             this.btnThemPQ.UseVisualStyleBackColor = true;
@@ -133,7 +133,7 @@
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersWidth = 51;
             this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(529, 355);
+            this.dataGridView1.Size = new System.Drawing.Size(689, 355);
             this.dataGridView1.TabIndex = 18;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
@@ -143,7 +143,7 @@
             this.button1.Location = new System.Drawing.Point(0, 69);
             this.button1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(266, 23);
+            this.button1.Size = new System.Drawing.Size(106, 23);
             this.button1.TabIndex = 25;
             this.button1.Text = "Tìm kiếm";
             this.button1.UseVisualStyleBackColor = true;
@@ -186,7 +186,7 @@
             // 
             this.splitContainer2.Panel2.Controls.Add(this.dataGridView1);
             this.splitContainer2.Size = new System.Drawing.Size(799, 355);
-            this.splitContainer2.SplitterDistance = 266;
+            this.splitContainer2.SplitterDistance = 106;
             this.splitContainer2.TabIndex = 0;
             // 
             // FormPhanQuyen

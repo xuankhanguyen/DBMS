@@ -61,7 +61,7 @@
             this.button3.Location = new System.Drawing.Point(0, 46);
             this.button3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(266, 23);
+            this.button3.Size = new System.Drawing.Size(114, 23);
             this.button3.TabIndex = 10;
             this.button3.Text = "Sửa";
             this.button3.UseVisualStyleBackColor = true;
@@ -73,7 +73,7 @@
             this.button2.Location = new System.Drawing.Point(0, 23);
             this.button2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(266, 23);
+            this.button2.Size = new System.Drawing.Size(114, 23);
             this.button2.TabIndex = 9;
             this.button2.Text = "Xóa";
             this.button2.UseVisualStyleBackColor = true;
@@ -85,7 +85,7 @@
             this.button1.Location = new System.Drawing.Point(0, 0);
             this.button1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(266, 23);
+            this.button1.Size = new System.Drawing.Size(114, 23);
             this.button1.TabIndex = 8;
             this.button1.Text = "Thêm";
             this.button1.UseVisualStyleBackColor = true;
@@ -135,7 +135,7 @@
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersWidth = 51;
             this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(529, 352);
+            this.dataGridView1.Size = new System.Drawing.Size(681, 352);
             this.dataGridView1.TabIndex = 17;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
@@ -178,7 +178,7 @@
             this.button4.Dock = System.Windows.Forms.DockStyle.Top;
             this.button4.Location = new System.Drawing.Point(0, 69);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(266, 23);
+            this.button4.Size = new System.Drawing.Size(114, 23);
             this.button4.TabIndex = 22;
             this.button4.Text = "Tìm kiếm";
             this.button4.UseVisualStyleBackColor = true;
@@ -233,7 +233,7 @@
             // 
             this.splitContainer2.Panel2.Controls.Add(this.dataGridView1);
             this.splitContainer2.Size = new System.Drawing.Size(799, 352);
-            this.splitContainer2.SplitterDistance = 266;
+            this.splitContainer2.SplitterDistance = 114;
             this.splitContainer2.TabIndex = 0;
             // 
             // FormTaiKhoan

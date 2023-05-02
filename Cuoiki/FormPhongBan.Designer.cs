@@ -73,7 +73,7 @@ namespace Cuoiki.Forms
             this.button1.Location = new System.Drawing.Point(0, 0);
             this.button1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(290, 23);
+            this.button1.Size = new System.Drawing.Size(102, 23);
             this.button1.TabIndex = 14;
             this.button1.Text = "Thêm";
             this.button1.UseVisualStyleBackColor = true;
@@ -85,7 +85,7 @@ namespace Cuoiki.Forms
             this.button2.Location = new System.Drawing.Point(0, 23);
             this.button2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(290, 23);
+            this.button2.Size = new System.Drawing.Size(102, 23);
             this.button2.TabIndex = 15;
             this.button2.Text = "Xóa";
             this.button2.UseVisualStyleBackColor = true;
@@ -97,7 +97,7 @@ namespace Cuoiki.Forms
             this.button3.Location = new System.Drawing.Point(0, 46);
             this.button3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(290, 23);
+            this.button3.Size = new System.Drawing.Size(102, 23);
             this.button3.TabIndex = 16;
             this.button3.Text = "Sửa";
             this.button3.UseVisualStyleBackColor = true;
@@ -171,7 +171,7 @@ namespace Cuoiki.Forms
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersWidth = 51;
             this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(577, 396);
+            this.dataGridView1.Size = new System.Drawing.Size(765, 396);
             this.dataGridView1.TabIndex = 27;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick_1);
             // 
@@ -181,7 +181,7 @@ namespace Cuoiki.Forms
             this.button4.Location = new System.Drawing.Point(0, 69);
             this.button4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(290, 23);
+            this.button4.Size = new System.Drawing.Size(102, 23);
             this.button4.TabIndex = 28;
             this.button4.Text = "Tìm kiếm";
             this.button4.UseVisualStyleBackColor = true;
@@ -193,7 +193,7 @@ namespace Cuoiki.Forms
             this.button5.Location = new System.Drawing.Point(0, 92);
             this.button5.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(290, 23);
+            this.button5.Size = new System.Drawing.Size(102, 23);
             this.button5.TabIndex = 29;
             this.button5.Text = "Thống kê";
             this.button5.UseVisualStyleBackColor = true;
@@ -241,7 +241,7 @@ namespace Cuoiki.Forms
             // 
             this.splitContainer2.Panel2.Controls.Add(this.dataGridView1);
             this.splitContainer2.Size = new System.Drawing.Size(871, 396);
-            this.splitContainer2.SplitterDistance = 290;
+            this.splitContainer2.SplitterDistance = 102;
             this.splitContainer2.TabIndex = 0;
             // 
             // FormPhongBan
