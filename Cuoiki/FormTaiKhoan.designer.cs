@@ -44,22 +44,16 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.nhanVienBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.qLNSDataSet1 = new Cuoiki.QLNSDataSet1();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.phanQuyenBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.qLNSDataSet = new Cuoiki.QLNSDataSet();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
-            this.phanQuyenTableAdapter = new Cuoiki.QLNSDataSetTableAdapters.PhanQuyenTableAdapter();
-            this.nhanVienTableAdapter = new Cuoiki.QLNSDataSet1TableAdapters.NhanVienTableAdapter();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nhanVienBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.qLNSDataSet1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.phanQuyenBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.qLNSDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
             this.splitContainer2.Panel1.SuspendLayout();
             this.splitContainer2.Panel2.SuspendLayout();
@@ -214,46 +208,30 @@
             // comboBox2
             // 
             this.comboBox2.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.nhanVienBindingSource, "NhanVien_ID", true));
-            this.comboBox2.DataSource = this.nhanVienBindingSource;
-            this.comboBox2.DisplayMember = "NhanVien_HoTen";
             this.comboBox2.FormattingEnabled = true;
             this.comboBox2.Location = new System.Drawing.Point(352, 56);
             this.comboBox2.Name = "comboBox2";
             this.comboBox2.Size = new System.Drawing.Size(121, 24);
             this.comboBox2.TabIndex = 25;
-            this.comboBox2.ValueMember = "NhanVien_ID";
+            this.comboBox2.SelectedIndexChanged += new System.EventHandler(this.comboBox2_SelectedIndexChanged);
             // 
             // nhanVienBindingSource
             // 
             this.nhanVienBindingSource.DataMember = "NhanVien";
-            this.nhanVienBindingSource.DataSource = this.qLNSDataSet1;
-            // 
-            // qLNSDataSet1
-            // 
-            this.qLNSDataSet1.DataSetName = "QLNSDataSet1";
-            this.qLNSDataSet1.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // comboBox1
             // 
             this.comboBox1.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.phanQuyenBindingSource, "PhanQuyen_ID", true));
-            this.comboBox1.DataSource = this.phanQuyenBindingSource;
-            this.comboBox1.DisplayMember = "PhanQuyen_TenQuyen";
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.Location = new System.Drawing.Point(352, 21);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(121, 24);
             this.comboBox1.TabIndex = 24;
-            this.comboBox1.ValueMember = "PhanQuyen_ID";
+            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
             // phanQuyenBindingSource
             // 
             this.phanQuyenBindingSource.DataMember = "PhanQuyen";
-            this.phanQuyenBindingSource.DataSource = this.qLNSDataSet;
-            // 
-            // qLNSDataSet
-            // 
-            this.qLNSDataSet.DataSetName = "QLNSDataSet";
-            this.qLNSDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // splitContainer2
             // 
@@ -275,14 +253,6 @@
             this.splitContainer2.SplitterDistance = 114;
             this.splitContainer2.TabIndex = 0;
             // 
-            // phanQuyenTableAdapter
-            // 
-            this.phanQuyenTableAdapter.ClearBeforeFill = true;
-            // 
-            // nhanVienTableAdapter
-            // 
-            this.nhanVienTableAdapter.ClearBeforeFill = true;
-            // 
             // FormTaiKhoan
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -300,9 +270,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.nhanVienBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.qLNSDataSet1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.phanQuyenBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.qLNSDataSet)).EndInit();
             this.splitContainer2.Panel1.ResumeLayout(false);
             this.splitContainer2.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
@@ -327,12 +295,11 @@
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.SplitContainer splitContainer2;
         private System.Windows.Forms.ComboBox comboBox1;
-        private QLNSDataSet qLNSDataSet;
+  
         private System.Windows.Forms.BindingSource phanQuyenBindingSource;
-        private QLNSDataSetTableAdapters.PhanQuyenTableAdapter phanQuyenTableAdapter;
         private System.Windows.Forms.ComboBox comboBox2;
-        private QLNSDataSet1 qLNSDataSet1;
+
         private System.Windows.Forms.BindingSource nhanVienBindingSource;
-        private QLNSDataSet1TableAdapters.NhanVienTableAdapter nhanVienTableAdapter;
+   
     }
 }
