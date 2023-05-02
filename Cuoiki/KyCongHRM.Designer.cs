@@ -254,6 +254,7 @@
             this.dtGridView.BackgroundColor = System.Drawing.Color.Tan;
             this.dtGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dtGridView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dtGridView.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnKeystroke;
             this.dtGridView.Location = new System.Drawing.Point(0, 0);
             this.dtGridView.Name = "dtGridView";
             this.dtGridView.RowHeadersWidth = 82;

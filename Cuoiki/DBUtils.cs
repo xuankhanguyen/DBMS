@@ -19,7 +19,7 @@ namespace Cuoiki
 
             //string connString = @"Data Source=" + datasource + ";Initial Catalog="
             //            + database + ";Persist Security Info=True;User ID=" + username + ";Password=" + password;
-            string connString = @"Data Source=LAPTOP-SH0M4EMV\SQLEXPRESS;Initial Catalog=QLNS;Integrated Security=True";
+            string connString = @"Data Source=DESKTOP-H2SC4QA\MSSQLSERVER02;Initial Catalog=QLNS;Integrated Security=True";
             return new SqlConnection(connString);
         }
     }
