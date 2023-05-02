@@ -37,6 +37,10 @@ namespace Cuoiki.Forms
 
         private void Form3_Load(object sender, EventArgs e)
         {
+            // TODO: This line of code loads data into the 'qLNSDataSet1.NhanVien' table. You can move, or remove it, as needed.
+            this.nhanVienTableAdapter.Fill(this.qLNSDataSet1.NhanVien);
+            // TODO: This line of code loads data into the 'qLNSDataSet.PhanQuyen' table. You can move, or remove it, as needed.
+            this.phanQuyenTableAdapter.Fill(this.qLNSDataSet.PhanQuyen);
             LoadTheme();
             // Tạo kết nối đến database
             using (SqlConnection connection = DBUtils.GetDBConnection())
@@ -65,8 +69,8 @@ namespace Cuoiki.Forms
             // Lấy thông tin từ các textbox
             string soTK = txtSoTK.Text;
             string matKhau = txtMatKhau.Text;
-            int phanQuyen = int.Parse(txtPhanQuyen.Text);
-            int nhanVien = int.Parse(txtNhanVien.Text);
+            int phanQuyen = int.Parse(comboBox1.Text);
+            int nhanVien = int.Parse(comboBox2.Text);
 
             // Kết nối đến database
 
@@ -139,8 +143,8 @@ namespace Cuoiki.Forms
                         // set the parameters for the stored procedure
                         cmd.Parameters.AddWithValue("@SoTK", txtSoTK.Text);
                         cmd.Parameters.AddWithValue("@MatKhau", txtMatKhau.Text);
-                        cmd.Parameters.AddWithValue("@PhanQuyen", txtPhanQuyen.Text);
-                        cmd.Parameters.AddWithValue("@NhanVien", txtNhanVien.Text);
+                        cmd.Parameters.AddWithValue("@PhanQuyen", comboBox1.Text);
+                        cmd.Parameters.AddWithValue("@NhanVien", comboBox2.Text);
 
                         // execute the stored procedure
                         cmd.ExecuteNonQuery();
