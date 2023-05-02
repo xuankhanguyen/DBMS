@@ -2170,3 +2170,116 @@ RETURN
 --Test tìm kiếm nhân viên
 SELECT * FROM dbo.TimKiemNhanVien(N'Nguyễn');
 
+--Thủ tục thêm hợp đồng mới
+CREATE PROCEDURE ThemHopDong
+    @NgayBatDau DATE,
+    @NgayKetThuc DATE,
+    @LanKy INT,
+    @NoiDung NVARCHAR(50),
+    @LuongCanBan FLOAT,
+    @HeSoLuong INT,
+    @NhanVien INT,
+    @Message NVARCHAR(100) OUTPUT
+AS
+BEGIN
+    SET NOCOUNT ON;
+    SET @Message = '';
+
+    INSERT INTO HopDong (HopDong_NgayBatDau, HopDong_NgayKetThuc, HopDong_LanKy, HopDong_NoiDung, HopDong_LuongCanBan, HopDong_HeSoLuong, HopDong_NhanVien)
+    VALUES (@NgayBatDau, @NgayKetThuc, @LanKy, @NoiDung, @LuongCanBan, @HeSoLuong, @NhanVien);
+
+    IF @@ROWCOUNT > 0
+    BEGIN
+        SET @Message = 'Thêm hợp đồng thành công';
+    END
+    ELSE
+    BEGIN
+        SET @Message = 'Thêm hợp đồng thất bại';
+    END
+END
+--Test thêm hợp đồng
+DECLARE @Message NVARCHAR(100);
+EXECUTE ThemHopDong @NgayBatDau = '2022-01-01', @NgayKetThuc = '2023-01-01', @LanKy = 1, @NoiDung = N'Hợp đồng lao động', 
+@LuongCanBan = 1000000, @HeSoLuong = 2, @NhanVien = 23, @Message = @Message OUTPUT;
+PRINT @Message;
+
+--Thủ tục sửa hợp đồng
+CREATE PROCEDURE SuaHopDong
+    @SoHD INT,
+    @NgayBatDau DATE,
+    @NgayKetThuc DATE,
+    @LanKy INT,
+    @NoiDung NVARCHAR(50),
+    @LuongCanBan FLOAT,
+    @HeSoLuong INT,
+    @NhanVien INT,
+    @Message NVARCHAR(100) OUTPUT
+AS
+BEGIN
+    SET NOCOUNT ON;
+    SET @Message = '';
+
+    UPDATE HopDong
+    SET HopDong_NgayBatDau = @NgayBatDau,
+        HopDong_NgayKetThuc = @NgayKetThuc,
+        HopDong_LanKy = @LanKy,
+        HopDong_NoiDung = @NoiDung,
+        HopDong_LuongCanBan = @LuongCanBan,
+        HopDong_HeSoLuong = @HeSoLuong,
+        HopDong_NhanVien = @NhanVien
+    WHERE HopDong_SoHD = @SoHD;
+
+    IF @@ROWCOUNT > 0
+    BEGIN
+        SET @Message = 'Sửa hợp đồng thành công';
+    END
+    ELSE
+    BEGIN
+        SET @Message = 'Không tìm thấy hợp đồng để sửa';
+    END
+END
+--Test sửa hợp đồng
+DECLARE @Message NVARCHAR(100);
+EXECUTE SuaHopDong @SoHD = 3, @NgayBatDau = '2022-01-01', @NgayKetThuc = '2023-03-01', @LanKy = 2, 
+@NoiDung = N'Hợp đồng lao động mới', @LuongCanBan = 3.25, @HeSoLuong = 1, @NhanVien = 3, @Message = @Message OUTPUT;
+PRINT @Message;
+
+--Thủ tục xoá hợp đồng
+CREATE PROCEDURE XoaHopDong
+    @SoHD INT,
+    @Message NVARCHAR(100) OUTPUT
+AS
+BEGIN
+    SET NOCOUNT ON;
+    SET @Message = '';
+
+    DELETE FROM HopDong
+    WHERE HopDong_SoHD = @SoHD;
+
+    IF @@ROWCOUNT > 0
+    BEGIN
+        SET @Message = 'Xoá hợp đồng thành công';
+    END
+    ELSE
+    BEGIN
+        SET @Message = 'Không tìm thấy hợp đồng để xoá';
+    END
+END
+-- Test xoá hợp đồng
+DECLARE @Message NVARCHAR(100);
+EXECUTE XoaHopDong @SoHD = 22, @Message = @Message OUTPUT;
+PRINT @Message;
+--Hàm tìm kiếm HD
+CREATE FUNCTION TimKiemHopDong
+    (@SoHD INT)
+RETURNS TABLE
+AS
+RETURN
+(
+    SELECT *
+    FROM HopDong
+    WHERE HopDong_SoHD = @SoHD
+)
+--Test tìm kiếm HD
+SELECT *
+FROM dbo.TimKiemHopDong(2)
