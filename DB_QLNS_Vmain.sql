@@ -2037,88 +2037,136 @@ BEGIN
 END
 GO
 -- thêm đăng nhập
---Thêm mới nhân viên
-CREATE PROCEDURE sp_ThemMoiNhanVien
-	@NhanVien_HoTen NVARCHAR(50),
-	@NhanVien_SDT CHAR(10),
-	@NhanVien_CCCD CHAR(12),
-	@NhanVien_GioiTinh NVARCHAR(3),
-	@NhanVien_HinhAnh IMAGE,
-	@NhanVien_DiaChi NVARCHAR(50),
-	@NhanVien_NgaySinh DATE,
-	@NhanVien_ChucVu INT,
-	@NhanVien_PhongBan INT
-AS
-BEGIN
-	-- Kiểm tra trùng số CCCD
-	IF EXISTS (SELECT 1 FROM NhanVien WHERE NhanVien_CCCD = @NhanVien_CCCD)
-	BEGIN
-		THROW 51000, 'Số CCCD đã tồn tại', 1;
-		RETURN;
-	END
-	
-	-- Thêm mới nhân viên
-	INSERT INTO NhanVien (NhanVien_HoTen, NhanVien_SDT, NhanVien_CCCD, NhanVien_GioiTinh, 
-	NhanVien_HinhAnh, NhanVien_DiaChi, NhanVien_NgaySinh, NhanVien_ChucVu, NhanVien_PhongBan)
-	VALUES (@NhanVien_HoTen, @NhanVien_SDT, @NhanVien_CCCD, @NhanVien_GioiTinh, @NhanVien_HinhAnh, 
-	@NhanVien_DiaChi, @NhanVien_NgaySinh, @NhanVien_ChucVu, @NhanVien_PhongBan);
 
-	-- Trả về ID của nhân viên vừa được thêm mới
-	SELECT @@IDENTITY AS NhanVien_ID;
+--Thêm mới nhân viên
+CREATE PROCEDURE ThemNhanVien
+    @HoTen NVARCHAR(50),
+    @SDT CHAR(10),
+    @CCCD CHAR(12),
+    @GioiTinh NVARCHAR(3),
+    @HinhAnh IMAGE,
+    @DiaChi NVARCHAR(50),
+    @NgaySinh DATE,
+    @ChucVu INT,
+    @PhongBan INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    BEGIN TRY
+        IF NOT EXISTS (SELECT * FROM NhanVien WHERE NhanVien_CCCD = @CCCD)
+        BEGIN
+            INSERT INTO NhanVien (NhanVien_HoTen, NhanVien_SDT, NhanVien_CCCD, NhanVien_GioiTinh, NhanVien_HinhAnh, NhanVien_DiaChi, NhanVien_NgaySinh, NhanVien_ChucVu, NhanVien_PhongBan)
+            VALUES (@HoTen, @SDT, @CCCD, @GioiTinh, @HinhAnh, @DiaChi, @NgaySinh, @ChucVu, @PhongBan);
+        END
+        ELSE
+        BEGIN
+            THROW 50001, 'CCCD đã tồn tại trong hệ thống!', 1;
+        END
+    END TRY
+    BEGIN CATCH
+        DECLARE @ErrorMessage NVARCHAR(4000) = ERROR_MESSAGE();
+        DECLARE @ErrorSeverity INT = ERROR_SEVERITY();
+        DECLARE @ErrorState INT = ERROR_STATE();
+        RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState);
+    END CATCH;
 END
+
+--Test thêm nhân viên
+EXECUTE ThemNhanVien
+    @HoTen = 'Nguyễn Văn Bá',
+    @SDT = '0987654321',
+    @CCCD = '123456732012',
+    @GioiTinh = 'Nam',
+    @HinhAnh = null,
+    @DiaChi = 'Hà Nội',
+    @NgaySinh = '1990-01-01',
+    @ChucVu = 10,
+    @PhongBan = null;
+
 --Thủ tục Xoá nhân viên
-CREATE PROCEDURE sp_XoaNhanVien
-	@NhanVien_ID INT
+CREATE PROCEDURE XoaNhanVien
+    @NhanVienID INT,
+    @Message NVARCHAR(100) OUTPUT
 AS
 BEGIN
-	-- Kiểm tra xem nhân viên có tồn tại trong cơ sở dữ liệu hay không
-	IF NOT EXISTS (SELECT 1 FROM NhanVien WHERE NhanVien_ID = @NhanVien_ID)
-	BEGIN
-		THROW 51000, 'Nhân viên không tồn tại', 1;
-		RETURN;
-	END
-	
-	-- Xoá nhân viên
-	UPDATE NhanVien SET NhanVien_TrangThaiXoa = 1 WHERE NhanVien_ID = @NhanVien_ID;
+    SET NOCOUNT ON;
+    SET @Message = '';
+
+    BEGIN TRY
+        DELETE FROM NhanVien WHERE NhanVien_ID = @NhanVienID;
+        SET @Message = 'Xoá nhân viên thành công!';
+    END TRY
+    BEGIN CATCH
+        SET @Message = 'Lỗi khi xoá nhân viên!';
+    END CATCH;
 END
---Thủ tục Update nhân viên
-CREATE PROCEDURE sp_SuaThongTinNhanVien
-	@NhanVien_ID INT,
-	@NhanVien_HoTen NVARCHAR(50),
-	@NhanVien_SDT CHAR(10),
-	@NhanVien_CCCD CHAR(12),
-	@NhanVien_GioiTinh NVARCHAR(3),
-	@NhanVien_HinhAnh IMAGE,
-	@NhanVien_DiaChi NVARCHAR(50),
-	@NhanVien_NgaySinh DATE,
-	@NhanVien_ChucVu INT,
-	@NhanVien_PhongBan INT
+--Test xoá nhân viên
+DECLARE @Message NVARCHAR(100);
+EXECUTE XoaNhanVien @NhanVienID = 24, @Message = @Message OUTPUT;
+PRINT @Message;
+
+--Thủ tục Update nhân viên 
+CREATE PROCEDURE CapNhatNhanVien
+    @NhanVienID INT,
+    @HoTen NVARCHAR(50),
+    @SDT CHAR(10),
+    @CCCD CHAR(12),
+    @GioiTinh NVARCHAR(3),
+    @HinhAnh IMAGE,
+    @DiaChi NVARCHAR(50),
+    @NgaySinh DATE,
+    @ChucVu INT,
+    @PhongBan INT,
+    @Message NVARCHAR(100) OUTPUT
 AS
 BEGIN
-	-- Kiểm tra xem nhân viên có tồn tại trong cơ sở dữ liệu hay không
-	IF NOT EXISTS (SELECT 1 FROM NhanVien WHERE NhanVien_ID = @NhanVien_ID)
-	BEGIN
-		THROW 51000, 'Nhân viên không tồn tại', 1;
-		RETURN;
-	END
-	
-	-- Kiểm tra trùng số CCCD
-	IF EXISTS (SELECT 1 FROM NhanVien WHERE NhanVien_ID <> @NhanVien_ID AND NhanVien_CCCD = @NhanVien_CCCD)
-	BEGIN
-		THROW 51000, 'Số CCCD đã tồn tại', 1;
-		RETURN;
-	END
-	
-	-- Cập nhật thông tin nhân viên
-	UPDATE NhanVien SET
-		NhanVien_HoTen = @NhanVien_HoTen,
-		NhanVien_SDT = @NhanVien_SDT,
-		NhanVien_CCCD = @NhanVien_CCCD,
-		NhanVien_GioiTinh = @NhanVien_GioiTinh,
-		NhanVien_HinhAnh = @NhanVien_HinhAnh,
-		NhanVien_DiaChi = @NhanVien_DiaChi,
-		NhanVien_NgaySinh = @NhanVien_NgaySinh,
-		NhanVien_ChucVu = @NhanVien_ChucVu,
-		NhanVien_PhongBan = @NhanVien_PhongBan
-	WHERE NhanVien_ID = @NhanVien_ID;
+    SET NOCOUNT ON;
+    SET @Message = '';
+
+    BEGIN TRY
+        UPDATE NhanVien SET
+            NhanVien_HoTen = @HoTen,
+            NhanVien_SDT = @SDT,
+            NhanVien_CCCD = @CCCD,
+            NhanVien_GioiTinh = @GioiTinh,
+            NhanVien_HinhAnh = @HinhAnh,
+            NhanVien_DiaChi = @DiaChi,
+            NhanVien_NgaySinh = @NgaySinh,
+            NhanVien_ChucVu = @ChucVu,
+            NhanVien_PhongBan = @PhongBan
+        WHERE NhanVien_ID = @NhanVienID;
+
+        SET @Message = 'Cập nhật thông tin nhân viên thành công!';
+    END TRY
+    BEGIN CATCH
+        SET @Message = 'Lỗi khi cập nhật thông tin nhân viên!';
+    END CATCH;
 END
+
+--Test update nhân viên
+DECLARE @Message NVARCHAR(100);
+EXECUTE CapNhatNhanVien 
+    @NhanVienID = 1,
+    @HoTen = N'Nguyễn Văn A',
+    @SDT = '1234567890',
+    @CCCD = '123456789012',
+    @GioiTinh = N'Nam',
+    @HinhAnh = NULL,
+    @DiaChi = N'Đường số 1,Thanh Xuân, Hà Nội',
+    @NgaySinh = '1990-01-01',
+    @ChucVu = 3,
+    @PhongBan = null,
+    @Message = @Message OUTPUT;
+PRINT @Message;
+--Hàm tìm kiếm nhân viên theo tên
+CREATE FUNCTION TimKiemNhanVien
+    (@Ten NVARCHAR(50))
+RETURNS TABLE
+AS
+RETURN
+    SELECT * FROM NhanVien
+    WHERE NhanVien_HoTen LIKE '%'+@Ten+'%';
+--Test tìm kiếm nhân viên
+SELECT * FROM dbo.TimKiemNhanVien(N'Nguyễn');
+
