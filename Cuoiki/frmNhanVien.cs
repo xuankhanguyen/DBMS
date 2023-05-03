@@ -344,6 +344,21 @@ namespace ProjectHRM
                 }
             }
         }
+
+        private void dtpNgaySinh_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label7_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cboPhongBan_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
 
