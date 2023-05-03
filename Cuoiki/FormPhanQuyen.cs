@@ -54,8 +54,28 @@ namespace Cuoiki.Forms
         private void FormPhanQuyen_Load(object sender, EventArgs e)
         {
             LoadTheme();
+            HienThiVaocomboBox();
         }
+        private void HienThiVaocomboBox()
+        {
+            SqlConnection conn = DBUtils.GetDBConnection();
 
+            // Viết câu lệnh truy vấn
+            string query = "SELECT PhanQuyen_ID FROM PhanQuyen";
+
+            // Tạo DataTable
+            DataTable dt = new DataTable();
+
+            // Thực thi truy vấn và đổ dữ liệu vào DataTable
+            SqlDataAdapter da = new SqlDataAdapter(query, conn);
+            da.Fill(dt);
+
+            // Đổ dữ liệu vào ComboBox
+            comboBox1.DataSource = dt;
+            comboBox1.DisplayMember = "PhanQuyen_ID";
+            comboBox1.ValueMember = "PhanQuyen_ID";
+            LoadTheme();
+        }
         private void lbIDChucVu_Click(object sender, EventArgs e)
         {
 
@@ -114,18 +134,19 @@ namespace Cuoiki.Forms
                 }
             }
             LoadTheme();
+            HienThiVaocomboBox();
         }
 
         private void btnXoaPQ_Click(object sender, EventArgs e)
         {
             // Check that the PhanQuyen ID textbox is not empty or null
-            if (string.IsNullOrEmpty(txtIDPQ.Text))
+            if (string.IsNullOrEmpty(comboBox1.Text))
             {
                 MessageBox.Show("Vui lòng nhập ID Phân Quyền cần xóa.");
                 return;
             }
             int phanQuyenID;
-            if (!int.TryParse(txtIDPQ.Text, out phanQuyenID))
+            if (!int.TryParse(comboBox1.Text, out phanQuyenID))
             {
                 MessageBox.Show("PhanQuyenID phai la mot so nguyen.");
                 return;
@@ -155,12 +176,13 @@ namespace Cuoiki.Forms
                 }
             }
             LoadTheme();
+            HienThiVaocomboBox();
         }
 
         private void btnSuaPQ_Click(object sender, EventArgs e)
         {
             int phanQuyenID;
-            if (!int.TryParse(txtIDPQ.Text, out phanQuyenID))
+            if (!int.TryParse(comboBox1.Text, out phanQuyenID))
             {
                 MessageBox.Show("PhanQuyenID phai la mot so nguyen.");
                 return;
@@ -187,6 +209,7 @@ namespace Cuoiki.Forms
                 MessageBox.Show("Loi cap nhat phan quyen: " + ex.Message);
             }
             LoadTheme();
+            HienThiVaocomboBox();
         }
 
         private void button1_Click_1(object sender, EventArgs e)
@@ -200,7 +223,7 @@ namespace Cuoiki.Forms
                     using (SqlCommand cmd = new SqlCommand("TimKiemPhanQuyen", conn))
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.Parameters.Add("@phanQuyen_ID", SqlDbType.Int).Value = !string.IsNullOrEmpty(txtIDPQ.Text) ? Convert.ToInt32(txtIDPQ.Text) : (object)DBNull.Value;
+                        cmd.Parameters.Add("@phanQuyen_ID", SqlDbType.Int).Value = !string.IsNullOrEmpty(comboBox1.Text) ? Convert.ToInt32(comboBox1.Text) : (object)DBNull.Value;
                         cmd.Parameters.Add("@phanQuyen_TenQuyen", SqlDbType.NVarChar, 20).Value = !string.IsNullOrEmpty(txtTenQuyen.Text) ? txtTenQuyen.Text : (object)DBNull.Value;
                         SqlDataAdapter adapter = new SqlDataAdapter(cmd);
                         DataTable dt = new DataTable();
@@ -213,7 +236,6 @@ namespace Cuoiki.Forms
             {
                 MessageBox.Show(ex.Message);
             }
-            LoadTheme();
         }
     }
 }

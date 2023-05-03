@@ -246,8 +246,7 @@ namespace Cuoiki.Forms
             {
                 MessageBox.Show(ex.Message, "Error");
             }
-            LoadTheme();
-            HienThiVaocomboBox();
+           
         }
     }
 }

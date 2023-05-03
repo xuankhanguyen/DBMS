@@ -33,12 +33,12 @@
             this.btnThemPQ = new System.Windows.Forms.Button();
             this.txtTenQuyen = new System.Windows.Forms.TextBox();
             this.lbPhanQuyen = new System.Windows.Forms.Label();
-            this.txtIDPQ = new System.Windows.Forms.TextBox();
             this.lbIDPhanQuyen = new System.Windows.Forms.Label();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.button1 = new System.Windows.Forms.Button();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -105,15 +105,6 @@
             this.lbPhanQuyen.Text = "Phân quyền";
             this.lbPhanQuyen.Click += new System.EventHandler(this.lbChucVu_Click);
             // 
-            // txtIDPQ
-            // 
-            this.txtIDPQ.Location = new System.Drawing.Point(176, 25);
-            this.txtIDPQ.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.txtIDPQ.Name = "txtIDPQ";
-            this.txtIDPQ.Size = new System.Drawing.Size(100, 22);
-            this.txtIDPQ.TabIndex = 22;
-            this.txtIDPQ.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
-            // 
             // lbIDPhanQuyen
             // 
             this.lbIDPhanQuyen.AutoSize = true;
@@ -157,8 +148,8 @@
             // 
             // splitContainer1.Panel1
             // 
+            this.splitContainer1.Panel1.Controls.Add(this.comboBox1);
             this.splitContainer1.Panel1.Controls.Add(this.txtTenQuyen);
-            this.splitContainer1.Panel1.Controls.Add(this.txtIDPQ);
             this.splitContainer1.Panel1.Controls.Add(this.lbIDPhanQuyen);
             this.splitContainer1.Panel1.Controls.Add(this.lbPhanQuyen);
             // 
@@ -188,6 +179,14 @@
             this.splitContainer2.Size = new System.Drawing.Size(799, 355);
             this.splitContainer2.SplitterDistance = 106;
             this.splitContainer2.TabIndex = 0;
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(125, 25);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(121, 24);
+            this.comboBox1.TabIndex = 25;
             // 
             // FormPhanQuyen
             // 
@@ -219,11 +218,11 @@
         private System.Windows.Forms.Button btnThemPQ;
         private System.Windows.Forms.TextBox txtTenQuyen;
         private System.Windows.Forms.Label lbPhanQuyen;
-        private System.Windows.Forms.TextBox txtIDPQ;
         private System.Windows.Forms.Label lbIDPhanQuyen;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.SplitContainer splitContainer2;
+        private System.Windows.Forms.ComboBox comboBox1;
     }
 }
