@@ -8,6 +8,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using Button = System.Windows.Forms.Button;
 
 namespace Cuoiki.Forms
 {
@@ -53,6 +55,7 @@ namespace Cuoiki.Forms
         private void FormPhongBan_Load(object sender, EventArgs e)
         {
             LoadTheme();
+            HienThiVaocomboBox();
            
         }
 
@@ -100,14 +103,33 @@ namespace Cuoiki.Forms
                 }
             }
             LoadTheme();
-
+            HienThiVaocomboBox();
         }
 
-     
+        private void HienThiVaocomboBox()
+        {
+            SqlConnection conn = DBUtils.GetDBConnection();
+
+            // Viết câu lệnh truy vấn
+            string query1 = "SELECT PhongBan_MaPB FROM PhongBan";
+            string query2 = "SELECT PhongBan_MaPB FROM PhongBan";
+            // Tạo DataTable
+            DataTable dt1 = new DataTable();
+
+            // Thực thi truy vấn và đổ dữ liệu vào DataTable
+            SqlDataAdapter da1 = new SqlDataAdapter(query1, conn);
+            da1.Fill(dt1);
+
+            // Đổ dữ liệu vào ComboBox
+            comboBox1.DataSource = dt1;
+            comboBox1.DisplayMember = "PhongBan_MaPB";
+            comboBox1.ValueMember = "PhongBan_MaPB";
+            LoadTheme();
+        }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            int maPB = Convert.ToInt32(txtMaPB.Text);
+            int maPB = Convert.ToInt32(comboBox1.Text);
 
             try
             {
@@ -128,11 +150,12 @@ namespace Cuoiki.Forms
                 MessageBox.Show("Xóa phòng ban thất bại: " + ex.Message);
             }
             LoadTheme();
+            HienThiVaocomboBox();
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
-            int maPB = int.Parse(txtMaPB.Text);
+            int maPB = int.Parse(comboBox1.Text);
             string tenPB = txtTenPB.Text;
             int truongPhong = int.Parse(txtTruongPhong.Text);
             DateTime tgNhanChuc = dtpNgayNhanChuc.Value;
@@ -157,6 +180,7 @@ namespace Cuoiki.Forms
                 MessageBox.Show("Lỗi khi cập nhật thông tin phòng ban: " + ex.Message);
             }
             LoadTheme();
+            HienThiVaocomboBox();
         }
 
         private void dataGridView1_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
@@ -168,7 +192,7 @@ namespace Cuoiki.Forms
         {
              try
             {
-                int maPB = int.Parse(txtMaPB.Text);
+                int maPB = int.Parse(comboBox1.Text);
                 using (SqlConnection conn = DBUtils.GetDBConnection())
                 {
                     using (SqlCommand cmd = new SqlCommand("TimKiemPhongBan", conn))
@@ -187,7 +211,6 @@ namespace Cuoiki.Forms
             {
                 MessageBox.Show(ex.Message, "Lỗi");
             }
-            LoadTheme();
         }
 
         private void button5_Click(object sender, EventArgs e)
@@ -217,7 +240,7 @@ namespace Cuoiki.Forms
                 }
             }*/
 
-            string maPB = txtMaPB.Text;
+            string maPB = comboBox1.Text;
             if (string.IsNullOrEmpty(maPB))
             {
                 MessageBox.Show("Vui lòng nhập mã phòng ban cần tìm kiếm!");
@@ -241,7 +264,11 @@ namespace Cuoiki.Forms
             {
                 MessageBox.Show("Lỗi: " + ex.Message);
             }
-            LoadTheme();
+        }
+
+        private void splitContainer1_Panel1_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }

@@ -34,7 +34,6 @@ namespace Cuoiki.Forms
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
-            this.txtMaPB = new System.Windows.Forms.TextBox();
             this.txtTenPB = new System.Windows.Forms.TextBox();
             this.txtTruongPhong = new System.Windows.Forms.TextBox();
             this.dtpNgayNhanChuc = new System.Windows.Forms.DateTimePicker();
@@ -46,6 +45,7 @@ namespace Cuoiki.Forms
             this.button5 = new System.Windows.Forms.Button();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -102,14 +102,6 @@ namespace Cuoiki.Forms
             this.button3.Text = "Sửa";
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
-            // 
-            // txtMaPB
-            // 
-            this.txtMaPB.Location = new System.Drawing.Point(209, 19);
-            this.txtMaPB.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.txtMaPB.Name = "txtMaPB";
-            this.txtMaPB.Size = new System.Drawing.Size(100, 22);
-            this.txtMaPB.TabIndex = 19;
             // 
             // txtTenPB
             // 
@@ -207,7 +199,7 @@ namespace Cuoiki.Forms
             // 
             // splitContainer1.Panel1
             // 
-            this.splitContainer1.Panel1.Controls.Add(this.txtMaPB);
+            this.splitContainer1.Panel1.Controls.Add(this.comboBox1);
             this.splitContainer1.Panel1.Controls.Add(this.lbTGNhanChuc);
             this.splitContainer1.Panel1.Controls.Add(this.lbMaPB);
             this.splitContainer1.Panel1.Controls.Add(this.dtpNgayNhanChuc);
@@ -215,6 +207,7 @@ namespace Cuoiki.Forms
             this.splitContainer1.Panel1.Controls.Add(this.txtTenPB);
             this.splitContainer1.Panel1.Controls.Add(this.lbTenPB);
             this.splitContainer1.Panel1.Controls.Add(this.txtTruongPhong);
+            this.splitContainer1.Panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.splitContainer1_Panel1_Paint);
             // 
             // splitContainer1.Panel2
             // 
@@ -243,6 +236,14 @@ namespace Cuoiki.Forms
             this.splitContainer2.Size = new System.Drawing.Size(871, 396);
             this.splitContainer2.SplitterDistance = 102;
             this.splitContainer2.TabIndex = 0;
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(209, 16);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(121, 24);
+            this.comboBox1.TabIndex = 27;
             // 
             // FormPhongBan
             // 
@@ -273,7 +274,6 @@ namespace Cuoiki.Forms
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.TextBox txtMaPB;
         private System.Windows.Forms.TextBox txtTenPB;
         private System.Windows.Forms.TextBox txtTruongPhong;
         private System.Windows.Forms.DateTimePicker dtpNgayNhanChuc;
@@ -286,5 +286,6 @@ namespace Cuoiki.Forms
         private Button button5;
         private SplitContainer splitContainer1;
         private SplitContainer splitContainer2;
+        private ComboBox comboBox1;
     }
 }

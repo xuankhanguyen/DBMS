@@ -54,7 +54,28 @@ namespace Cuoiki.Forms
         private void Form1_Load(object sender, EventArgs e)
         {
             LoadTheme();
-            
+            HienThiVaocomboBox();
+
+        }
+        private void HienThiVaocomboBox()
+        {
+            SqlConnection conn = DBUtils.GetDBConnection();
+
+            // Viết câu lệnh truy vấn
+            string query = "SELECT LoaiTangCa_ID FROM LoaiTangCa";
+
+            // Tạo DataTable
+            DataTable dt = new DataTable();
+
+            // Thực thi truy vấn và đổ dữ liệu vào DataTable
+            SqlDataAdapter da = new SqlDataAdapter(query, conn);
+            da.Fill(dt);
+
+            // Đổ dữ liệu vào ComboBox
+            comboBox1.DataSource = dt;
+            comboBox1.DisplayMember = "LoaiTangCa_ID";
+            comboBox1.ValueMember = "LoaiTangCa_ID";
+            LoadTheme();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -93,6 +114,7 @@ namespace Cuoiki.Forms
                 MessageBox.Show("Lỗi khi thêm mới loại tăng ca: " + ex.Message);
             }
             LoadTheme();
+            HienThiVaocomboBox();
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -108,7 +130,7 @@ namespace Cuoiki.Forms
         private void button2_Click(object sender, EventArgs e)
         {
             int loaiTangCaID;
-            if (!int.TryParse(txtLoaiTangCaID.Text, out loaiTangCaID))
+            if (!int.TryParse(comboBox1.Text, out loaiTangCaID))
             {
                 MessageBox.Show("LoaiTangCaID phai la mot so nguyen.");
                 return;
@@ -141,6 +163,7 @@ namespace Cuoiki.Forms
                 }
             }
             LoadTheme();
+            HienThiVaocomboBox();
         }
 
         private void txtLoaiTangCaID_TextChanged(object sender, EventArgs e)
@@ -151,7 +174,7 @@ namespace Cuoiki.Forms
         private void button3_Click(object sender, EventArgs e)
         {
             int loaiTangCaID;
-            if (!int.TryParse(txtLoaiTangCaID.Text, out loaiTangCaID))
+            if (!int.TryParse(comboBox1.Text, out loaiTangCaID))
             {
                 MessageBox.Show("LoaiTangCaID phai la mot so nguyen.");
                 return;
@@ -189,6 +212,7 @@ namespace Cuoiki.Forms
                 MessageBox.Show("Loi sua loai tang ca: " + ex.Message);
             }
             LoadTheme();
+            HienThiVaocomboBox();
         }
 
         private void button4_Click(object sender, EventArgs e)

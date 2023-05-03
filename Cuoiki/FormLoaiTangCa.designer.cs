@@ -30,7 +30,6 @@
         {
             this.components = new System.ComponentModel.Container();
             this.lbIDTangCa = new System.Windows.Forms.Label();
-            this.txtLoaiTangCaID = new System.Windows.Forms.TextBox();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
@@ -44,6 +43,7 @@
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -64,15 +64,6 @@
             this.lbIDTangCa.TabIndex = 0;
             this.lbIDTangCa.Text = "ID";
             this.lbIDTangCa.Click += new System.EventHandler(this.label1_Click);
-            // 
-            // txtLoaiTangCaID
-            // 
-            this.txtLoaiTangCaID.Location = new System.Drawing.Point(123, 13);
-            this.txtLoaiTangCaID.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.txtLoaiTangCaID.Name = "txtLoaiTangCaID";
-            this.txtLoaiTangCaID.Size = new System.Drawing.Size(100, 22);
-            this.txtLoaiTangCaID.TabIndex = 1;
-            this.txtLoaiTangCaID.TextChanged += new System.EventHandler(this.txtLoaiTangCaID_TextChanged);
             // 
             // contextMenuStrip1
             // 
@@ -191,7 +182,7 @@
             // 
             // splitContainer1.Panel1
             // 
-            this.splitContainer1.Panel1.Controls.Add(this.txtLoaiTangCaID);
+            this.splitContainer1.Panel1.Controls.Add(this.comboBox1);
             this.splitContainer1.Panel1.Controls.Add(this.lbIDTangCa);
             this.splitContainer1.Panel1.Controls.Add(this.textBox1);
             this.splitContainer1.Panel1.Controls.Add(this.txtTenLoaiTangCa);
@@ -226,6 +217,14 @@
             this.splitContainer2.SplitterDistance = 80;
             this.splitContainer2.TabIndex = 0;
             // 
+            // comboBox1
+            // 
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(123, 16);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(121, 24);
+            this.comboBox1.TabIndex = 15;
+            // 
             // FormLoaiTangCa
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -255,7 +254,6 @@
         #endregion
 
         private System.Windows.Forms.Label lbIDTangCa;
-        private System.Windows.Forms.TextBox txtLoaiTangCaID;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
@@ -269,5 +267,6 @@
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.SplitContainer splitContainer2;
+        private System.Windows.Forms.ComboBox comboBox1;
     }
 }
