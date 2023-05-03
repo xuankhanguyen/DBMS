@@ -48,11 +48,31 @@ namespace Cuoiki.Forms
                 dataGridView1.DataSource = dataTable;
             }
         }
+        private void HienThiVaocomboBox()
+        {
+            SqlConnection conn = DBUtils.GetDBConnection();
+
+            // Viết câu lệnh truy vấn
+            string query = "SELECT ChucVu_ID FROM ChucVu";
+
+            // Tạo DataTable
+            DataTable dt = new DataTable();
+
+            // Thực thi truy vấn và đổ dữ liệu vào DataTable
+            SqlDataAdapter da = new SqlDataAdapter(query, conn);
+            da.Fill(dt);
+
+            // Đổ dữ liệu vào ComboBox
+            comboBox1.DataSource = dt;
+            comboBox1.DisplayMember = "ChucVu_ID";
+            comboBox1.ValueMember = "ChucVu_ID";
+            LoadTheme();
+        }
 
         private void Form2_Load(object sender, EventArgs e)
         {
             LoadTheme();
-           
+            HienThiVaocomboBox();
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -107,13 +127,14 @@ namespace Cuoiki.Forms
                 }
             }
             LoadTheme();
+            HienThiVaocomboBox();
         }
             
 
         private void button2_Click(object sender, EventArgs e)
         {
             int chucVuID;
-            if (!int.TryParse(txtChucVuID.Text, out chucVuID))
+            if (!int.TryParse(comboBox1.Text, out chucVuID))
             {
                 MessageBox.Show("ChucVuID phai la mot so nguyen.");
                 return;
@@ -145,6 +166,7 @@ namespace Cuoiki.Forms
                     MessageBox.Show("Loi xoa chuc vu: " + ex.Message);
                 }
                 LoadTheme();
+                HienThiVaocomboBox();
             }
         }
 
@@ -152,7 +174,7 @@ namespace Cuoiki.Forms
         {
             try
             {
-                int chucVuID = int.Parse(txtChucVuID.Text);
+                int chucVuID = int.Parse(comboBox1.Text);
                 string tenChucVu = txtTenChucVu.Text;
 
                 // Khởi tạo kết nối đến database
@@ -191,6 +213,7 @@ namespace Cuoiki.Forms
                 MessageBox.Show("Đã xảy ra lỗi: " + ex.Message);
             }
             LoadTheme();
+            HienThiVaocomboBox();
         }
 
         private void button4_Click(object sender, EventArgs e)
@@ -204,7 +227,7 @@ namespace Cuoiki.Forms
                         cmd.CommandType = CommandType.StoredProcedure;
 
                         // Thêm tham số @chucVu_ID vào command
-                        cmd.Parameters.Add("@chucVu_ID", SqlDbType.Int).Value = int.Parse(txtChucVuID.Text);
+                        cmd.Parameters.Add("@chucVu_ID", SqlDbType.Int).Value = int.Parse(comboBox1.Text);
 
                         conn.Open();
 
@@ -224,6 +247,7 @@ namespace Cuoiki.Forms
                 MessageBox.Show(ex.Message, "Error");
             }
             LoadTheme();
+            HienThiVaocomboBox();
         }
     }
 }

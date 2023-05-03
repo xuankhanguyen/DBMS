@@ -34,12 +34,12 @@
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.txtTenChucVu = new System.Windows.Forms.TextBox();
             this.lbChucVu = new System.Windows.Forms.Label();
-            this.txtChucVuID = new System.Windows.Forms.TextBox();
             this.lbIDChucVu = new System.Windows.Forms.Label();
             this.button4 = new System.Windows.Forms.Button();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.lbID = new System.Windows.Forms.Label();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -112,13 +112,6 @@
             this.lbChucVu.TabIndex = 19;
             this.lbChucVu.Text = "Chức vụ";
             // 
-            // txtChucVuID
-            // 
-            this.txtChucVuID.Location = new System.Drawing.Point(220, 45);
-            this.txtChucVuID.Name = "txtChucVuID";
-            this.txtChucVuID.Size = new System.Drawing.Size(100, 22);
-            this.txtChucVuID.TabIndex = 18;
-            // 
             // lbIDChucVu
             // 
             this.lbIDChucVu.AutoSize = true;
@@ -147,8 +140,8 @@
             // 
             // splitContainer1.Panel1
             // 
+            this.splitContainer1.Panel1.Controls.Add(this.comboBox1);
             this.splitContainer1.Panel1.Controls.Add(this.lbID);
-            this.splitContainer1.Panel1.Controls.Add(this.txtChucVuID);
             this.splitContainer1.Panel1.Controls.Add(this.txtTenChucVu);
             this.splitContainer1.Panel1.Controls.Add(this.lbChucVu);
             this.splitContainer1.Panel1.Controls.Add(this.lbIDChucVu);
@@ -189,6 +182,14 @@
             this.splitContainer2.SplitterDistance = 108;
             this.splitContainer2.TabIndex = 0;
             // 
+            // comboBox1
+            // 
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(176, 43);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(121, 24);
+            this.comboBox1.TabIndex = 22;
+            // 
             // FormChucVu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -219,11 +220,11 @@
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.TextBox txtTenChucVu;
         private System.Windows.Forms.Label lbChucVu;
-        private System.Windows.Forms.TextBox txtChucVuID;
         private System.Windows.Forms.Label lbIDChucVu;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.Label lbID;
         private System.Windows.Forms.SplitContainer splitContainer2;
+        private System.Windows.Forms.ComboBox comboBox1;
     }
 }
