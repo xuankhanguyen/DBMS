@@ -35,7 +35,7 @@ namespace Cuoiki.Forms
                 using (SqlConnection connection = DBUtils.GetDBConnection())
                 {
                     // Tạo đối tượng SqlDataAdapter để lấy dữ liệu từ database
-                    SqlDataAdapter adapter = new SqlDataAdapter("SELECT * FROM ChucVu", connection);
+                    SqlDataAdapter adapter = new SqlDataAdapter("SELECT * FROM LoaiTangCa", connection);
 
                     // Tạo đối tượng DataTable để lưu trữ dữ liệu
                     DataTable dataTable = new DataTable();
@@ -62,7 +62,7 @@ namespace Cuoiki.Forms
             try
             {
                 // Lấy giá trị từ các textbox
-                int loaiTangCaID = int.Parse(txtLoaiTangCaID.Text);
+                
                 string tenLoaiTangCa = txtTenLoaiTangCa.Text;
                 float heSo = float.Parse(txtHeSo.Text);
 
@@ -77,8 +77,7 @@ namespace Cuoiki.Forms
                     command.CommandText = "sp_ThemMoiLoaiTangCa";
 
                     // Thêm các tham số
-                    //command.Parameters.AddWithValue("@LoaiTangCa_TenLoai", tenLoaiTangCa);
-                    command.Parameters.AddWithValue("@LoaiTangCa_ID", loaiTangCaID);
+                    //command.Parameters.AddWithValue("@LoaiTangCa_TenLoai", tenLoaiTangCa);              
                     command.CommandType = CommandType.StoredProcedure;
                     command.Parameters.Add("@LoaiTangCa_TenLoai", SqlDbType.NVarChar).Value = tenLoaiTangCa;
                     command.Parameters.AddWithValue("@LoaiTangCa_HeSo", heSo);
@@ -141,6 +140,7 @@ namespace Cuoiki.Forms
                     MessageBox.Show("Loi xoa loai tang ca: " + ex.Message);
                 }
             }
+            LoadTheme();
         }
 
         private void txtLoaiTangCaID_TextChanged(object sender, EventArgs e)
@@ -219,7 +219,6 @@ namespace Cuoiki.Forms
                     connection.Close();
                 }
             }
-            LoadTheme();
         }
 
     }
