@@ -100,7 +100,6 @@ namespace Cuoiki.Forms
                     //command.Parameters.AddWithValue("@tenQuyen", tenQuyen);
 
                     // Thực hiện thủ tục và kiểm tra kết quả
-
                     command.CommandType = CommandType.StoredProcedure;
                     command.Parameters.Add("@TenQuyen", SqlDbType.NVarChar).Value = tenQuyen;
                     int result = command.ExecuteNonQuery();

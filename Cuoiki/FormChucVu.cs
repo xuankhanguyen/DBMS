@@ -75,34 +75,40 @@ namespace Cuoiki.Forms
 
         private void button1_Click(object sender, EventArgs e)
         {
-           
 
-            // Kết nối đến cơ sở dữ liệu
+            // Lấy thông tin phân quyền từ các control trên form
+            string tenCV = txtTenChucVu.Text;
+
+            // Kết nối tới database
             using (SqlConnection connection = DBUtils.GetDBConnection())
             {
                 connection.Open();
 
-                // Tạo đối tượng SqlCommand và truyền tham số vào
+                // Tạo command để gọi thủ tục "ThemPhanQuyen"
                 using (SqlCommand command = new SqlCommand("sp_ThemMoiChucVu", connection))
                 {
-                    command.CommandType = CommandType.StoredProcedure;
-                    command.Parameters.AddWithValue("@ChucVu_TenCV", txtTenChucVu.Text);
+                    //command.CommandType = CommandType.StoredProcedure;
 
-                    // Thực thi thủ tục và xử lý kết quả
-                    try
+                    // Truyền các tham số cho thủ tục "ThemPhanQuyen"
+                    //command.Parameters.AddWithValue("@tenQuyen", tenQuyen);
+
+                    // Thực hiện thủ tục và kiểm tra kết quả
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.Add("@ChucVu_TenCV", SqlDbType.NVarChar).Value = tenCV;
+                    int result = command.ExecuteNonQuery();
+                    if (result > 0)
                     {
-                        int rowsAffected = command.ExecuteNonQuery();
-                        MessageBox.Show("Đã thêm chức vụ mới thành công!");
+                        MessageBox.Show("Thêm phân quyền thành công!");
                     }
-                    catch (SqlException ex)
+                    else
                     {
-                        MessageBox.Show("Lỗi khi thêm chức vụ mới: " + ex.Message);
+                        MessageBox.Show("Thêm phân quyền thất bại!");
                     }
-                    LoadTheme();
                 }
             }
-
+            LoadTheme();
         }
+            
 
         private void button2_Click(object sender, EventArgs e)
         {
