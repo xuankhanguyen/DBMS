@@ -36,7 +36,7 @@ namespace Cuoiki.Forms
             using (SqlConnection connection = DBUtils.GetDBConnection())
             {
                 // Tạo đối tượng SqlDataAdapter để lấy dữ liệu từ database
-                SqlDataAdapter adapter = new SqlDataAdapter("SELECT * FROM ChucVu", connection);
+                SqlDataAdapter adapter = new SqlDataAdapter("SELECT * FROM PhanQuyen", connection);
 
                 // Tạo đối tượng DataTable để lưu trữ dữ liệu
                 DataTable dataTable = new DataTable();

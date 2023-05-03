@@ -86,7 +86,6 @@ namespace Cuoiki.Forms
                 using (SqlCommand command = new SqlCommand("sp_ThemMoiChucVu", connection))
                 {
                     command.CommandType = CommandType.StoredProcedure;
-                    command.Parameters.AddWithValue("@ChucVu_ID", txtChucVuID.Text);
                     command.Parameters.AddWithValue("@ChucVu_TenCV", txtTenChucVu.Text);
 
                     // Thực thi thủ tục và xử lý kết quả
