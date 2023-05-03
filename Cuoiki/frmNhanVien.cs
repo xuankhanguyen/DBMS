@@ -269,7 +269,7 @@ namespace ProjectHRM
 
         private void btn_timkiem_Click(object sender, EventArgs e)
         {
-            // Lấy tên nhân viên từ textbox
+           /* // Lấy tên nhân viên từ textbox
             string ten = txt_timkiem.Text;
 
             // Kết nối tới cơ sở dữ liệu
@@ -294,7 +294,7 @@ namespace ProjectHRM
                     // Hiển thị kết quả tìm kiếm lên DataGridView
                     dgvDanhSachNhanVien.DataSource = dt;
                 }
-            }
+            }*/
         }
 
         private void dgvDanhSachNhanVien_DataSourceChanged(object sender, EventArgs e)

@@ -31,8 +31,8 @@ namespace ProjectHRM
             int nhanVien = Convert.ToInt32(txtMaNV.Text);
 
             // Gọi stored procedure ThemHopDong trong SQL Server để thêm hợp đồng mới vào cơ sở dữ liệu
-            string connectionString = "Data Source=DESKTOP-0VDMSUU\\SQLEXPRESS;Initial Catalog=QLNS;Integrated Security=True";
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            
+            using (SqlConnection connection = DBUtils.GetDBConnection())
             {
                 connection.Open();
 
@@ -68,8 +68,7 @@ namespace ProjectHRM
             int soHD = int.Parse(txtSoHD.Text);
 
             // Tạo kết nối đến cơ sở dữ liệu SQL Server
-            string connectionString = "Data Source=DESKTOP-0VDMSUU\\SQLEXPRESS;Initial Catalog=QLNS;Integrated Security=True";
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (SqlConnection connection = DBUtils.GetDBConnection())
             {
                 connection.Open();
 
@@ -100,8 +99,7 @@ namespace ProjectHRM
 
         private DataTable GetData()
         {
-            string connectionString = "Data Source=myServerAddress;Initial Catalog=myDataBase;User ID=myUsername;Password=myPassword;";
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (SqlConnection connection = DBUtils.GetDBConnection())
             {
                 connection.Open();
 
@@ -127,8 +125,7 @@ namespace ProjectHRM
             int heSoLuong = int.Parse(txtHeSoLuong.Text);
            // int nhanVien = int.Parse(txtNhanVien.Text);
 
-            string connectionString = "Data Source=myServerAddress;Initial Catalog=myDataBase;User ID=myUsername;Password=myPassword;";
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (SqlConnection connection = DBUtils.GetDBConnection())
             {
                 connection.Open();
 
@@ -168,33 +165,15 @@ namespace ProjectHRM
 
         private void frmHopDong_Load(object sender, EventArgs e)
         {
-            // TODO: This line of code loads data into the 'qLNSDataSet.HopDong' table. You can move, or remove it, as needed.
-            this.hopDongTableAdapter.Fill(this.qLNSDataSet.HopDong);
-            // Tạo kết nối đến cơ sở dữ liệu SQL Server
-            string connectionString = "Data Source=DESKTOP-0VDMSUU\\SQLEXPRESS;Initial Catalog=QLNS;Integrated Security=True";
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                connection.Open();
 
-                // Tạo đối tượng SqlDataAdapter để lấy dữ liệu từ bảng HopDong
-                SqlDataAdapter adapter = new SqlDataAdapter("SELECT * FROM HopDong", connection);
-
-                // Tạo đối tượng DataTable để lưu trữ dữ liệu từ bảng HopDong
-                DataTable dataTable = new DataTable();
-
-                // Đổ dữ liệu từ bảng HopDong vào DataTable
-                adapter.Fill(dataTable);
-
-                // Gán DataTable vào DataSource của DataGridView để hiển thị dữ liệu trên giao diện
-                dgvNhanVien.DataSource = dataTable;
-            }
+           LoadData(); 
 
         }
         private void LoadData()
         {
             // Tạo kết nối đến cơ sở dữ liệu SQL Server
-            string connectionString = "Data Source=DESKTOP-0VDMSUU\\SQLEXPRESS;Initial Catalog=QLNS;Integrated Security=True";
-            using (SqlConnection connection = new SqlConnection(connectionString))
+
+            using (SqlConnection connection = DBUtils.GetDBConnection())
             {
                 connection.Open();
 
@@ -203,7 +182,6 @@ namespace ProjectHRM
                 SqlDataAdapter adapter = new SqlDataAdapter(query, connection);
                 DataTable dataTable = new DataTable();
                 adapter.Fill(dataTable);
-
                 // Load dữ liệu vào DataGridView
                 dgvNhanVien.DataSource = dataTable;
             }
@@ -219,8 +197,7 @@ namespace ProjectHRM
         {
             int soHD = int.Parse(txtSoHD.Text);
 
-            string connectionString = "Data Source=DESKTOP-0VDMSUU\\SQLEXPRESS;Initial Catalog=QLNS;Integrated Security=True";
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (SqlConnection connection = DBUtils.GetDBConnection())
             {
                 connection.Open();
 
@@ -249,6 +226,36 @@ namespace ProjectHRM
             txtLuongCanBan.Text = row.Cells["HopDong_LuongCanBan"].Value.ToString();
             txtHeSoLuong.Text = row.Cells["HopDong_HeSoLuong"].Value.ToString();
             txtMaNV.Text = row.Cells["HopDong_NhanVien"].Value.ToString();
+        }
+
+        private void label5_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dtpNgayBatDau_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label9_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dtpNgayKetThuc_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtLanKy_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

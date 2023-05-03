@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace ProjectHRM
@@ -339,6 +340,11 @@ namespace ProjectHRM
 
         }
 
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
         #endregion
 
         private Button btn_huy;
@@ -365,5 +371,6 @@ namespace ProjectHRM
         private ComboBox cboChucVu;
         private ComboBox cboPhongBan;
         private Button btn_luu;
+        private EventHandler btn_luu_Click;
     }
 }
