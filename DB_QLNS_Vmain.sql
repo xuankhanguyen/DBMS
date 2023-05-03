@@ -2283,3 +2283,102 @@ RETURN
 --Test tìm kiếm HD
 SELECT *
 FROM dbo.TimKiemHopDong(2)
+--Thêm hợp đồng
+CREATE PROCEDURE ThemHopDong
+    @NgayBatDau DATE,
+    @NgayKetThuc DATE,
+	@LanKy INT,
+    @NoiDung NVARCHAR(50),
+    @LuongCanBan FLOAT,
+    @HeSoLuong INT,
+    @NhanVien INT
+AS
+BEGIN
+SET IDENTITY_INSERT HopDong ON
+    INSERT INTO HopDong ( HopDong_NgayBatDau ,HopDong_NgayKetThuc ,
+	HopDong_LanKy , HopDong_NoiDung , HopDong_LuongCanBan ,HopDong_HeSoLuong ,HopDong_NhanVien)
+    VALUES
+    (@NgayBatDau,
+    @NgayKetThuc,
+	@LanKy,
+    @NoiDung ,
+    @LuongCanBan,
+    @HeSoLuong,
+    @NhanVien);
+	SET IDENTITY_INSERT HopDong OFF 
+END
+GO
+
+-- Trigger tăng ID tự động cho bảng HopDong
+CREATE TRIGGER TGR_HopDong
+ON HopDong
+INSTEAD OF INSERT
+AS
+BEGIN
+DECLARE @maxid int = 0
+SELECT @maxid = MAX( HopDong_SoHD)
+FROM HopDong
+IF @maxid IS NULL SET @maxid = 1
+ELSE SET @maxid = @maxid + 1
+INSERT INTO HopDong( HopDong_SoHD)
+ VALUES(@maxid)
+    UPDATE HopDong
+    SET HopDong_NoiDung = i.HopDong_NoiDung
+    FROM inserted i
+    WHERE HopDong.HopDong_SoHD = @maxid
+    PRINT N'Đã thêm phân quyền có mã là: '+ CAST(@maxid AS VARCHAR)
+END;
+GO
+-- Xóa hợp đồng
+CREATE PROCEDURE XoaHopDong
+    @SoHD INT
+AS
+BEGIN
+    DELETE FROM HopDong WHERE HopDong_SoHD = @SoHD;
+END;
+GO
+--Sửa hợp đồng
+CREATE PROCEDURE SuaHopDong
+    @SoHD INT,
+    @NgayBatDau DATE,
+    @NgayKetThuc DATE,
+    @LanKy INT,
+    @NoiDung NVARCHAR(50),
+    @LuongCanBan FLOAT,
+    @HeSoLuong INT,
+    @NhanVien INT
+AS
+BEGIN
+    UPDATE HopDong 
+    SET HopDong_NgayBatDau = @NgayBatDau,
+        HopDong_NgayKetThuc = @NgayKetThuc,
+        HopDong_LanKy = @LanKy,
+        HopDong_NoiDung = @NoiDung,
+        HopDong_LuongCanBan = @LuongCanBan,
+        HopDong_HeSoLuong = @HeSoLuong,
+        HopDong_NhanVien = @NhanVien
+    WHERE HopDong_SoHD = @SoHD;
+END;
+GO
+-- ThongKeNhanVienTheoPhongBan
+CREATE PROCEDURE ThongKeNhanVienTheoPhongBan
+    @MaPB INT
+AS
+BEGIN
+    BEGIN TRY
+        SELECT NhanVien_ID, NhanVien_HoTen, NhanVien_SDT, NhanVien_CCCD, NhanVien_GioiTinh, NhanVien_HinhAnh, NhanVien_DiaChi, NhanVien_NgaySinh, NhanVien_ChucVu
+        FROM NhanVien
+        WHERE NhanVien_PhongBan = @MaPB AND NhanVien_TrangThaiXoa = 0
+    END TRY
+    BEGIN CATCH
+        SELECT ERROR_MESSAGE()
+    END CATCH
+END
+GO
+--tìm số Hợp đồng lớn nhất
+CREATE PROCEDURE TimHopDongLonNhat
+AS
+BEGIN
+    SELECT MAX(HopDong_SoHD) AS HopDong_LonNhat FROM HopDong;
+END;
+GO
