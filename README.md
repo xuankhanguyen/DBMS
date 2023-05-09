@@ -13,4 +13,4 @@ https://github.com/HT-Tuan/DBMS.git
 Lưu ý: cần sử dụng tài khoản 'sa' để thực hiện bước này
 ### B3: thực hiện mở file Cuoiki.sln trong thư mục DBMS_Final
 #
-## Lưu ý: Điều kiện để cài đặt thành công là máy của bạn phải được cài đặt SQL Server 2019 cũng như là SQL Server Management Studio(SSMS) và Visual Studio 2019
+## Lưu ý: Điều kiện để cài đặt thành công là máy của bạn phải được cài đặt trước SQL Server 2019 cũng như là SQL Server Management Studio(SSMS) và Visual Studio 2019
