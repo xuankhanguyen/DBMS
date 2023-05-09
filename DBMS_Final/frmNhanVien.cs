@@ -66,7 +66,9 @@ namespace ProjectHRM
                 {
                     MessageBox.Show(ex.Message);
                 }
-            }             
+            }
+           
+            LoadData(); 
         }
 
         private void btn_xoa_Click(object sender, EventArgs e)
@@ -241,7 +243,7 @@ namespace ProjectHRM
         {
             DataTable dt = new DataTable();
             try{
-            using (SqlConnection connection = DBUtils.GetDBConnection())
+            using (SqlConnection conn = DBUtils.GetDBConnection())
             using (SqlCommand cmd = new SqlCommand("TimKiemNhanVien", conn))
             {
                 cmd.CommandType = CommandType.StoredProcedure;

@@ -80,20 +80,19 @@ namespace ProjectHRM
             // 
             // txtSoHD
             // 
-            this.txtSoHD.Location = new System.Drawing.Point(177, 39);
-            this.txtSoHD.Margin = new System.Windows.Forms.Padding(4, 2, 4, 2);
+            this.txtSoHD.Location = new System.Drawing.Point(118, 25);
+            this.txtSoHD.Margin = new System.Windows.Forms.Padding(3, 1, 3, 1);
             this.txtSoHD.Name = "txtSoHD";
-            this.txtSoHD.Size = new System.Drawing.Size(248, 31);
+            this.txtSoHD.Size = new System.Drawing.Size(167, 22);
             this.txtSoHD.TabIndex = 29;
             // 
             // label9
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Segoe UI", 12F);
-            this.label9.Location = new System.Drawing.Point(13, 199);
-            this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label9.Location = new System.Drawing.Point(9, 127);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(225, 45);
+            this.label9.Size = new System.Drawing.Size(138, 28);
             this.label9.TabIndex = 28;
             this.label9.Text = "Ngày kết thúc:";
             this.label9.Click += new System.EventHandler(this.label9_Click);
@@ -102,10 +101,9 @@ namespace ProjectHRM
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Segoe UI", 12F);
-            this.label5.Location = new System.Drawing.Point(13, 102);
-            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label5.Location = new System.Drawing.Point(9, 65);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(218, 45);
+            this.label5.Size = new System.Drawing.Size(135, 28);
             this.label5.TabIndex = 27;
             this.label5.Text = "Ngày bắt đầu:";
             this.label5.Click += new System.EventHandler(this.label5_Click);
@@ -117,19 +115,18 @@ namespace ProjectHRM
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Segoe UI", 12F);
-            this.label4.Location = new System.Drawing.Point(21, 31);
-            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label4.Location = new System.Drawing.Point(14, 20);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(117, 45);
+            this.label4.Size = new System.Drawing.Size(72, 28);
             this.label4.TabIndex = 26;
             this.label4.Text = "Số HD:";
             // 
             // txtLanKy
             // 
-            this.txtLanKy.Location = new System.Drawing.Point(265, 294);
-            this.txtLanKy.Margin = new System.Windows.Forms.Padding(4, 2, 4, 2);
+            this.txtLanKy.Location = new System.Drawing.Point(177, 188);
+            this.txtLanKy.Margin = new System.Windows.Forms.Padding(3, 1, 3, 1);
             this.txtLanKy.Name = "txtLanKy";
-            this.txtLanKy.Size = new System.Drawing.Size(225, 31);
+            this.txtLanKy.Size = new System.Drawing.Size(151, 22);
             this.txtLanKy.TabIndex = 33;
             this.txtLanKy.TextChanged += new System.EventHandler(this.txtLanKy_TextChanged);
             // 
@@ -137,50 +134,47 @@ namespace ProjectHRM
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Segoe UI", 12F);
-            this.label1.Location = new System.Drawing.Point(19, 285);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Location = new System.Drawing.Point(13, 182);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(116, 45);
+            this.label1.Size = new System.Drawing.Size(71, 28);
             this.label1.TabIndex = 32;
             this.label1.Text = "Lần ký:";
             this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // txtNoiDung
             // 
-            this.txtNoiDung.Location = new System.Drawing.Point(219, 552);
-            this.txtNoiDung.Margin = new System.Windows.Forms.Padding(4, 2, 4, 2);
+            this.txtNoiDung.Location = new System.Drawing.Point(146, 353);
+            this.txtNoiDung.Margin = new System.Windows.Forms.Padding(3, 1, 3, 1);
             this.txtNoiDung.Multiline = true;
             this.txtNoiDung.Name = "txtNoiDung";
-            this.txtNoiDung.Size = new System.Drawing.Size(319, 292);
+            this.txtNoiDung.Size = new System.Drawing.Size(214, 188);
             this.txtNoiDung.TabIndex = 35;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Segoe UI", 12F);
-            this.label2.Location = new System.Drawing.Point(13, 542);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Location = new System.Drawing.Point(9, 347);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(161, 45);
+            this.label2.Size = new System.Drawing.Size(99, 28);
             this.label2.TabIndex = 34;
             this.label2.Text = "Nội dung:";
             // 
             // txtLuongCanBan
             // 
-            this.txtLuongCanBan.Location = new System.Drawing.Point(265, 380);
-            this.txtLuongCanBan.Margin = new System.Windows.Forms.Padding(4, 2, 4, 2);
+            this.txtLuongCanBan.Location = new System.Drawing.Point(177, 243);
+            this.txtLuongCanBan.Margin = new System.Windows.Forms.Padding(3, 1, 3, 1);
             this.txtLuongCanBan.Name = "txtLuongCanBan";
-            this.txtLuongCanBan.Size = new System.Drawing.Size(225, 31);
+            this.txtLuongCanBan.Size = new System.Drawing.Size(151, 22);
             this.txtLuongCanBan.TabIndex = 37;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Segoe UI", 12F);
-            this.label3.Location = new System.Drawing.Point(13, 369);
-            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label3.Location = new System.Drawing.Point(9, 236);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(237, 45);
+            this.label3.Size = new System.Drawing.Size(145, 28);
             this.label3.TabIndex = 36;
             this.label3.Text = "Lương căn bản:";
             // 
@@ -188,10 +182,9 @@ namespace ProjectHRM
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Segoe UI", 12F);
-            this.label6.Location = new System.Drawing.Point(13, 462);
-            this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label6.Location = new System.Drawing.Point(9, 296);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(201, 45);
+            this.label6.Size = new System.Drawing.Size(122, 28);
             this.label6.TabIndex = 38;
             this.label6.Text = "Hệ số lương:";
             // 
@@ -199,28 +192,27 @@ namespace ProjectHRM
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Segoe UI", 12F);
-            this.label7.Location = new System.Drawing.Point(13, 20);
-            this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label7.Location = new System.Drawing.Point(9, 13);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(210, 45);
+            this.label7.Size = new System.Drawing.Size(128, 28);
             this.label7.TabIndex = 40;
             this.label7.Text = "ID Nhân viên:";
             // 
             // dtpNgayBatDau
             // 
-            this.dtpNgayBatDau.Location = new System.Drawing.Point(265, 112);
-            this.dtpNgayBatDau.Margin = new System.Windows.Forms.Padding(4, 2, 4, 2);
+            this.dtpNgayBatDau.Location = new System.Drawing.Point(177, 72);
+            this.dtpNgayBatDau.Margin = new System.Windows.Forms.Padding(3, 1, 3, 1);
             this.dtpNgayBatDau.Name = "dtpNgayBatDau";
-            this.dtpNgayBatDau.Size = new System.Drawing.Size(225, 31);
+            this.dtpNgayBatDau.Size = new System.Drawing.Size(151, 22);
             this.dtpNgayBatDau.TabIndex = 42;
             this.dtpNgayBatDau.ValueChanged += new System.EventHandler(this.dtpNgayBatDau_ValueChanged);
             // 
             // dtpNgayKetThuc
             // 
-            this.dtpNgayKetThuc.Location = new System.Drawing.Point(265, 208);
-            this.dtpNgayKetThuc.Margin = new System.Windows.Forms.Padding(4, 2, 4, 2);
+            this.dtpNgayKetThuc.Location = new System.Drawing.Point(177, 133);
+            this.dtpNgayKetThuc.Margin = new System.Windows.Forms.Padding(3, 1, 3, 1);
             this.dtpNgayKetThuc.Name = "dtpNgayKetThuc";
-            this.dtpNgayKetThuc.Size = new System.Drawing.Size(225, 31);
+            this.dtpNgayKetThuc.Size = new System.Drawing.Size(151, 22);
             this.dtpNgayKetThuc.TabIndex = 43;
             this.dtpNgayKetThuc.ValueChanged += new System.EventHandler(this.dtpNgayKetThuc_ValueChanged);
             // 
@@ -228,10 +220,10 @@ namespace ProjectHRM
             // 
             this.btn_huy.Dock = System.Windows.Forms.DockStyle.Right;
             this.btn_huy.Font = new System.Drawing.Font("Segoe UI", 14F);
-            this.btn_huy.Location = new System.Drawing.Point(539, 0);
-            this.btn_huy.Margin = new System.Windows.Forms.Padding(4, 2, 4, 2);
+            this.btn_huy.Location = new System.Drawing.Point(114, 0);
+            this.btn_huy.Margin = new System.Windows.Forms.Padding(3, 1, 3, 1);
             this.btn_huy.Name = "btn_huy";
-            this.btn_huy.Size = new System.Drawing.Size(189, 107);
+            this.btn_huy.Size = new System.Drawing.Size(126, 71);
             this.btn_huy.TabIndex = 50;
             this.btn_huy.Text = "Huỷ";
             this.btn_huy.UseVisualStyleBackColor = true;
@@ -241,10 +233,10 @@ namespace ProjectHRM
             // 
             this.btn_sua.Dock = System.Windows.Forms.DockStyle.Right;
             this.btn_sua.Font = new System.Drawing.Font("Segoe UI", 14F);
-            this.btn_sua.Location = new System.Drawing.Point(175, 0);
-            this.btn_sua.Margin = new System.Windows.Forms.Padding(4, 2, 4, 2);
+            this.btn_sua.Location = new System.Drawing.Point(-129, 0);
+            this.btn_sua.Margin = new System.Windows.Forms.Padding(3, 1, 3, 1);
             this.btn_sua.Name = "btn_sua";
-            this.btn_sua.Size = new System.Drawing.Size(184, 107);
+            this.btn_sua.Size = new System.Drawing.Size(123, 71);
             this.btn_sua.TabIndex = 47;
             this.btn_sua.Text = "Sửa";
             this.btn_sua.UseVisualStyleBackColor = true;
@@ -254,10 +246,10 @@ namespace ProjectHRM
             // 
             this.btn_xoa.Dock = System.Windows.Forms.DockStyle.Right;
             this.btn_xoa.Font = new System.Drawing.Font("Segoe UI", 14F);
-            this.btn_xoa.Location = new System.Drawing.Point(537, 0);
-            this.btn_xoa.Margin = new System.Windows.Forms.Padding(4, 2, 4, 2);
+            this.btn_xoa.Location = new System.Drawing.Point(634, 0);
+            this.btn_xoa.Margin = new System.Windows.Forms.Padding(3, 1, 3, 1);
             this.btn_xoa.Name = "btn_xoa";
-            this.btn_xoa.Size = new System.Drawing.Size(229, 107);
+            this.btn_xoa.Size = new System.Drawing.Size(153, 71);
             this.btn_xoa.TabIndex = 46;
             this.btn_xoa.Text = "Xoá";
             this.btn_xoa.UseVisualStyleBackColor = true;
@@ -268,9 +260,9 @@ namespace ProjectHRM
             this.btn_them.Dock = System.Windows.Forms.DockStyle.Left;
             this.btn_them.Font = new System.Drawing.Font("Segoe UI", 14F);
             this.btn_them.Location = new System.Drawing.Point(0, 0);
-            this.btn_them.Margin = new System.Windows.Forms.Padding(4, 2, 4, 2);
+            this.btn_them.Margin = new System.Windows.Forms.Padding(3, 1, 3, 1);
             this.btn_them.Name = "btn_them";
-            this.btn_them.Size = new System.Drawing.Size(179, 107);
+            this.btn_them.Size = new System.Drawing.Size(119, 71);
             this.btn_them.TabIndex = 45;
             this.btn_them.Text = "Thêm";
             this.btn_them.UseVisualStyleBackColor = true;
@@ -281,18 +273,17 @@ namespace ProjectHRM
             this.dgvNhanVien.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvNhanVien.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvNhanVien.Location = new System.Drawing.Point(0, 0);
-            this.dgvNhanVien.Margin = new System.Windows.Forms.Padding(4, 2, 4, 2);
+            this.dgvNhanVien.Margin = new System.Windows.Forms.Padding(3, 1, 3, 1);
             this.dgvNhanVien.Name = "dgvNhanVien";
             this.dgvNhanVien.RowHeadersWidth = 62;
             this.dgvNhanVien.RowTemplate.Height = 33;
-            this.dgvNhanVien.Size = new System.Drawing.Size(928, 778);
+            this.dgvNhanVien.Size = new System.Drawing.Size(639, 511);
             this.dgvNhanVien.TabIndex = 51;
             // 
             // splitContainer1
             // 
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer1.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.splitContainer1.Name = "splitContainer1";
             this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -303,16 +294,14 @@ namespace ProjectHRM
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.splitContainer3);
-            this.splitContainer1.Size = new System.Drawing.Size(1499, 994);
-            this.splitContainer1.SplitterDistance = 881;
-            this.splitContainer1.SplitterWidth = 6;
+            this.splitContainer1.Size = new System.Drawing.Size(1030, 654);
+            this.splitContainer1.SplitterDistance = 579;
             this.splitContainer1.TabIndex = 53;
             // 
             // splitContainer2
             // 
             this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer2.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.splitContainer2.Name = "splitContainer2";
             // 
             // splitContainer2.Panel1
@@ -336,34 +325,31 @@ namespace ProjectHRM
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.splitContainer4);
-            this.splitContainer2.Size = new System.Drawing.Size(1499, 881);
-            this.splitContainer2.SplitterDistance = 566;
-            this.splitContainer2.SplitterWidth = 5;
+            this.splitContainer2.Size = new System.Drawing.Size(1030, 579);
+            this.splitContainer2.SplitterDistance = 388;
+            this.splitContainer2.SplitterWidth = 3;
             this.splitContainer2.TabIndex = 0;
             // 
             // comboBox2
             // 
             this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(265, 462);
-            this.comboBox2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.comboBox2.Location = new System.Drawing.Point(177, 296);
             this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(180, 33);
+            this.comboBox2.Size = new System.Drawing.Size(121, 24);
             this.comboBox2.TabIndex = 45;
             // 
             // comboBox1
             // 
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(265, 31);
-            this.comboBox1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.comboBox1.Location = new System.Drawing.Point(177, 20);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(180, 33);
+            this.comboBox1.Size = new System.Drawing.Size(121, 24);
             this.comboBox1.TabIndex = 44;
             // 
             // splitContainer4
             // 
             this.splitContainer4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer4.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer4.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.splitContainer4.Name = "splitContainer4";
             this.splitContainer4.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -375,19 +361,17 @@ namespace ProjectHRM
             // 
             this.splitContainer4.Panel2.Controls.Add(this.btn_TimKiem);
             this.splitContainer4.Panel2.Controls.Add(this.textBox1);
-            this.splitContainer4.Size = new System.Drawing.Size(928, 881);
-            this.splitContainer4.SplitterDistance = 778;
-            this.splitContainer4.SplitterWidth = 6;
+            this.splitContainer4.Size = new System.Drawing.Size(639, 579);
+            this.splitContainer4.SplitterDistance = 511;
             this.splitContainer4.TabIndex = 0;
             // 
             // btn_TimKiem
             // 
             this.btn_TimKiem.Dock = System.Windows.Forms.DockStyle.Right;
             this.btn_TimKiem.Font = new System.Drawing.Font("Segoe UI", 14F);
-            this.btn_TimKiem.Location = new System.Drawing.Point(699, 0);
-            this.btn_TimKiem.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btn_TimKiem.Location = new System.Drawing.Point(486, 0);
             this.btn_TimKiem.Name = "btn_TimKiem";
-            this.btn_TimKiem.Size = new System.Drawing.Size(229, 97);
+            this.btn_TimKiem.Size = new System.Drawing.Size(153, 64);
             this.btn_TimKiem.TabIndex = 55;
             this.btn_TimKiem.Text = "Tìm Kiếm";
             this.btn_TimKiem.UseVisualStyleBackColor = true;
@@ -397,17 +381,15 @@ namespace ProjectHRM
             this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox1.Location = new System.Drawing.Point(27, 26);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.textBox1.Location = new System.Drawing.Point(18, 17);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(596, 31);
+            this.textBox1.Size = new System.Drawing.Size(419, 22);
             this.textBox1.TabIndex = 0;
             // 
             // splitContainer3
             // 
             this.splitContainer3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer3.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer3.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.splitContainer3.Name = "splitContainer3";
             // 
             // splitContainer3.Panel1
@@ -422,30 +404,29 @@ namespace ProjectHRM
             this.splitContainer3.Panel2.Controls.Add(this.btn_xoa);
             this.splitContainer3.Panel2.Controls.Add(this.txtSoHD);
             this.splitContainer3.Panel2.Controls.Add(this.label4);
-            this.splitContainer3.Size = new System.Drawing.Size(1499, 107);
-            this.splitContainer3.SplitterDistance = 728;
-            this.splitContainer3.SplitterWidth = 5;
+            this.splitContainer3.Size = new System.Drawing.Size(1030, 71);
+            this.splitContainer3.SplitterDistance = 240;
+            this.splitContainer3.SplitterWidth = 3;
             this.splitContainer3.TabIndex = 0;
             // 
             // btn_Load
             // 
             this.btn_Load.Dock = System.Windows.Forms.DockStyle.Right;
             this.btn_Load.Font = new System.Drawing.Font("Segoe UI", 14F);
-            this.btn_Load.Location = new System.Drawing.Point(359, 0);
-            this.btn_Load.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btn_Load.Location = new System.Drawing.Point(-6, 0);
             this.btn_Load.Name = "btn_Load";
-            this.btn_Load.Size = new System.Drawing.Size(180, 107);
+            this.btn_Load.Size = new System.Drawing.Size(120, 71);
             this.btn_Load.TabIndex = 54;
             this.btn_Load.Text = "Load";
             this.btn_Load.UseVisualStyleBackColor = true;
             // 
             // frmHopDong
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1499, 994);
+            this.ClientSize = new System.Drawing.Size(1030, 654);
             this.Controls.Add(this.splitContainer1);
-            this.Margin = new System.Windows.Forms.Padding(4, 2, 4, 2);
+            this.Margin = new System.Windows.Forms.Padding(3, 1, 3, 1);
             this.Name = "frmHopDong";
             this.Text = "Thông tin hợp đồng";
             this.Load += new System.EventHandler(this.frmHopDong_Load);

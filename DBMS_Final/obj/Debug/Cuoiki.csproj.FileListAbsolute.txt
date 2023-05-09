@@ -354,3 +354,31 @@ D:\Workspace\Cuoiki(main)\obj\Debug\Cuoiki.TrangChuAdmin.resources
 \\Mac\Home\Downloads\Cuoiki(main)\obj\Debug\Cuoiki.csproj.CoreCompileInputs.cache
 \\Mac\Home\Downloads\Cuoiki(main)\obj\Debug\Cuoiki.exe
 \\Mac\Home\Downloads\Cuoiki(main)\obj\Debug\Cuoiki.pdb
+D:\New folder (2)\DBMS\DBMS_Final\bin\Debug\Cuoiki.exe.config
+D:\New folder (2)\DBMS\DBMS_Final\bin\Debug\Cuoiki.exe
+D:\New folder (2)\DBMS\DBMS_Final\bin\Debug\Cuoiki.pdb
+D:\New folder (2)\DBMS\DBMS_Final\obj\Debug\Cuoiki.csproj.AssemblyReference.cache
+D:\New folder (2)\DBMS\DBMS_Final\obj\Debug\Cuoiki.csproj.SuggestedBindingRedirects.cache
+D:\New folder (2)\DBMS\DBMS_Final\obj\Debug\Cuoiki.BangLuong.resources
+D:\New folder (2)\DBMS\DBMS_Final\obj\Debug\Cuoiki.ChiTietHRM.resources
+D:\New folder (2)\DBMS\DBMS_Final\obj\Debug\Cuoiki.Forms.FormChucVu.resources
+D:\New folder (2)\DBMS\DBMS_Final\obj\Debug\Cuoiki.FormChuongTrinh.resources
+D:\New folder (2)\DBMS\DBMS_Final\obj\Debug\Cuoiki.FormDangNhap.resources
+D:\New folder (2)\DBMS\DBMS_Final\obj\Debug\Cuoiki.Forms.FormLoaiTangCa.resources
+D:\New folder (2)\DBMS\DBMS_Final\obj\Debug\Cuoiki.Forms.FormPhanQuyen.resources
+D:\New folder (2)\DBMS\DBMS_Final\obj\Debug\Cuoiki.Forms.FormPhongBan.resources
+D:\New folder (2)\DBMS\DBMS_Final\obj\Debug\Cuoiki.Forms.FormTaiKhoan.resources
+D:\New folder (2)\DBMS\DBMS_Final\obj\Debug\ProjectHRM.frmHeSoLuong.resources
+D:\New folder (2)\DBMS\DBMS_Final\obj\Debug\ProjectHRM.frmHopDong.resources
+D:\New folder (2)\DBMS\DBMS_Final\obj\Debug\ProjectHRM.frmNhanVien.resources
+D:\New folder (2)\DBMS\DBMS_Final\obj\Debug\Cuoiki.KyCongHRM.resources
+D:\New folder (2)\DBMS\DBMS_Final\obj\Debug\Cuoiki.Properties.Resources.resources
+D:\New folder (2)\DBMS\DBMS_Final\obj\Debug\Cuoiki.TangCa.resources
+D:\New folder (2)\DBMS\DBMS_Final\obj\Debug\Cuoiki.TrangChuAdmin.resources
+D:\New folder (2)\DBMS\DBMS_Final\obj\Debug\Cuoiki.TrangChuHRM.resources
+D:\New folder (2)\DBMS\DBMS_Final\obj\Debug\Cuoiki.TrangChuNhanVien.resources
+D:\New folder (2)\DBMS\DBMS_Final\obj\Debug\Cuoiki.UngLuong.resources
+D:\New folder (2)\DBMS\DBMS_Final\obj\Debug\Cuoiki.csproj.GenerateResource.cache
+D:\New folder (2)\DBMS\DBMS_Final\obj\Debug\Cuoiki.csproj.CoreCompileInputs.cache
+D:\New folder (2)\DBMS\DBMS_Final\obj\Debug\Cuoiki.exe
+D:\New folder (2)\DBMS\DBMS_Final\obj\Debug\Cuoiki.pdb

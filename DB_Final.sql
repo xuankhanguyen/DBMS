@@ -869,18 +869,6 @@ VALUES
         FROM dbo.KyCong
         WHERE KyCong_Thang = 1 AND KyCong_Nam=2023)
 ),
-    ( 30,
-        5,
-        (SELECT NhanVien_ID
-        FROM dbo.NhanVien
-        WHERE NhanVien_HoTen = N'Nguyễn Phát Tài'),
-        (SELECT LoaiTangCa_ID
-        FROM dbo.LoaiTangCa
-        WHERE LoaiTangCa_TenLoai = N'Ngày Nghỉ'),
-        (SELECT KyCong_MaKyCong
-        FROM dbo.KyCong
-        WHERE KyCong_Thang = 2 AND KyCong_Nam=2023)
-),
     ( 13,
         3.5,
         (SELECT NhanVien_ID
@@ -2147,96 +2135,6 @@ BEGIN
 END
 GO
 
---Thủ tục thêm hợp đồng mới
-CREATE PROCEDURE ThemHopDong
-    @NgayBatDau DATE,
-    @NgayKetThuc DATE,
-    @LanKy INT,
-    @NoiDung NVARCHAR(50),
-    @LuongCanBan FLOAT,
-    @HeSoLuong INT,
-    @NhanVien INT,
-    @Message NVARCHAR(100) OUTPUT
-AS
-BEGIN
-    SET NOCOUNT ON;
-    SET @Message = '';
-
-    INSERT INTO HopDong
-        (HopDong_NgayBatDau, HopDong_NgayKetThuc, HopDong_LanKy, HopDong_NoiDung, HopDong_LuongCanBan, HopDong_HeSoLuong, HopDong_NhanVien)
-    VALUES
-        (@NgayBatDau, @NgayKetThuc, @LanKy, @NoiDung, @LuongCanBan, @HeSoLuong, @NhanVien);
-
-    IF @@ROWCOUNT > 0
-    BEGIN
-        SET @Message = 'Thêm hợp đồng thành công';
-    END
-    ELSE
-    BEGIN
-        SET @Message = 'Thêm hợp đồng thất bại';
-    END
-END
-GO
-
---Thủ tục sửa hợp đồng
-CREATE PROCEDURE SuaHopDong
-    @SoHD INT,
-    @NgayBatDau DATE,
-    @NgayKetThuc DATE,
-    @LanKy INT,
-    @NoiDung NVARCHAR(50),
-    @LuongCanBan FLOAT,
-    @HeSoLuong INT,
-    @NhanVien INT,
-    @Message NVARCHAR(100) OUTPUT
-AS
-BEGIN
-    SET NOCOUNT ON;
-    SET @Message = '';
-
-    UPDATE HopDong
-    SET HopDong_NgayBatDau = @NgayBatDau,
-        HopDong_NgayKetThuc = @NgayKetThuc,
-        HopDong_LanKy = @LanKy,
-        HopDong_NoiDung = @NoiDung,
-        HopDong_LuongCanBan = @LuongCanBan,
-        HopDong_HeSoLuong = @HeSoLuong,
-        HopDong_NhanVien = @NhanVien
-    WHERE HopDong_SoHD = @SoHD;
-
-    IF @@ROWCOUNT > 0
-    BEGIN
-        SET @Message = 'Sửa hợp đồng thành công';
-    END
-    ELSE
-    BEGIN
-        SET @Message = 'Không tìm thấy hợp đồng để sửa';
-    END
-END
-GO
-
---Thủ tục xoá hợp đồng
-CREATE PROCEDURE XoaHopDong
-    @SoHD INT,
-    @Message NVARCHAR(100) OUTPUT
-AS
-BEGIN
-    SET NOCOUNT ON;
-    SET @Message = '';
-
-    DELETE FROM HopDong
-    WHERE HopDong_SoHD = @SoHD;
-
-    IF @@ROWCOUNT > 0
-    BEGIN
-        SET @Message = 'Xoá hợp đồng thành công';
-    END
-    ELSE
-    BEGIN
-        SET @Message = 'Không tìm thấy hợp đồng để xoá';
-    END
-END
-GO
 
 --Thủ tục tìm kiếm HD
 CREATE PROCEDURE TimKiemHopDong
@@ -2250,8 +2148,6 @@ BEGIN
     WHERE HopDong_SoHD = @SoHD
 END
 GO
-
-
 --------------------------------THỰC HIỆN TẠO USER PHÂN QUYỀN----------------------------------
 -- Tạo rule
 USE QLNS
@@ -2326,7 +2222,7 @@ GRANT EXECUTE ON SoNgayTrongThang TO QuanLyChamCong
 -- -- BangLuong
 GRANT EXECUTE ON TinhLuong TO QuanLyChamCong
 GRANT EXECUTE ON hienthiluong TO QuanLyChamCong
--- GRANT EXECUTE ON xoaluongtheokycong TO QuanLyChamCong
+GRANT EXECUTE ON xoaluongtheokycong TO QuanLyChamCong
 -- TangCa
 GRANT EXECUTE ON LayThongtinTangCa TO QuanLyChamCong
 GRANT EXECUTE ON [SuaTangCa] TO QuanLyChamCong
@@ -2512,3 +2408,4 @@ EXEC ThemTaiKhoan '20110111', '123', 0, 1 -- nhân viên tài liệu
 GO
 EXEC ThemTaiKhoan '20110112', '123', 0, 0 -- nhân viên chấm công
 GO
+select * from NhanVien
