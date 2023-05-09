@@ -317,7 +317,7 @@ namespace Cuoiki
                         phatsinh1.CommandType = CommandType.StoredProcedure;
                         phatsinh1.Parameters.Add("@KyCong", SqlDbType.Int).Value = kq;
                         phatsinh1.ExecuteNonQuery();
-                        ThaoTac = 1;
+                        ThaoTac = 0;
                         LoadData();
                         MessageBox.Show("Đã thực hiện phát sinh lại kỳ công");
                     }
