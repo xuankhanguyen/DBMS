@@ -70,12 +70,6 @@
     <Compile Include="FormChucVu.designer.cs">
       <DependentUpon>FormChucVu.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormChuongTrinh.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FormChuongTrinh.Designer.cs">
-      <DependentUpon>FormChuongTrinh.cs</DependentUpon>
-    </Compile>
     <Compile Include="FormDangNhap.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -87,12 +81,6 @@
     </Compile>
     <Compile Include="FormLoaiTangCa.designer.cs">
       <DependentUpon>FormLoaiTangCa.cs</DependentUpon>
-    </Compile>
-    <Compile Include="FormPhanQuyen.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FormPhanQuyen.designer.cs">
-      <DependentUpon>FormPhanQuyen.cs</DependentUpon>
     </Compile>
     <Compile Include="FormPhongBan.cs">
       <SubType>Form</SubType>
@@ -151,12 +139,6 @@
     <Compile Include="TrangChuHRM.Designer.cs">
       <DependentUpon>TrangChuHRM.cs</DependentUpon>
     </Compile>
-    <Compile Include="TrangChuNhanVien.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="TrangChuNhanVien.Designer.cs">
-      <DependentUpon>TrangChuNhanVien.cs</DependentUpon>
-    </Compile>
     <Compile Include="UngLuong.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -172,17 +154,11 @@
     <EmbeddedResource Include="FormChucVu.resx">
       <DependentUpon>FormChucVu.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormChuongTrinh.resx">
-      <DependentUpon>FormChuongTrinh.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="FormDangNhap.resx">
       <DependentUpon>FormDangNhap.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormLoaiTangCa.resx">
       <DependentUpon>FormLoaiTangCa.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FormPhanQuyen.resx">
-      <DependentUpon>FormPhanQuyen.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormPhongBan.resx">
       <DependentUpon>FormPhongBan.cs</DependentUpon>
@@ -220,9 +196,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="TrangChuHRM.resx">
       <DependentUpon>TrangChuHRM.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="TrangChuNhanVien.resx">
-      <DependentUpon>TrangChuNhanVien.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UngLuong.resx">
       <DependentUpon>UngLuong.cs</DependentUpon>
