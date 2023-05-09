@@ -1,3 +1,4 @@
+![Alt](https://github.com/HT-Tuan/DBMS/blob/main/Image.png?raw=true)
 # Đề tài: Xây dựng chương trình quản lý nhân viên
 ### Môn học: Hệ quản trị cơ sở dữ liệu
 ## Danh sách thành viên
