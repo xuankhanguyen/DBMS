@@ -309,6 +309,30 @@ BEGIN
     PRINT N'Đã thêm ứng lương có mã là: '+ CAST(@maxid AS VARCHAR)
 END;
 GO
+-- Bảng HopDong
+CREATE TRIGGER TGR_AutoIncrement_HopDong
+ON HopDong
+INSTEAD OF INSERT
+AS
+BEGIN
+    DECLARE @maxid int = 0
+    SELECT @maxid = MAX(HopDong_SoHD)
+    FROM HopDong
+    IF @maxid IS NULL SET @maxid = 1;
+    ELSE SET @maxid = @maxid + 1;
+    INSERT INTO HopDong
+        (HopDong_SoHD, HopDong_NgayBatDau, HopDong_NgayKetThuc, HopDong_LanKy, HopDong_NoiDung, HopDong_LuongCanBan, HopDong_HeSoLuong, HopDong_NhanVien)
+    SELECT @maxid, i.HopDong_NgayBatDau, i.HopDong_NgayKetThuc, i.HopDong_LanKy, i.HopDong_NoiDung, i.HopDong_LuongCanBan, i.HopDong_HeSoLuong, i.HopDong_NhanVien
+    FROM inserted i
+    UPDATE HopDong
+    SET HopDong_NgayBatDau = i.HopDong_NgayBatDau, HopDong_NgayKetThuc = i.HopDong_NgayKetThuc, HopDong_LanKy = i.HopDong_LanKy, HopDong_NoiDung = i.HopDong_NoiDung, HopDong_LuongCanBan = i.HopDong_LuongCanBan, HopDong_HeSoLuong = i.HopDong_HeSoLuong, HopDong_NhanVien = i.HopDong_NhanVien
+    FROM inserted i
+    WHERE HopDong.HopDong_SoHD = @maxid
+    PRINT N'Đã thêm hợp đồng có mã là: '+ CAST(@maxid AS VARCHAR)
+END;
+GO
+
+
 -- Bảng PhongBan
 CREATE TRIGGER TGR_PhongBan
 On PhongBan
@@ -390,7 +414,7 @@ BEGIN
     PRINT N'Số tài khoản: '+ CAST(@checkid AS VARCHAR)+N' đã tồn tại.'
 END;
 GO
--- Kiểm tra xem tháng được truyền vào có đúng không
+-- Kiểm tra xem tháng được truyền vào có đúng không 
 CREATE TRIGGER trg_Insert_KyCong
 ON KyCong
 AFTER INSERT, UPDATE
@@ -2408,4 +2432,4 @@ EXEC ThemTaiKhoan '20110111', '123', 0, 1 -- nhân viên tài liệu
 GO
 EXEC ThemTaiKhoan '20110112', '123', 0, 0 -- nhân viên chấm công
 GO
-select * from NhanVien
+

@@ -63,7 +63,6 @@
             // 
             this.splitContainer3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer3.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer3.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.splitContainer3.Name = "splitContainer3";
             this.splitContainer3.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -75,15 +74,16 @@
             // splitContainer3.Panel2
             // 
             this.splitContainer3.Panel2.Controls.Add(this.splitContainer2);
-            this.splitContainer3.Size = new System.Drawing.Size(1408, 858);
-            this.splitContainer3.SplitterDistance = 109;
-            this.splitContainer3.SplitterWidth = 5;
+            this.splitContainer3.Size = new System.Drawing.Size(939, 549);
+            this.splitContainer3.SplitterDistance = 69;
+            this.splitContainer3.SplitterWidth = 3;
             this.splitContainer3.TabIndex = 1;
             // 
             // splitContainer1
             // 
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer1.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.splitContainer1.Name = "splitContainer1";
             this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -100,9 +100,9 @@
             this.splitContainer1.Panel2.Controls.Add(this.label2);
             this.splitContainer1.Panel2.Controls.Add(this.txtSoTK);
             this.splitContainer1.Panel2.Controls.Add(this.label0);
-            this.splitContainer1.Size = new System.Drawing.Size(1408, 109);
-            this.splitContainer1.SplitterDistance = 54;
-            this.splitContainer1.SplitterWidth = 5;
+            this.splitContainer1.Size = new System.Drawing.Size(939, 69);
+            this.splitContainer1.SplitterDistance = 34;
+            this.splitContainer1.SplitterWidth = 3;
             this.splitContainer1.TabIndex = 0;
             // 
             // comboBox2
@@ -115,10 +115,9 @@
             this.comboBox2.Items.AddRange(new object[] {
             "TaiLieu",
             "ChamCong"});
-            this.comboBox2.Location = new System.Drawing.Point(797, 0);
-            this.comboBox2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.comboBox2.Location = new System.Drawing.Point(532, 0);
             this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(280, 50);
+            this.comboBox2.Size = new System.Drawing.Size(188, 37);
             this.comboBox2.TabIndex = 26;
             // 
             // label1
@@ -126,10 +125,9 @@
             this.label1.Dock = System.Windows.Forms.DockStyle.Left;
             this.label1.Font = new System.Drawing.Font("Microsoft Tai Le", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.SteelBlue;
-            this.label1.Location = new System.Drawing.Point(573, 0);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Location = new System.Drawing.Point(383, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(224, 54);
+            this.label1.Size = new System.Drawing.Size(149, 34);
             this.label1.TabIndex = 23;
             this.label1.Text = "Loại ";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -144,10 +142,9 @@
             this.comboBox1.Items.AddRange(new object[] {
             "Admin",
             "NhanVien"});
-            this.comboBox1.Location = new System.Drawing.Point(273, 0);
-            this.comboBox1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.comboBox1.Location = new System.Drawing.Point(182, 0);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(300, 50);
+            this.comboBox1.Size = new System.Drawing.Size(201, 37);
             this.comboBox1.TabIndex = 25;
             this.comboBox1.SelectedValueChanged += new System.EventHandler(this.comboBox1_SelectedValueChanged);
             // 
@@ -158,9 +155,8 @@
             this.label3.Font = new System.Drawing.Font("Microsoft Tai Le", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.Color.SteelBlue;
             this.label3.Location = new System.Drawing.Point(0, 0);
-            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(273, 54);
+            this.label3.Size = new System.Drawing.Size(182, 34);
             this.label3.TabIndex = 24;
             this.label3.Text = "Phân quyền";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -168,10 +164,11 @@
             // txtMatKhau
             // 
             this.txtMatKhau.Dock = System.Windows.Forms.DockStyle.Left;
-            this.txtMatKhau.Location = new System.Drawing.Point(797, 0);
+            this.txtMatKhau.Location = new System.Drawing.Point(532, 0);
+            this.txtMatKhau.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.txtMatKhau.Multiline = true;
             this.txtMatKhau.Name = "txtMatKhau";
-            this.txtMatKhau.Size = new System.Drawing.Size(280, 50);
+            this.txtMatKhau.Size = new System.Drawing.Size(188, 32);
             this.txtMatKhau.TabIndex = 28;
             this.txtMatKhau.UseSystemPasswordChar = true;
             // 
@@ -180,10 +177,9 @@
             this.label2.Dock = System.Windows.Forms.DockStyle.Left;
             this.label2.Font = new System.Drawing.Font("Microsoft Tai Le", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.SteelBlue;
-            this.label2.Location = new System.Drawing.Point(573, 0);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Location = new System.Drawing.Point(383, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(224, 50);
+            this.label2.Size = new System.Drawing.Size(149, 32);
             this.label2.TabIndex = 27;
             this.label2.Text = "Mật khẩu";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -191,10 +187,11 @@
             // txtSoTK
             // 
             this.txtSoTK.Dock = System.Windows.Forms.DockStyle.Left;
-            this.txtSoTK.Location = new System.Drawing.Point(273, 0);
+            this.txtSoTK.Location = new System.Drawing.Point(182, 0);
+            this.txtSoTK.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.txtSoTK.Multiline = true;
             this.txtSoTK.Name = "txtSoTK";
-            this.txtSoTK.Size = new System.Drawing.Size(300, 50);
+            this.txtSoTK.Size = new System.Drawing.Size(201, 32);
             this.txtSoTK.TabIndex = 26;
             // 
             // label0
@@ -204,9 +201,8 @@
             this.label0.Font = new System.Drawing.Font("Microsoft Tai Le", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label0.ForeColor = System.Drawing.Color.SteelBlue;
             this.label0.Location = new System.Drawing.Point(0, 0);
-            this.label0.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label0.Name = "label0";
-            this.label0.Size = new System.Drawing.Size(273, 50);
+            this.label0.Size = new System.Drawing.Size(182, 32);
             this.label0.TabIndex = 25;
             this.label0.Text = "Tài khoản";
             this.label0.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -215,7 +211,6 @@
             // 
             this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer2.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.splitContainer2.Name = "splitContainer2";
             // 
             // splitContainer2.Panel1
@@ -230,8 +225,9 @@
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.dtGridView);
-            this.splitContainer2.Size = new System.Drawing.Size(1408, 744);
-            this.splitContainer2.SplitterDistance = 131;
+            this.splitContainer2.Size = new System.Drawing.Size(939, 477);
+            this.splitContainer2.SplitterDistance = 87;
+            this.splitContainer2.SplitterWidth = 3;
             this.splitContainer2.TabIndex = 0;
             // 
             // btnHuy
@@ -244,10 +240,9 @@
             this.btnHuy.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnHuy.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnHuy.ForeColor = System.Drawing.Color.DarkViolet;
-            this.btnHuy.Location = new System.Drawing.Point(0, 324);
-            this.btnHuy.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnHuy.Location = new System.Drawing.Point(0, 207);
             this.btnHuy.Name = "btnHuy";
-            this.btnHuy.Size = new System.Drawing.Size(131, 108);
+            this.btnHuy.Size = new System.Drawing.Size(87, 69);
             this.btnHuy.TabIndex = 32;
             this.btnHuy.Text = "Hủy";
             this.btnHuy.UseVisualStyleBackColor = true;
@@ -264,10 +259,9 @@
             this.btnXoa.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnXoa.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnXoa.ForeColor = System.Drawing.Color.Blue;
-            this.btnXoa.Location = new System.Drawing.Point(0, 216);
-            this.btnXoa.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnXoa.Location = new System.Drawing.Point(0, 138);
             this.btnXoa.Name = "btnXoa";
-            this.btnXoa.Size = new System.Drawing.Size(131, 108);
+            this.btnXoa.Size = new System.Drawing.Size(87, 69);
             this.btnXoa.TabIndex = 31;
             this.btnXoa.Text = "Xóa";
             this.btnXoa.UseVisualStyleBackColor = true;
@@ -284,10 +278,9 @@
             this.btnSua.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSua.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSua.ForeColor = System.Drawing.Color.Red;
-            this.btnSua.Location = new System.Drawing.Point(0, 108);
-            this.btnSua.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnSua.Location = new System.Drawing.Point(0, 69);
             this.btnSua.Name = "btnSua";
-            this.btnSua.Size = new System.Drawing.Size(131, 108);
+            this.btnSua.Size = new System.Drawing.Size(87, 69);
             this.btnSua.TabIndex = 30;
             this.btnSua.Text = "Sửa";
             this.btnSua.UseVisualStyleBackColor = true;
@@ -304,9 +297,8 @@
             this.btnAdd.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAdd.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
             this.btnAdd.Location = new System.Drawing.Point(0, 0);
-            this.btnAdd.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(131, 108);
+            this.btnAdd.Size = new System.Drawing.Size(87, 69);
             this.btnAdd.TabIndex = 29;
             this.btnAdd.Text = "Thêm";
             this.btnAdd.UseVisualStyleBackColor = true;
@@ -319,23 +311,21 @@
             this.dtGridView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dtGridView.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnKeystroke;
             this.dtGridView.Location = new System.Drawing.Point(0, 0);
-            this.dtGridView.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.dtGridView.Name = "dtGridView";
             this.dtGridView.RowHeadersWidth = 82;
             this.dtGridView.RowTemplate.Height = 33;
-            this.dtGridView.Size = new System.Drawing.Size(1273, 744);
+            this.dtGridView.Size = new System.Drawing.Size(849, 477);
             this.dtGridView.TabIndex = 0;
             this.dtGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtGridView_CellClick);
             // 
             // FormTaiKhoan
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Silver;
-            this.ClientSize = new System.Drawing.Size(1408, 858);
+            this.ClientSize = new System.Drawing.Size(939, 549);
             this.ControlBox = false;
             this.Controls.Add(this.splitContainer3);
-            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "FormTaiKhoan";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Tài khoản";

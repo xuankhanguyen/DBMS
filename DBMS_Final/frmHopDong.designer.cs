@@ -220,7 +220,7 @@ namespace ProjectHRM
             // 
             this.btn_huy.Dock = System.Windows.Forms.DockStyle.Right;
             this.btn_huy.Font = new System.Drawing.Font("Segoe UI", 14F);
-            this.btn_huy.Location = new System.Drawing.Point(114, 0);
+            this.btn_huy.Location = new System.Drawing.Point(113, 0);
             this.btn_huy.Margin = new System.Windows.Forms.Padding(3, 1, 3, 1);
             this.btn_huy.Name = "btn_huy";
             this.btn_huy.Size = new System.Drawing.Size(126, 71);
@@ -233,7 +233,7 @@ namespace ProjectHRM
             // 
             this.btn_sua.Dock = System.Windows.Forms.DockStyle.Right;
             this.btn_sua.Font = new System.Drawing.Font("Segoe UI", 14F);
-            this.btn_sua.Location = new System.Drawing.Point(-129, 0);
+            this.btn_sua.Location = new System.Drawing.Point(-130, 0);
             this.btn_sua.Margin = new System.Windows.Forms.Padding(3, 1, 3, 1);
             this.btn_sua.Name = "btn_sua";
             this.btn_sua.Size = new System.Drawing.Size(123, 71);
@@ -246,7 +246,7 @@ namespace ProjectHRM
             // 
             this.btn_xoa.Dock = System.Windows.Forms.DockStyle.Right;
             this.btn_xoa.Font = new System.Drawing.Font("Segoe UI", 14F);
-            this.btn_xoa.Location = new System.Drawing.Point(634, 0);
+            this.btn_xoa.Location = new System.Drawing.Point(635, 0);
             this.btn_xoa.Margin = new System.Windows.Forms.Padding(3, 1, 3, 1);
             this.btn_xoa.Name = "btn_xoa";
             this.btn_xoa.Size = new System.Drawing.Size(153, 71);
@@ -270,6 +270,7 @@ namespace ProjectHRM
             // 
             // dgvNhanVien
             // 
+            this.dgvNhanVien.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvNhanVien.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvNhanVien.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvNhanVien.Location = new System.Drawing.Point(0, 0);
@@ -405,7 +406,7 @@ namespace ProjectHRM
             this.splitContainer3.Panel2.Controls.Add(this.txtSoHD);
             this.splitContainer3.Panel2.Controls.Add(this.label4);
             this.splitContainer3.Size = new System.Drawing.Size(1030, 71);
-            this.splitContainer3.SplitterDistance = 240;
+            this.splitContainer3.SplitterDistance = 239;
             this.splitContainer3.SplitterWidth = 3;
             this.splitContainer3.TabIndex = 0;
             // 
@@ -413,7 +414,7 @@ namespace ProjectHRM
             // 
             this.btn_Load.Dock = System.Windows.Forms.DockStyle.Right;
             this.btn_Load.Font = new System.Drawing.Font("Segoe UI", 14F);
-            this.btn_Load.Location = new System.Drawing.Point(-6, 0);
+            this.btn_Load.Location = new System.Drawing.Point(-7, 0);
             this.btn_Load.Name = "btn_Load";
             this.btn_Load.Size = new System.Drawing.Size(120, 71);
             this.btn_Load.TabIndex = 54;

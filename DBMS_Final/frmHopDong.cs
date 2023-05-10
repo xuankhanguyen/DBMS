@@ -156,7 +156,7 @@ namespace ProjectHRM
                 command.Connection = connection;
                 // Thiết lập loại lệnh là thủ tục
                 command.CommandType = CommandType.StoredProcedure;
-      
+
                 // Thiết lập tên thủ tục là SuaHopDong
                 command.CommandText = "SuaHopDong";
                 // Khởi tạo các đối tượng tham số
@@ -183,26 +183,26 @@ namespace ProjectHRM
                     MessageBox.Show("Lỗi: " + ex.Message);
                 }
             }
-        } 
-            private void btn_sua_Click(object sender, EventArgs e)
+        }
+        private void btn_sua_Click(object sender, EventArgs e)
+        {
+
+            // Lấy các thông tin từ các textbox và combobox
+            int soHD = int.Parse(txtSoHD.Text);
+            DateTime ngayBatDau = dtpNgayBatDau.Value;
+            DateTime ngayKetThuc = dtpNgayKetThuc.Value;
+            int lanKy = int.Parse(txtLanKy.Text);
+            string noiDung = txtNoiDung.Text;
+            float luongCanBan = float.Parse(txtLuongCanBan.Text);
+            // Lấy giá trị của combobox heSoLuong
+            int heSoLuong = (int)comboBox2.SelectedValue;
+
+            // Lấy giá trị của combobox nhanVien
+            int nhanVien = (int)comboBox1.SelectedValue;
+
+            // Sử dụng khối using để đảm bảo đóng kết nối khi không cần thiết
+            using (SqlConnection connection = DBUtils.GetDBConnection())
             {
-
-                // Lấy các thông tin từ các textbox và combobox
-                 int soHD = int.Parse(txtSoHD.Text);
-                DateTime ngayBatDau = dtpNgayBatDau.Value;
-                DateTime ngayKetThuc = dtpNgayKetThuc.Value;
-                int lanKy = int.Parse(txtLanKy.Text);
-                string noiDung = txtNoiDung.Text;
-                float luongCanBan = float.Parse(txtLuongCanBan.Text);
-                // Lấy giá trị của combobox heSoLuong
-                int heSoLuong = (int)comboBox2.SelectedValue;
-
-                // Lấy giá trị của combobox nhanVien
-                int nhanVien = (int)comboBox1.SelectedValue;
-
-                // Sử dụng khối using để đảm bảo đóng kết nối khi không cần thiết
-                using (SqlConnection connection = DBUtils.GetDBConnection())
-                {
                 // Mở kết nối
                 connection.Open();
 
@@ -229,7 +229,7 @@ namespace ProjectHRM
 
                 // Thêm các tham số vào lệnh
                 command.Parameters.AddRange(parameters);
-                
+
                 try
                 {
                     // Thực thi lệnh
@@ -244,10 +244,10 @@ namespace ProjectHRM
                 }
                 LoadData();
                 HienThiVaocomboBox();
-                }
             }
+        }
 
-         private void btn_huy_Click(object sender, EventArgs e)
+        private void btn_huy_Click(object sender, EventArgs e)
          {
 
             this.Close();
