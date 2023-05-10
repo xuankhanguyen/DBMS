@@ -1701,49 +1701,51 @@ CREATE PROCEDURE [ThemUngLuong]
     @ghichu NVARCHAR(50),
     @nhanvien NVARCHAR(50),
     @nam INT,
-    @thang INT,
-    @ketqua INT OUTPUT
+    @thang INT
 AS
 BEGIN
     SET NOCOUNT ON;
-    DECLARE @nhanvien_id INT, @kycong_makycon INT
+    DECLARE @nhanvien_id INT, @kycong_makycon INT;
 
     SELECT @nhanvien_id = NhanVien_ID
     FROM NhanVien
-    WHERE NhanVien_HoTen = @nhanvien
+    WHERE NhanVien_HoTen = @nhanvien;
+
     SELECT @kycong_makycon = kc.KyCong_MaKyCong
     FROM KyCong kc
-    WHERE kc.KyCong_Nam = @nam AND kc.KyCong_Thang = @thang
+    WHERE kc.KyCong_Nam = @nam AND kc.KyCong_Thang = @thang;
 
-    IF NOT EXISTS(SELECT *
-    FROM UngLuong
-    WHERE UngLuong_Ngay = @ngay AND UngLuong_NhanVien = @nhanvien_id AND UngLuong_KyCong = @kycong_makycon)
+    IF EXISTS (SELECT *
+               FROM UngLuong
+               WHERE UngLuong_Ngay = @ngay
+                 AND UngLuong_NhanVien = @nhanvien_id
+                 AND UngLuong_KyCong = @kycong_makycon)
     BEGIN
-        BEGIN TRANSACTION;
-
-        BEGIN TRY
-            INSERT INTO UngLuong
-            (UngLuong_Ngay, UngLuong_SoTien, UngLuong_TrangThaiXoa, UngLuong_GhiChu, UngLuong_NhanVien, UngLuong_KyCong)
-        VALUES
-            (
-                @ngay,
-                @tien,
-                0,
-                @ghichu,
-                @nhanvien_id,
-                @kycong_makycon
-            );
-			SET @ketqua=1;
-            COMMIT TRANSACTION;
-        END TRY
-
-        BEGIN CATCH
-            ROLLBACK TRANSACTION;
-			SET @ketqua=0;
-
-        END CATCH
+        THROW 51000, 'Dữ liệu đã tồn tại',1;
+        RETURN;
     END
+
+    BEGIN TRANSACTION;
+    BEGIN TRY
+        INSERT INTO UngLuong
+        (UngLuong_Ngay, UngLuong_SoTien, UngLuong_TrangThaiXoa, UngLuong_GhiChu, UngLuong_NhanVien, UngLuong_KyCong)
+        VALUES
+        (
+            @ngay,
+            @tien,
+            0,
+            @ghichu,
+            @nhanvien_id,
+            @kycong_makycon
+        );
+        COMMIT TRANSACTION;
+    END TRY
+BEGIN CATCH
+        ROLLBACK TRANSACTION;
+       THROW 50000, 'Không thể thêm ứng lương',1;
+    END CATCH
 END
+
 
 GO
 CREATE PROC [SuaUngLuong]
@@ -1824,42 +1826,70 @@ BEGIN
     SET NOCOUNT ON;
     DECLARE @nhanvien_id INT;
     DECLARE @loaitc_id INT;
-    -- Kiểm tra xem có bản ghi nào trong bảng TangCa trùng với các giá trị truyền vào không
-    IF EXISTS (SELECT *
-    FROM TangCa
-    WHERE TangCa_NgayTangCa = @ngay
-        AND TangCa_NhanVien = (SELECT NhanVien_ID
-        FROM NhanVien
-        WHERE NhanVien_HoTen = @tennv)
-        AND TangCa_KyCong = (SELECT kc.KyCong_MaKyCong
-        FROM KyCong kc
-        WHERE kc.KyCong_Thang = @thangkycong AND kc.KyCong_Nam = @namkycong))
+	-- Kiểm tra xem dữ liệu đã tồn tại hay chưa
+IF EXISTS (
+        SELECT *
+        FROM TangCa
+        WHERE TangCa_NgayTangCa = @ngay
+            AND TangCa_NhanVien = (SELECT NhanVien_ID
+                                   FROM NhanVien
+                                   WHERE NhanVien_HoTen = @tennv)
+            AND TangCa_KyCong = (SELECT kc.KyCong_MaKyCong
+                                 FROM KyCong kc
+                                 WHERE kc.KyCong_Thang = @thangkycong AND kc.KyCong_Nam = @namkycong)
+            -- Thêm điều kiện kiểm tra trùng tên loại tăng ca
+            AND TangCa_LoaiTangCa = (SELECT loai.LoaiTangCa_TenLoai
+                                     FROM LoaiTangCa loai
+                                     WHERE loai.LoaiTangCa_TenLoai = @tenloaitc)
+            -- Thêm điều kiện kiểm tra trùng giờ
+            AND TangCa_SoGio = @gio
+    )
     BEGIN
-        BEGIN TRANSACTION;
-        BEGIN TRY
-        UPDATE TangCa
-        SET TangCa_NgayTangCa = @ngay, 
-            TangCa_SoGio = @gio, 
-            TangCa_NhanVien = (SELECT NhanVien_ID
-        FROM NhanVien
-        WHERE NhanVien_HoTen = @tennv), 
-            TangCa_LoaiTangCa = (SELECT ltc.LoaiTangCa_ID
-        FROM LoaiTangCa ltc
-        WHERE ltc.LoaiTangCa_TenLoai = @tenloaitc),
-            TangCa_KyCong = (SELECT kc.KyCong_MaKyCong
-        FROM KyCong kc
-        WHERE kc.KyCong_Thang = @thangkycong AND kc.KyCong_Nam = @namkycong)
-        WHERE TangCa_ID = @id;
-
-        COMMIT TRANSACTION;
-    END TRY
-    BEGIN CATCH
-        ROLLBACK TRANSACTION;
-        THROW;
-    END CATCH
+        THROW 51000, 'Dữ liệu đã tồn tại', 1;
+        RETURN;
     END
 
+-- Kiểm tra xem có bản ghi nào trong bảng TangCa trùng với các giá trị truyền vào không
+IF EXISTS (SELECT *
+            FROM TangCa
+            WHERE TangCa_NgayTangCa = @ngay
+                AND TangCa_NhanVien = (SELECT NhanVien_ID
+                                        FROM NhanVien
+                                        WHERE NhanVien_HoTen = @tennv)
+                AND TangCa_KyCong = (SELECT kc.KyCong_MaKyCong
+                                        FROM KyCong kc
+                                        WHERE kc.KyCong_Thang = @thangkycong AND kc.KyCong_Nam = @namkycong)
+                AND TangCa_ID <> @id) -- Kiểm tra khác với ID cần sửa để tránh bị trùng
+BEGIN
+    THROW 51000, 'Đã trùng dữ liệu', 1;
+    RETURN;
 END
+
+BEGIN TRANSACTION;
+BEGIN TRY
+    UPDATE TangCa
+    SET TangCa_NgayTangCa = @ngay, 
+        TangCa_SoGio = @gio, 
+        TangCa_NhanVien = (SELECT NhanVien_ID
+                            FROM NhanVien
+                            WHERE NhanVien_HoTen = @tennv), 
+        TangCa_LoaiTangCa = (SELECT ltc.LoaiTangCa_ID
+                                FROM LoaiTangCa ltc
+                                WHERE ltc.LoaiTangCa_TenLoai = @tenloaitc),
+        TangCa_KyCong = (SELECT kc.KyCong_MaKyCong
+                            FROM KyCong kc
+                            WHERE kc.KyCong_Thang = @thangkycong AND kc.KyCong_Nam = @namkycong)
+    WHERE TangCa_ID = @id;
+
+    COMMIT TRANSACTION;
+END TRY
+BEGIN CATCH
+    ROLLBACK TRANSACTION;
+    THROW 50000, 'Lỗi khi thực hiện cập nhật dữ liệu', 1;
+END CATCH
+end
+
+
 GO
 
 CREATE PROC [tangcatheoid]
@@ -1926,9 +1956,10 @@ BEGIN
 
     BEGIN CATCH
         ROLLBACK TRANSACTION;
-        THROW;
+        THROW 50000, 'Lỗi', 1;
     END CATCH
 END
+
 
 GO
 CREATE PROC [XoaTangCa]

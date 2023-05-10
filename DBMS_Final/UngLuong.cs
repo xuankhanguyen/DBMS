@@ -181,43 +181,27 @@ namespace Cuoiki
                 {
                     con.Open();
                 }
-                try{
-                    SqlCommand command = new SqlCommand();
-                    command.CommandType = CommandType.StoredProcedure;
-                    command.CommandText = "ThemUngLuong";
-                    command.Connection = con;
-                    command.Parameters.Add("@ngay", SqlDbType.Int).Value = dateTimePickerungluong.Value.Day;
-                    command.Parameters.Add("@tien", SqlDbType.Float).Value = comboBoxtienung.Text;
-                    command.Parameters.Add("@ghichu", SqlDbType.NVarChar).Value = textBoxGhiChu.Text;
-                    command.Parameters.Add("@nhanvien", SqlDbType.NVarChar).Value = comboBoxnhanvien.Text;
-                    command.Parameters.Add("@nam", SqlDbType.Int).Value = dateTimePickerungluong.Value.Year;
-                    command.Parameters.Add("@thang", SqlDbType.Int).Value = dateTimePickerungluong.Value.Month;
-                    SqlParameter ketqua = command.Parameters.Add("@ketqua", SqlDbType.Int);
-                    ketqua.Direction = ParameterDirection.Output;
-                    command.ExecuteNonQuery();
-                
-                object resultObj = ketqua.Value;
-                if (resultObj != DBNull.Value)
+                SqlCommand command = new SqlCommand();
+                command.CommandType = CommandType.StoredProcedure;
+                command.CommandText = "ThemUngLuong";
+                command.Connection = con;
+                command.Parameters.Add("@ngay", SqlDbType.Int).Value = dateTimePickerungluong.Value.Day;
+                command.Parameters.Add("@tien", SqlDbType.Float).Value = comboBoxtienung.Text;
+                command.Parameters.Add("@ghichu", SqlDbType.NVarChar).Value = textBoxGhiChu.Text;
+                command.Parameters.Add("@nhanvien", SqlDbType.NVarChar).Value = comboBoxnhanvien.Text;
+                command.Parameters.Add("@nam", SqlDbType.Int).Value = dateTimePickerungluong.Value.Year;
+                command.Parameters.Add("@thang", SqlDbType.Int).Value = dateTimePickerungluong.Value.Month;
+                try
                 {
-                    int result = (int)resultObj;
-                    if (result == 1)
-                    {
-                        MessageBox.Show("Thêm thành công");
-                    }
-                    else
-                    {
-                        MessageBox.Show("Thêm thất bại");
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("Giá trị  không hợp lệ");
-                }
-                hienthithongtinungluong();
+                    int n = command.ExecuteNonQuery();
+                    MessageBox.Show("Thành Công");
+                    hienthithongtinungluong();
+
                 }
                 catch (SqlException ex)
                 {
-                    MessageBox.Show(ex.Message);
+                    MessageBox.Show(ex.Message, "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
                 }
             }
             else if (buttonSuaUngLuong.Enabled == true)
@@ -230,7 +214,7 @@ namespace Cuoiki
                 {
                     con.Open();
                 }
-                try{
+               
                 SqlCommand command = new SqlCommand();
                 command.CommandType = CommandType.StoredProcedure;
                 command.CommandText = "SuaUngLuong";
@@ -244,22 +228,18 @@ namespace Cuoiki
                 command.Parameters.Add("@nam", SqlDbType.Int).Value = dateTimePickerungluong.Value.Year;
                 command.Parameters.Add("@thang", SqlDbType.Int).Value = dateTimePickerungluong.Value.Month;
                 int n = command.ExecuteNonQuery();
-               
-                if (n > 0)
-                {
-                    MessageBox.Show("Thanh Cong");
-                    hienthithongtinungluong();
 
-                }
-                else
-                {
-                    MessageBox.Show("That Bai");
-                }
-                }
-                catch (SqlException ex)
-                {
-                    MessageBox.Show(ex.Message);
-                }
+                    if (n > 0)
+                    {
+                        MessageBox.Show("Thanh Cong");
+                        hienthithongtinungluong();
+
+                    }
+                    else
+                    {
+                        MessageBox.Show("That Bai");
+                    }
+
             }
             else if (buttonXoaUngLuong.Enabled == true)
             {
@@ -271,24 +251,22 @@ namespace Cuoiki
                 {
                     con.Open();
                 }
-                try{
-                SqlCommand command = new SqlCommand();
-                command.CommandType = CommandType.StoredProcedure;
-                command.CommandText = "XoaUngLuong";
-                command.Connection = con;
-                command.Parameters.Add("@id", SqlDbType.Int).Value = textBoxIDUngLuong.Text;
-                int n = command.ExecuteNonQuery();
-                
-                if (n > 0)
+                try
                 {
-                    MessageBox.Show("Thanh Cong");
-                    hienthithongtinungluong();
+                    SqlCommand command = new SqlCommand();
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.CommandText = "XoaUngLuong";
+                    command.Connection = con;
+                    command.Parameters.Add("@id", SqlDbType.Int).Value = textBoxIDUngLuong.Text;
+                    int n = command.ExecuteNonQuery();
 
-                }
-                else
-                {
-                    MessageBox.Show("That Bai");
-                }
+                    if (n > 0)
+                    {
+                        MessageBox.Show("Thanh Cong");
+                        hienthithongtinungluong();
+
+
+                    }
                 }
                 catch (SqlException ex)
                 {

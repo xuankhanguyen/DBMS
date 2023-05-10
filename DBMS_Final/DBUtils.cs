@@ -13,7 +13,7 @@ namespace Cuoiki
         public static string password = "";
         public static SqlConnection GetDBConnection()
         {
-            string datasource = @"DESKTOP-H2SC4QA\MSSQLSERVER02";
+            string datasource = @"LAPTOP-SH0M4EMV\SQLEXPRESS";
             string database = "QLNS";
 
             string connString = @"Data Source=" + datasource + ";Initial Catalog="
