@@ -308,7 +308,7 @@ namespace ProjectHRM
             this.dgvDanhSachNhanVien.Name = "dgvDanhSachNhanVien";
             this.dgvDanhSachNhanVien.RowHeadersWidth = 62;
             this.dgvDanhSachNhanVien.RowTemplate.Height = 33;
-            this.dgvDanhSachNhanVien.Size = new System.Drawing.Size(1005, 243);
+            this.dgvDanhSachNhanVien.Size = new System.Drawing.Size(1031, 243);
             this.dgvDanhSachNhanVien.TabIndex = 94;
             this.dgvDanhSachNhanVien.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvDanhSachNhanVien_CellClick);
             // 
@@ -354,7 +354,8 @@ namespace ProjectHRM
             // 
             // splitContainer1
             // 
-            this.splitContainer1.Location = new System.Drawing.Point(1, 1);
+            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer1.Location = new System.Drawing.Point(0, 0);
             this.splitContainer1.Name = "splitContainer1";
             this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -365,8 +366,8 @@ namespace ProjectHRM
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.splitContainer4);
-            this.splitContainer1.Size = new System.Drawing.Size(1005, 698);
-            this.splitContainer1.SplitterDistance = 256;
+            this.splitContainer1.Size = new System.Drawing.Size(1031, 703);
+            this.splitContainer1.SplitterDistance = 257;
             this.splitContainer1.TabIndex = 98;
             // 
             // splitContainer2
@@ -390,8 +391,8 @@ namespace ProjectHRM
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.splitContainer3);
-            this.splitContainer2.Size = new System.Drawing.Size(1005, 256);
-            this.splitContainer2.SplitterDistance = 311;
+            this.splitContainer2.Size = new System.Drawing.Size(1031, 257);
+            this.splitContainer2.SplitterDistance = 319;
             this.splitContainer2.SplitterWidth = 3;
             this.splitContainer2.TabIndex = 0;
             // 
@@ -425,8 +426,8 @@ namespace ProjectHRM
             // splitContainer3.Panel2
             // 
             this.splitContainer3.Panel2.Controls.Add(this.splitContainer6);
-            this.splitContainer3.Size = new System.Drawing.Size(691, 256);
-            this.splitContainer3.SplitterDistance = 352;
+            this.splitContainer3.Size = new System.Drawing.Size(709, 257);
+            this.splitContainer3.SplitterDistance = 361;
             this.splitContainer3.SplitterWidth = 3;
             this.splitContainer3.TabIndex = 0;
             // 
@@ -454,7 +455,7 @@ namespace ProjectHRM
             // splitContainer6.Panel2
             // 
             this.splitContainer6.Panel2.Controls.Add(this.btn_Browse);
-            this.splitContainer6.Size = new System.Drawing.Size(336, 256);
+            this.splitContainer6.Size = new System.Drawing.Size(345, 257);
             this.splitContainer6.SplitterDistance = 208;
             this.splitContainer6.TabIndex = 0;
             // 
@@ -486,8 +487,8 @@ namespace ProjectHRM
             this.splitContainer4.Panel2.Controls.Add(this.btn_huy);
             this.splitContainer4.Panel2.Controls.Add(this.btn_sua);
             this.splitContainer4.Panel2.Controls.Add(this.btn_them);
-            this.splitContainer4.Size = new System.Drawing.Size(1005, 438);
-            this.splitContainer4.SplitterDistance = 366;
+            this.splitContainer4.Size = new System.Drawing.Size(1031, 442);
+            this.splitContainer4.SplitterDistance = 369;
             this.splitContainer4.TabIndex = 0;
             // 
             // splitContainer5
@@ -508,7 +509,7 @@ namespace ProjectHRM
             // splitContainer5.Panel2
             // 
             this.splitContainer5.Panel2.Controls.Add(this.dgvDanhSachNhanVien);
-            this.splitContainer5.Size = new System.Drawing.Size(1005, 366);
+            this.splitContainer5.Size = new System.Drawing.Size(1031, 366);
             this.splitContainer5.SplitterDistance = 119;
             this.splitContainer5.TabIndex = 0;
             // 
@@ -565,7 +566,7 @@ namespace ProjectHRM
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
-            this.ClientSize = new System.Drawing.Size(1005, 675);
+            this.ClientSize = new System.Drawing.Size(1031, 703);
             this.Controls.Add(this.splitContainer1);
             this.Margin = new System.Windows.Forms.Padding(3, 1, 3, 1);
             this.Name = "frmNhanVien";

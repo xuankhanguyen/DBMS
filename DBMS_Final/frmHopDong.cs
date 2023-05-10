@@ -28,7 +28,6 @@ namespace ProjectHRM
             int lanKy = int.Parse(txtLanKy.Text);
             string noiDung = txtNoiDung.Text;
             float luongCanBan = float.Parse(txtLuongCanBan.Text);
-
             // Lấy giá trị của combobox heSoLuong
             int heSoLuong = (int)comboBox2.SelectedValue;
 
@@ -317,43 +316,43 @@ namespace ProjectHRM
             // Load lại dữ liệu trong DataGridView
             LoadData();
         }
-
-        private void btn_timkiem_Click(object sender, EventArgs e)
+        private void btn_TimKiem_Click_1(object sender, EventArgs e)
         {
-            int soHD = int.Parse(txtSoHD.Text);
-            try{
-            using (SqlConnection connection = DBUtils.GetDBConnection())
-            {
-                connection.Open();
 
-                string query = "SELECT * FROM dbo.TimKiemHopDong(@SoHD)";
-                using (SqlCommand command = new SqlCommand(query, connection))
+            try
+            {
+                using (SqlConnection conn = DBUtils.GetDBConnection())
                 {
-                    command.Parameters.AddWithValue("@SoHD", soHD);
-                    SqlDataAdapter adapter = new SqlDataAdapter(command);
-                    DataTable dataTable = new DataTable();
-                    adapter.Fill(dataTable);
-                    dgvNhanVien.DataSource = dataTable;
+                    using (SqlCommand cmd = new SqlCommand("TimKiemHopDong", conn))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+
+                        // Thêm tham số @chucVu_ID vào command
+                        cmd.Parameters.Add("@SoHD", SqlDbType.Int).Value = int.Parse(textBox1.Text);
+
+                        conn.Open();
+
+                        using (SqlDataAdapter adapter = new SqlDataAdapter(cmd))
+                        {
+                            DataTable dt = new DataTable();
+                            adapter.Fill(dt);
+
+                            // Hiển thị kết quả trả về trên DataGridView
+                            dgvNhanVien.DataSource = dt;
+                        }
+                    }
                 }
-            }
             }
             catch (SqlException ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.Message, "Error");
             }
         }
 
+
         private void dgvNhanVien_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            // Lấy thông tin của ô được chọn
-            DataGridViewRow row = dgvNhanVien.Rows[e.RowIndex];
-            txtSoHD.Text = row.Cells["HopDong_SoHD"].Value.ToString();
-            dtpNgayBatDau.Value = DateTime.Parse(row.Cells["HopDong_NgayBatDau"].Value.ToString());
-            dtpNgayKetThuc.Value = DateTime.Parse(row.Cells["HopDong_NgayKetThuc"].Value.ToString());
-            txtLanKy.Text = row.Cells["HopDong_LanKy"].Value.ToString();
-            txtNoiDung.Text = row.Cells["HopDong_NoiDung"].Value.ToString();
-            comboBox1.Text = row.Cells["HopDong_HeSoLuong"].Value.ToString();
-            comboBox2.Text = row.Cells["HopDong_NhanVien"].Value.ToString();
+       
         }
 
         private void label5_Click(object sender, EventArgs e)
@@ -390,5 +389,12 @@ namespace ProjectHRM
         {
 
         }
+
+        private void dgvNhanVien_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        
     }
 }

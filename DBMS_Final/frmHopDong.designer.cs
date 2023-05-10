@@ -280,6 +280,7 @@ namespace ProjectHRM
             this.dgvNhanVien.RowTemplate.Height = 33;
             this.dgvNhanVien.Size = new System.Drawing.Size(639, 511);
             this.dgvNhanVien.TabIndex = 51;
+            this.dgvNhanVien.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvNhanVien_CellContentClick);
             // 
             // splitContainer1
             // 
@@ -376,6 +377,7 @@ namespace ProjectHRM
             this.btn_TimKiem.TabIndex = 55;
             this.btn_TimKiem.Text = "Tìm Kiếm";
             this.btn_TimKiem.UseVisualStyleBackColor = true;
+            this.btn_TimKiem.Click += new System.EventHandler(this.btn_TimKiem_Click_1);
             // 
             // textBox1
             // 
